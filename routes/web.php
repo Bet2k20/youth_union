@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClubController;
 use App\Http\Controllers\ActivityController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
@@ -10,6 +11,32 @@ use Illuminate\Support\Facades\Route;
 | Web Routes
 |--------------------------------------------------------------------------
 */
+
+// Route 1-Click tự động khởi tạo toàn bộ Bảng và Dữ liệu vào Database online
+Route::get('/setup-database', function () {
+    try {
+        Artisan::call('migrate', ['--force' => true]);
+        $migrateLog = Artisan::output();
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\SampleDataSeeder',
+            '--force' => true
+        ]);
+        $seedLog = Artisan::output();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => '🎉 Khởi tạo Database và nạp dữ liệu thành công 100%!',
+            'migrate_log' => $migrateLog,
+            'seed_log' => $seedLog,
+        ], 200);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Lỗi: ' . $e->getMessage(),
+        ], 500);
+    }
+});
 
 // Route kiểm tra sức khỏe hệ thống & kết nối Database
 Route::get('/ping', function () {
