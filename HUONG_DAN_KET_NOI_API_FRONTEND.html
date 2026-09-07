@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tài Liệu Kết Nối API Backend - Đoàn Thanh Niên</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        body { background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #1e293b; }
+        .hero { background: linear-gradient(135deg, #059669 0%, #0f172a 100%); color: #fff; padding: 45px 0; border-radius: 0 0 20px 20px; }
+        .card { border: none; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 24px; }
+        .badge-method { font-size: 13px; font-weight: bold; padding: 6px 12px; border-radius: 6px; }
+        .badge-get { background: #10b981; color: #fff; }
+        .badge-post { background: #3b82f6; color: #fff; }
+        code { background: #f1f5f9; color: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 14px; }
+        pre { background: #0f172a; color: #e2e8f0; padding: 16px; border-radius: 8px; font-size: 13.5px; }
+        .endpoint-row { padding: 14px 18px; border-bottom: 1px solid #f1f5f9; }
+        .endpoint-row:last-child { border-bottom: none; }
+    </style>
+</head>
+<body>
+
+<div class="hero text-center mb-5">
+    <div class="container">
+        <h2 class="fw-bold mb-2">🚀 TÀI LIỆU KẾT NỐI API BACKEND</h2>
+        <p class="lead mb-3">Dành cho đội ngũ phát triển Frontend (Vercel & Localhost)</p>
+        <div class="d-inline-block bg-white text-dark p-2 px-4 rounded-pill shadow-sm">
+            <span class="text-muted small">Base API URL:</span> 
+            <strong class="text-success ms-1">https://youth-union.onrender.com/api</strong>
+        </div>
+    </div>
+</div>
+
+<div class="container pb-5">
+    <!-- Cấu hình Vercel -->
+    <div class="card p-4">
+        <h5 class="fw-bold text-success mb-3"><i class="bi bi-gear-fill me-2"></i> 1. Cấu hình biến môi trường trên Vercel</h5>
+        <p class="text-muted mb-2">Trong file <code>.env</code> của dự án Frontend, các bạn điền dòng sau:</p>
+        <pre class="mb-0"><code>VITE_API_URL=https://youth-union.onrender.com/api
+# Hoặc nếu dùng React Create-React-App:
+REACT_APP_API_URL=https://youth-union.onrender.com/api</code></pre>
+    </div>
+
+    <!-- Danh sách API -->
+    <div class="card">
+        <div class="card-header bg-white py-3 border-0">
+            <h5 class="fw-bold mb-0 text-dark"><i class="bi bi-hdd-network-fill me-2 text-primary"></i> 2. Danh Sách Endpoint Chi Tiết</h5>
+        </div>
+        <div class="card-body p-0">
+            
+            <!-- Home -->
+            <div class="endpoint-row">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <div>
+                        <span class="badge badge-method badge-get me-2">GET</span>
+                        <strong class="fs-6">/home</strong>
+                    </div>
+                    <span class="badge bg-success bg-opacity-10 text-success">Trang Chủ (All-in-one)</span>
+                </div>
+                <p class="text-muted small mb-2">Lấy 1 lần toàn bộ: Banners, 4 bài viết mới nhất, 6 CLB tiêu biểu, gương mặt tiêu biểu và thống kê.</p>
+                <code>https://youth-union.onrender.com/api/home</code>
+            </div>
+
+            <!-- Activities -->
+            <div class="endpoint-row">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <div>
+                        <span class="badge badge-method badge-get me-2">GET</span>
+                        <strong class="fs-6">/activities</strong>
+                    </div>
+                    <span class="badge bg-primary bg-opacity-10 text-primary">Hoạt Động & Tin Tức</span>
+                </div>
+                <p class="text-muted small mb-2">Lấy danh sách bài viết. Hỗ trợ tìm kiếm: <code>?search=tuổi trẻ</code>, phân trang: <code>?per_page=6</code>.</p>
+                <code>https://youth-union.onrender.com/api/activities</code>
+            </div>
+
+            <!-- Clubs -->
+            <div class="endpoint-row">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <div>
+                        <span class="badge badge-method badge-get me-2">GET</span>
+                        <strong class="fs-6">/clubs</strong>
+                    </div>
+                    <span class="badge bg-info bg-opacity-10 text-info">Câu Lạc Bộ (Đã nạp 7 CLB thật)</span>
+                </div>
+                <p class="text-muted small mb-2">Lấy danh sách CLB kèm thể loại. Lọc theo thể loại: <code>?category_id=1</code>. Danh sách thể loại: <code>/club-categories</code>.</p>
+                <code>https://youth-union.onrender.com/api/clubs</code>
+            </div>
+
+            <!-- Outstanding -->
+            <div class="endpoint-row">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <div>
+                        <span class="badge badge-method badge-get me-2">GET</span>
+                        <strong class="fs-6">/outstanding-people</strong>
+                    </div>
+                    <span class="badge bg-warning bg-opacity-10 text-warning">Gương Mặt Tiêu Biểu</span>
+                </div>
+                <p class="text-muted small mb-2">Lấy danh sách tuyên dương. Lọc nhóm: <code>?role_group=DOAN_VIEN</code> hoặc <code>BI_THU_DOAN</code> hoặc <code>BGD</code>.</p>
+                <code>https://youth-union.onrender.com/api/outstanding-people</code>
+            </div>
+
+            <!-- Banners -->
+            <div class="endpoint-row">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <div>
+                        <span class="badge badge-method badge-get me-2">GET</span>
+                        <strong class="fs-6">/banners</strong>
+                    </div>
+                    <span class="badge bg-secondary bg-opacity-10 text-secondary">Banner Slider</span>
+                </div>
+                <p class="text-muted small mb-2">Lấy danh sách ảnh bìa slider đang hiển thị theo thứ tự.</p>
+                <code>https://youth-union.onrender.com/api/banners</code>
+            </div>
+
+            <!-- Auth -->
+            <div class="endpoint-row">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <div>
+                        <span class="badge badge-method badge-post me-2">POST</span>
+                        <strong class="fs-6">/auth/login</strong>
+                    </div>
+                    <span class="badge bg-danger bg-opacity-10 text-danger">Đăng Nhập Admin</span>
+                </div>
+                <p class="text-muted small mb-2">Body JSON: <code>{"email": "admin@youthunion.edu.vn", "password": "admin123"}</code></p>
+                <code>https://youth-union.onrender.com/api/auth/login</code>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Code mẫu JS -->
+    <div class="card p-4">
+        <h5 class="fw-bold mb-3"><i class="bi bi-code-slash me-2 text-dark"></i> 3. Code mẫu gọi API (JavaScript Fetch)</h5>
+        <pre class="mb-0"><code>// Gọi API Trang Chủ
+async function fetchHomeData() {
+  const response = await fetch('https://youth-union.onrender.com/api/home');
+  const result = await response.json();
+  console.log('Dữ liệu Trang Chủ:', result.data);
+  return result.data;
+}</code></pre>
+    </div>
+</div>
+
+</body>
+</html>
