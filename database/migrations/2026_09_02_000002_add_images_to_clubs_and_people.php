@@ -11,13 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('clubs', function (Blueprint $table) {
-            $table->string('logo', 500)->nullable()->after('name');
-        });
+        if (Schema::hasTable('clubs') && !Schema::hasColumn('clubs', 'logo')) {
+            Schema::table('clubs', function (Blueprint $table) {
+                $table->string('logo', 500)->nullable()->after('name');
+            });
+        }
 
-        Schema::table('outstanding_people', function (Blueprint $table) {
-            $table->string('avatar', 500)->nullable()->after('name');
-        });
+        if (Schema::hasTable('outstanding_people') && !Schema::hasColumn('outstanding_people', 'avatar')) {
+            Schema::table('outstanding_people', function (Blueprint $table) {
+                $table->string('avatar', 500)->nullable()->after('name');
+            });
+        }
     }
 
     /**
@@ -25,12 +29,16 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('clubs', function (Blueprint $table) {
-            $table->dropColumn('logo');
-        });
+        if (Schema::hasTable('clubs') && Schema::hasColumn('clubs', 'logo')) {
+            Schema::table('clubs', function (Blueprint $table) {
+                $table->dropColumn('logo');
+            });
+        }
 
-        Schema::table('outstanding_people', function (Blueprint $table) {
-            $table->dropColumn('avatar');
-        });
+        if (Schema::hasTable('outstanding_people') && Schema::hasColumn('outstanding_people', 'avatar')) {
+            Schema::table('outstanding_people', function (Blueprint $table) {
+                $table->dropColumn('avatar');
+            });
+        }
     }
 };
