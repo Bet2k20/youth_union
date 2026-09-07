@@ -25,22 +25,21 @@ COPY . .
 # 5. Cài đặt dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts --ignore-platform-reqs
 
-# 6. Phân quyền thư mục storage và cache
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
-
-# 7. Cấu hình Apache DocumentRoot trỏ vào /var/www/html/public
+# 6. Cấu hình Apache DocumentRoot trỏ vào /var/www/html/public
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
     && sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf \
     && a2enmod rewrite
 
-# 8. Script tự động chạy Migration & Seed Database khi container khởi động
+# 7. Script khởi động đảm bảo phân quyền 777 cho storage/logs và tự động migrate database
 RUN echo '#!/bin/sh' > /usr/local/bin/docker-entrypoint.sh \
+    && echo 'mkdir -p /var/www/html/storage/framework/sessions /var/www/html/storage/framework/views /var/www/html/storage/framework/cache /var/www/html/storage/logs' >> /usr/local/bin/docker-entrypoint.sh \
+    && echo 'chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache' >> /usr/local/bin/docker-entrypoint.sh \
     && echo 'php artisan config:clear' >> /usr/local/bin/docker-entrypoint.sh \
     && echo 'php artisan package:discover --ansi' >> /usr/local/bin/docker-entrypoint.sh \
     && echo 'php artisan migrate --force' >> /usr/local/bin/docker-entrypoint.sh \
     && echo 'php artisan db:seed --class=Database\\Seeders\\SampleDataSeeder --force' >> /usr/local/bin/docker-entrypoint.sh \
+    && echo 'chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache' >> /usr/local/bin/docker-entrypoint.sh \
     && echo 'exec apache2-foreground' >> /usr/local/bin/docker-entrypoint.sh \
     && chmod +x /usr/local/bin/docker-entrypoint.sh
 
