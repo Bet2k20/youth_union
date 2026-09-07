@@ -29,12 +29,15 @@ NEXT_PUBLIC_API_URL=https://youth-union.onrender.com/api
 * **Mục đích:** Lấy toàn bộ dữ liệu tổng hợp cho trang chủ chỉ với 1 lần gọi API duy nhất (tối ưu tốc độ).
 * **Method:** `GET`
 * **URL:** `https://youth-union.onrender.com/api/home`
-* **Dữ liệu trả về (JSON):**
-  * `banners`: Danh sách ảnh bìa slider đang hiển thị (sắp xếp theo thứ tự `order`).
-  * `latest_activities`: 4 bài viết / hoạt động mới nhất.
+* **Dữ liệu trả về (JSON) khớp 100% bản thiết kế Figma:**
+  * `hero_banner`: **1 Banner chính đầu trang** (Title, Tagline, Description, Ảnh, 2 nút bấm).
+  * `activity_images`: **Mảng 3 ảnh hoạt động tiêu biểu** để hiển thị 3 khung ảnh bên phải.
+  * `movement_highlight`: Khung phong trào *"Tình nguyện & Đền ơn đáp nghĩa"* (Badge, Title, Description, Tags, Images).
+  * `metrics`: 4 ô số liệu thống kê (68 năm truyền thống, 8+ CLB, 9.6K đoàn viên, Sinh viên 5 Tốt).
+  * `student_5_criteria`: 5 tiêu chí Sinh viên 5 Tốt (Đạo đức, Học tập, Thể lực, Tình nguyện, Hội nhập).
+  * `latest_activities`: Danh sách các bài viết hoạt động mới nhất.
   * `featured_clubs`: 6 Câu lạc bộ tiêu biểu kèm thể loại.
   * `featured_people`: 4 gương mặt đoàn viên / cán bộ tiêu biểu.
-  * `statistics`: Thống kê tổng số CLB, số hoạt động, số gương mặt tiêu biểu.
 
 ---
 

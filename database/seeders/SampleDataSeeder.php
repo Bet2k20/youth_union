@@ -133,7 +133,7 @@ class SampleDataSeeder extends Seeder
         // 3. Nạp dữ liệu Banners (Slider ảnh bìa)
         $banners = [
             [
-                'title' => 'Chào Đón Tân Sinh Viên Khóa 2026',
+                'title' => 'Tuổi trẻ Học viện: Bản lĩnh • Kỷ cương • Trách nhiệm • Sáng tạo',
                 'image_url' => 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1200&q=80',
                 'link_url' => '/hoat-dong',
                 'order' => 1,
