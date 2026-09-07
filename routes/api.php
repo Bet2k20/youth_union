@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\HomeSummaryApiController;
 use App\Http\Controllers\Api\OutstandingPersonApiController;
 use App\Http\Controllers\Api\UploadApiController;
 use App\Http\Controllers\Api\UserApiController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +22,32 @@ use Illuminate\Support\Facades\Route;
 // ==========================================
 // 1. PUBLIC APIS (Dành cho Trang Chủ & Khách xem)
 // ==========================================
+
+// Kích hoạt & Khởi tạo dữ liệu Database 1-Click
+Route::get('/setup-database', function () {
+    try {
+        Artisan::call('migrate', ['--force' => true]);
+        $migrateLog = Artisan::output();
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\SampleDataSeeder',
+            '--force' => true
+        ]);
+        $seedLog = Artisan::output();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => '🎉 Khởi tạo Database và nạp dữ liệu thành công 100%!',
+            'migrate_log' => $migrateLog,
+            'seed_log' => $seedLog,
+        ], 200);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Lỗi: ' . $e->getMessage(),
+        ], 500);
+    }
+});
 
 // Upload File Ảnh từ Máy Tính (Hỗ trợ JPG, PNG, WEBP, tối đa 5MB)
 Route::post('/upload', [UploadApiController::class, 'upload']);
