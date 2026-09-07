@@ -22,7 +22,7 @@ WORKDIR /var/www/html
 # 4. Sao chép toàn bộ mã nguồn vào container
 COPY . .
 
-# 5. Cài đặt dependencies (bỏ qua scripts và kiểm tra nền tảng để tránh lỗi exit code 2 khi build)
+# 5. Cài đặt dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts --ignore-platform-reqs
 
 # 6. Phân quyền thư mục storage và cache
@@ -35,10 +35,12 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
     && sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf \
     && a2enmod rewrite
 
-# 8. Script khởi động container khi chạy thực tế
+# 8. Script tự động chạy Migration & Seed Database khi container khởi động
 RUN echo '#!/bin/sh' > /usr/local/bin/docker-entrypoint.sh \
     && echo 'php artisan config:clear' >> /usr/local/bin/docker-entrypoint.sh \
     && echo 'php artisan package:discover --ansi' >> /usr/local/bin/docker-entrypoint.sh \
+    && echo 'php artisan migrate --force' >> /usr/local/bin/docker-entrypoint.sh \
+    && echo 'php artisan db:seed --class=Database\\Seeders\\SampleDataSeeder --force' >> /usr/local/bin/docker-entrypoint.sh \
     && echo 'exec apache2-foreground' >> /usr/local/bin/docker-entrypoint.sh \
     && chmod +x /usr/local/bin/docker-entrypoint.sh
 
