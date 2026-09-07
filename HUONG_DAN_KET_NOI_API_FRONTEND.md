@@ -1,126 +1,68 @@
-# 🚀 TÀI LIỆU HƯỚNG DẪN KẾT NỐI API BACKEND (DÀNH CHO ĐỘI FRONTEND)
+# 🚀 TÀI LIỆU KẾT NỐI API BACKEND (CHUẨN 100% THEO THIẾT KẾ FIGMA)
 
-> **Dự án:** Website Đoàn Thanh Niên  
+> **Dự án:** Sổ tay sinh viên – Tuổi trẻ PPA (Đoàn Thanh niên Học viện CSND)  
+> **Link thiết kế Figma:** [Sổ tay sinh viên - T02](https://www.figma.com/design/c8V1pGXCbm4MQJ5EPbNqJf/S%E1%BB%95-tay-sinh-vi%C3%AAn---T02?node-id=2058-4385)  
 > **Backend Base URL chính thức (Cloud HTTPS 24/7):**  
 > 👉 **`https://youth-union.onrender.com/api`**  
-> **CORS:** Đã được mở toàn quyền (`*`), Frontend gọi từ Vercel, Localhost (`localhost:3000`, `localhost:5173`) hoàn toàn không bị chặn.
+> **CORS:** Đã mở sẵn toàn quyền (`*`), Frontend gọi từ Vercel hoặc Localhost hoàn toàn không bị chặn.
 
 ---
 
 ## 📌 1. CẤU HÌNH BIẾN MÔI TRƯỜNG TRÊN VERCEL (FRONTEND)
-Trong dự án Frontend (React / Vite / Next.js), các bạn cấu hình file `.env` hoặc trong mục **Environment Variables** trên Vercel:
+
+Trong dự án Frontend (React / Vite / Next.js), cấu hình file `.env` hoặc trong mục **Environment Variables** trên Vercel:
 
 ```env
-# Dành cho React (Create-React-App)
-REACT_APP_API_URL=https://youth-union.onrender.com/api
-
-# Dành cho Vite (React / Vue)
+# Dành cho Vite (React)
 VITE_API_URL=https://youth-union.onrender.com/api
 
-# Dành cho Next.js
-NEXT_PUBLIC_API_URL=https://youth-union.onrender.com/api
+# Dành cho React (Create-React-App)
+REACT_APP_API_URL=https://youth-union.onrender.com/api
 ```
 
 ---
 
-## 📡 2. DANH SÁCH CHI TIẾT CÁC API THEO TỪNG TRANG GIAO DIỆN
+## 🧭 2. DANH SÁCH API KHỚP 100% MENU & MÀN HÌNH FIGMA
 
-### 🏠 2.1. TRANG CHỦ (Home Page)
-* **Mục đích:** Lấy toàn bộ dữ liệu tổng hợp cho trang chủ chỉ với 1 lần gọi API duy nhất (tối ưu tốc độ).
-* **Method:** `GET`
-* **URL:** `https://youth-union.onrender.com/api/home`
-* **Dữ liệu trả về (JSON) khớp 100% bản thiết kế Figma:**
-  * `hero_banner`: **1 Banner chính đầu trang** (Title, Tagline, Description, Ảnh, 2 nút bấm).
-  * `activity_images`: **Mảng 3 ảnh hoạt động tiêu biểu** để hiển thị 3 khung ảnh bên phải.
-  * `movement_highlight`: Khung phong trào *"Tình nguyện & Đền ơn đáp nghĩa"* (Badge, Title, Description, Tags, Images).
-  * `metrics`: 4 ô số liệu thống kê (68 năm truyền thống, 8+ CLB, 9.6K đoàn viên, Sinh viên 5 Tốt).
-  * `student_5_criteria`: 5 tiêu chí Sinh viên 5 Tốt (Đạo đức, Học tập, Thể lực, Tình nguyện, Hội nhập).
-  * `latest_activities`: Danh sách các bài viết hoạt động mới nhất.
-  * `featured_clubs`: 6 Câu lạc bộ tiêu biểu kèm thể loại.
-  * `featured_people`: 4 gương mặt đoàn viên / cán bộ tiêu biểu.
-
----
-
-### 📰 2.2. TRANG HOẠT ĐỘNG & TIN TỨC (Activities)
-* **Lấy danh sách hoạt động:**
-  * **Method:** `GET`
-  * **URL:** `https://youth-union.onrender.com/api/activities`
-  * **Tham số tìm kiếm & phân trang (Query Params tùy chọn):**
-    * `?search=tên_bài_viết` (Tìm kiếm theo tiêu đề)
-    * `?per_page=6` (Số bài trên mỗi trang)
-* **Xem chi tiết 1 bài viết:**
-  * **Method:** `GET`
-  * **URL:** `https://youth-union.onrender.com/api/activities/{id}`
-  * *Nội dung `content` đã có sẵn định dạng HTML (in đậm, in nghiêng, tiêu đề).*
+| STT | Màn hình trên Figma | Endpoint API (GET) | Mô tả nội dung trả về |
+| :---: | :--- | :--- | :--- |
+| **1** | 🏠 **Trang chủ** | `https://youth-union.onrender.com/api/home` | 1 Hero Banner, 3 ảnh hoạt động, khung Tình nguyện, 4 ô thống kê (68 năm, 8+ CLB, 9.6K đoàn viên), 5 tiêu chí Sinh viên 5 Tốt. |
+| **2** | 🏛️ **Giới thiệu & Đoàn TN Học viện** | `https://youth-union.onrender.com/api/about` | Lịch sử 68 năm truyền thống, Ban Giám Đốc/Đảng ủy, Ban Thường vụ, 4 Ban chuyên môn (Tuyên giáo, Phong trào, Tổ chức - Kiểm tra, Văn phòng). |
+| **3** | 🚩 **Phong trào** | `https://youth-union.onrender.com/api/movements` | 4 nhóm phong trào (Tình nguyện, Sáng tạo, Thể lực CAND, Sinh viên 5 Tốt) + Danh sách bài viết phong trào. |
+| **4** | 🎯 **Hành trình phấn đấu (Sinh viên 5 Tốt)** | `https://youth-union.onrender.com/api/student-5-good` | Chi tiết 5 Tiêu chuẩn (Đạo đức, Học tập, Thể lực, Tình nguyện, Hội nhập) + Danh sách sinh viên tiêu biểu đạt danh hiệu. |
+| **5** | 🏆 **CLB – Đội – Nhóm** | `https://youth-union.onrender.com/api/clubs`<br>`https://youth-union.onrender.com/api/club-categories` | Danh sách 7 CLB thật (Nội san, PPATV, Dân vũ, Sách, Guitar, Karate, Taekwondo) + 5 thể loại bộ lọc. |
+| **6** | 📰 **Hoạt động & Tin tức** | `https://youth-union.onrender.com/api/activities`<br>`https://youth-union.onrender.com/api/activities/{id}` | Danh sách bài viết sự kiện (hỗ trợ phân trang `?per_page=9` và tìm kiếm `?search=...`) + Chi tiết bài viết có nội dung HTML. |
+| **7** | ⭐ **Gương mặt sinh viên tiêu biểu** | `https://youth-union.onrender.com/api/outstanding-people` | Danh sách tuyên dương gương mặt trẻ tiêu biểu, Bí thư chi đoàn xuất sắc, Sinh viên 5 tốt cấp Thành phố/Bộ Công an. |
+| **8** | 📚 **Thư viện** | `https://youth-union.onrender.com/api/media` | Thư viện ảnh hoạt động + 4 biểu mẫu văn bản (Đơn gia nhập CLB, Mẫu Sinh viên 5 Tốt, Kế hoạch Mùa hè xanh...). |
+| **9** | 🖼️ **Tải ảnh lên Server (Upload)** | `POST https://youth-union.onrender.com/api/upload` | Upload ảnh từ máy tính (key `file`), trả về URL ảnh ngay lập tức. |
+| **10**| 🔐 **Đăng nhập Quản trị Admin** | `POST https://youth-union.onrender.com/api/auth/login` | `{"email": "admin@youthunion.edu.vn", "password": "admin123"}` |
 
 ---
 
-### 🏆 2.3. TRANG CÂU LẠC BỘ (Clubs - Đã nạp 7 CLB thật)
-* **Lấy danh sách các Thể loại CLB:**
-  * **Method:** `GET`
-  * **URL:** `https://youth-union.onrender.com/api/club-categories`
-  * *(Gồm 5 thể loại: Học thuật, Văn hóa – Nghệ thuật, Thể thao – Võ thuật, Truyền thông – Tuyên truyền, Tình nguyện).*
-* **Lấy danh sách tất cả Câu Lạc Bộ:**
-  * **Method:** `GET`
-  * **URL:** `https://youth-union.onrender.com/api/clubs`
-  * **Lọc theo thể loại:** `https://youth-union.onrender.com/api/clubs?category_id=1`
-* **Xem chi tiết 1 CLB:**
-  * **Method:** `GET`
-  * **URL:** `https://youth-union.onrender.com/api/clubs/{id}`
-
----
-
-### ⭐ 2.4. TRANG GƯƠNG MẶT TIÊU BIỂU (Outstanding People)
-* **Lấy danh sách gương mặt tiêu biểu:**
-  * **Method:** `GET`
-  * **URL:** `https://youth-union.onrender.com/api/outstanding-people`
-  * **Lọc theo nhóm vai trò:**
-    * `?role_group=BI_THU_DOAN` (Bí thư Chi đoàn)
-    * `?role_group=DOAN_VIEN` (Đoàn viên xuất sắc, Sinh viên 5 tốt)
-    * `?role_group=BGD` (Ban Giám Đốc, Cố vấn)
-
----
-
-### 🖼️ 2.5. TRANG BANNER SLIDER (Banners)
-* **Lấy danh sách banner slider:**
-  * **Method:** `GET`
-  * **URL:** `https://youth-union.onrender.com/api/banners`
-
----
-
-### 🔐 2.6. XÁC THỰC & ĐĂNG NHẬP ADMIN (Authentication)
-* **Đăng nhập lấy Token Sanctum:**
-  * **Method:** `POST`
-  * **URL:** `https://youth-union.onrender.com/api/auth/login`
-  * **Body (JSON):**
-    ```json
-    {
-      "email": "admin@youthunion.edu.vn",
-      "password": "admin123"
-    }
-    ```
-* **Tài khoản test có sẵn:**
-  * **Admin:** `admin@youthunion.edu.vn` / Mật khẩu: `admin123`
-  * **Cán bộ Đoàn (Editor):** `bithu@youthunion.edu.vn` / Mật khẩu: `123456`
-
----
-
-## 💻 3. CODE MẪU GỌI API BẰNG JAVASCRIPT (FETCH / AXIOS)
+## 💻 3. CODE MẪU GỌI API TRÊN REACTJS (FETCH / AXIOS)
 
 ```javascript
-// Ví dụ: Lấy dữ liệu Trang chủ bằng Fetch API
-async function loadHomePage() {
-  try {
-    const res = await fetch('https://youth-union.onrender.com/api/home', {
-      headers: {
-        'Accept': 'application/json'
-      }
-    });
-    const result = await res.json();
-    console.log('Dữ liệu Trang chủ:', result.data);
-    return result.data;
-  } catch (error) {
-    console.error('Lỗi khi gọi API:', error);
-  }
+// Ví dụ 1: Lấy dữ liệu Trang Chủ
+export async function getHomeData() {
+  const res = await fetch('https://youth-union.onrender.com/api/home');
+  const json = await res.json();
+  return json.data;
+}
+
+// Ví dụ 2: Lấy dữ liệu Hành trình Sinh viên 5 Tốt
+export async function getStudent5GoodData() {
+  const res = await fetch('https://youth-union.onrender.com/api/student-5-good');
+  const json = await res.json();
+  return json.data;
+}
+
+// Ví dụ 3: Lấy danh sách CLB có lọc theo thể loại
+export async function getClubs(categoryId = null) {
+  const url = categoryId 
+    ? `https://youth-union.onrender.com/api/clubs?category_id=${categoryId}`
+    : 'https://youth-union.onrender.com/api/clubs';
+  const res = await fetch(url);
+  const json = await res.json();
+  return json.data;
 }
 ```

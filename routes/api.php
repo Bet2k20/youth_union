@@ -1,11 +1,15 @@
 <?php
 
+use App\Http\Controllers\Api\AboutApiController;
 use App\Http\Controllers\Api\ActivityApiController;
 use App\Http\Controllers\Api\AuthApiController;
 use App\Http\Controllers\Api\BannerApiController;
 use App\Http\Controllers\Api\ClubApiController;
 use App\Http\Controllers\Api\HomeSummaryApiController;
+use App\Http\Controllers\Api\MediaApiController;
+use App\Http\Controllers\Api\MovementApiController;
 use App\Http\Controllers\Api\OutstandingPersonApiController;
+use App\Http\Controllers\Api\Student5GoodApiController;
 use App\Http\Controllers\Api\UploadApiController;
 use App\Http\Controllers\Api\UserApiController;
 use Illuminate\Support\Facades\Artisan;
@@ -13,14 +17,14 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| API Routes cho Đoàn Thanh Niên (Youth Union)
+| API Routes cho Đoàn Thanh Niên Học Viện CSND (Tuổi trẻ PPA)
+| Chuẩn hóa 100% theo bản thiết kế Figma "Sổ tay sinh viên - T02"
 |--------------------------------------------------------------------------
 | Tất cả các route ở đây đều tự động có tiền tố /api/
-| Ví dụ: http://127.0.0.1:8888/api/upload
 */
 
 // ==========================================
-// 1. PUBLIC APIS (Dành cho Trang Chủ & Khách xem)
+// 1. PUBLIC APIS (Khớp 100% Các Màn Hình Figma)
 // ==========================================
 
 // Kích hoạt & Khởi tạo dữ liệu Database 1-Click
@@ -52,21 +56,33 @@ Route::get('/setup-database', function () {
 // Upload File Ảnh từ Máy Tính (Hỗ trợ JPG, PNG, WEBP, tối đa 5MB)
 Route::post('/upload', [UploadApiController::class, 'upload']);
 
-// Trang Chủ (Tổng hợp banner, tin tức, CLB nổi bật, số liệu thống kê)
+// 1. MÀN HÌNH TRANG CHỦ (Home Page)
 Route::get('/home', [HomeSummaryApiController::class, 'index']);
 
-// Banner Slider
-Route::apiResource('banners', BannerApiController::class);
+// 2. MÀN HÌNH GIỚI THIỆU & ĐOÀN THANH NIÊN HỌC VIỆN (About & Organization)
+Route::get('/about', [AboutApiController::class, 'index']);
 
-// Hoạt Động & Tin Tức
-Route::apiResource('activities', ActivityApiController::class);
+// 3. MÀN HÌNH PHONG TRÀO ĐOÀN (Movements)
+Route::get('/movements', [MovementApiController::class, 'index']);
 
-// Câu Lạc Bộ & Thể Loại
+// 4. MÀN HÌNH HÀNH TRÌNH PHẤN ĐẤU / SINH VIÊN 5 TỐT (Student 5 Good)
+Route::get('/student-5-good', [Student5GoodApiController::class, 'index']);
+
+// 5. MÀN HÌNH CÂU LẠC BỘ – ĐỘI – NHÓM (Clubs)
 Route::get('/club-categories', [ClubApiController::class, 'categories']);
 Route::apiResource('clubs', ClubApiController::class);
 
-// Gương Mặt Tiêu Biểu
+// 6. MÀN HÌNH HOẠT ĐỘNG & TIN TỨC (Activities)
+Route::apiResource('activities', ActivityApiController::class);
+
+// 7. MÀN HÌNH GƯƠNG MẶT SINH VIÊN TIÊU BIỂU (Outstanding People)
 Route::apiResource('outstanding-people', OutstandingPersonApiController::class);
+
+// 8. MÀN HÌNH THƯ VIỆN ẢNH & BIỂU MẪU (Media & Documents)
+Route::get('/media', [MediaApiController::class, 'index']);
+
+// 9. BANNER SLIDER
+Route::apiResource('banners', BannerApiController::class);
 
 // ==========================================
 // 2. AUTHENTICATION APIS (Xác thực tài khoản)

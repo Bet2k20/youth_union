@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tài Liệu Kết Nối API Backend - Đoàn Thanh Niên</title>
+    <title>Tài Liệu Kết Nối API - Sổ Tay Sinh Viên Tuổi Trẻ PPA</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
         body { background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #1e293b; }
-        .hero { background: linear-gradient(135deg, #059669 0%, #0f172a 100%); color: #fff; padding: 45px 0; border-radius: 0 0 20px 20px; }
-        .card { border: none; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 24px; }
+        .hero { background: linear-gradient(135deg, #059669 0%, #064e3b 50%, #0f172a 100%); color: #fff; padding: 45px 0; border-radius: 0 0 24px 24px; }
+        .card { border: none; border-radius: 14px; box-shadow: 0 4px 14px rgba(0,0,0,0.04); margin-bottom: 24px; }
         .badge-method { font-size: 13px; font-weight: bold; padding: 6px 12px; border-radius: 6px; }
         .badge-get { background: #10b981; color: #fff; }
         .badge-post { background: #3b82f6; color: #fff; }
-        code { background: #f1f5f9; color: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 14px; }
+        code { background: #f1f5f9; color: #065f46; padding: 2px 6px; border-radius: 4px; font-size: 14px; font-weight: 600; }
         pre { background: #0f172a; color: #e2e8f0; padding: 16px; border-radius: 8px; font-size: 13.5px; }
-        .endpoint-row { padding: 14px 18px; border-bottom: 1px solid #f1f5f9; }
+        .endpoint-row { padding: 16px 20px; border-bottom: 1px solid #f1f5f9; transition: background .15s; }
+        .endpoint-row:hover { background: #f8fafc; }
         .endpoint-row:last-child { border-bottom: none; }
     </style>
 </head>
@@ -23,123 +24,164 @@
 
 <div class="hero text-center mb-5">
     <div class="container">
-        <h2 class="fw-bold mb-2">🚀 TÀI LIỆU KẾT NỐI API BACKEND</h2>
-        <p class="lead mb-3">Dành cho đội ngũ phát triển Frontend (Vercel & Localhost)</p>
+        <span class="badge bg-white text-success px-3 py-2 rounded-pill mb-2 fw-semibold">🎯 Khớp 100% Bản Thiết Kế Figma Sổ Tay Sinh Viên T02</span>
+        <h2 class="fw-bold mb-2">🚀 TÀI LIỆU KẾT NỐI API TUỔI TRẺ PPA</h2>
+        <p class="lead mb-3">Đoàn TNCS Hồ Chí Minh Học viện Cảnh sát nhân dân</p>
         <div class="d-inline-block bg-white text-dark p-2 px-4 rounded-pill shadow-sm">
-            <span class="text-muted small">Base API URL:</span> 
+            <span class="text-muted small">Base API URL (Cloud HTTPS 24/7):</span> 
             <strong class="text-success ms-1">https://youth-union.onrender.com/api</strong>
         </div>
     </div>
 </div>
 
 <div class="container pb-5">
+
     <!-- Cấu hình Vercel -->
     <div class="card p-4">
-        <h5 class="fw-bold text-success mb-3"><i class="bi bi-gear-fill me-2"></i> 1. Cấu hình biến môi trường trên Vercel</h5>
-        <p class="text-muted mb-2">Trong file <code>.env</code> của dự án Frontend, các bạn điền dòng sau:</p>
+        <h5 class="fw-bold text-success mb-3"><i class="bi bi-gear-fill me-2"></i> 1. Cấu hình biến môi trường trên Vercel (Frontend)</h5>
         <pre class="mb-0"><code>VITE_API_URL=https://youth-union.onrender.com/api
-# Hoặc nếu dùng React Create-React-App:
+# Hoặc nếu dùng Create-React-App:
 REACT_APP_API_URL=https://youth-union.onrender.com/api</code></pre>
     </div>
 
     <!-- Danh sách API -->
     <div class="card">
         <div class="card-header bg-white py-3 border-0">
-            <h5 class="fw-bold mb-0 text-dark"><i class="bi bi-hdd-network-fill me-2 text-primary"></i> 2. Danh Sách Endpoint Chi Tiết</h5>
+            <h5 class="fw-bold mb-0 text-dark"><i class="bi bi-diagram-3-fill me-2 text-primary"></i> 2. Danh Sách Endpoint Khớp 100% Menu & Màn Hình Figma</h5>
         </div>
         <div class="card-body p-0">
             
-            <!-- Home -->
+            <!-- 1. Home -->
             <div class="endpoint-row">
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <div>
                         <span class="badge badge-method badge-get me-2">GET</span>
                         <strong class="fs-6">/home</strong>
                     </div>
-                    <span class="badge bg-success bg-opacity-10 text-success">Trang Chủ (All-in-one)</span>
+                    <span class="badge bg-success bg-opacity-10 text-success">🏠 1. Màn hình Trang Chủ</span>
                 </div>
-                <p class="text-muted small mb-2">Lấy 1 lần toàn bộ: Banners, 4 bài viết mới nhất, 6 CLB tiêu biểu, gương mặt tiêu biểu và thống kê.</p>
+                <p class="text-muted small mb-2">1 Hero Banner, 3 ảnh hoạt động, khung Tình nguyện, 4 ô thống kê (68 năm, 8+ CLB, 9.6K đoàn viên), 5 tiêu chí Sinh viên 5 Tốt.</p>
                 <code>https://youth-union.onrender.com/api/home</code>
             </div>
 
-            <!-- Activities -->
+            <!-- 2. About -->
             <div class="endpoint-row">
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <div>
                         <span class="badge badge-method badge-get me-2">GET</span>
-                        <strong class="fs-6">/activities</strong>
+                        <strong class="fs-6">/about</strong>
                     </div>
-                    <span class="badge bg-primary bg-opacity-10 text-primary">Hoạt Động & Tin Tức</span>
+                    <span class="badge bg-primary bg-opacity-10 text-primary">🏛️ 2. Màn hình Giới thiệu & Đoàn TN Học viện</span>
                 </div>
-                <p class="text-muted small mb-2">Lấy danh sách bài viết. Hỗ trợ tìm kiếm: <code>?search=tuổi trẻ</code>, phân trang: <code>?per_page=6</code>.</p>
-                <code>https://youth-union.onrender.com/api/activities</code>
+                <p class="text-muted small mb-2">Lịch sử 68 năm truyền thống, Ban Giám Đốc/Đảng ủy, Ban Thường vụ, 4 Ban chuyên môn (Tuyên giáo, Phong trào, Tổ chức - Kiểm tra, Văn phòng).</p>
+                <code>https://youth-union.onrender.com/api/about</code>
             </div>
 
-            <!-- Clubs -->
+            <!-- 3. Movements -->
             <div class="endpoint-row">
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <div>
                         <span class="badge badge-method badge-get me-2">GET</span>
-                        <strong class="fs-6">/clubs</strong>
+                        <strong class="fs-6">/movements</strong>
                     </div>
-                    <span class="badge bg-info bg-opacity-10 text-info">Câu Lạc Bộ (Đã nạp 7 CLB thật)</span>
+                    <span class="badge bg-info bg-opacity-10 text-info">🚩 3. Màn hình Phong trào</span>
                 </div>
-                <p class="text-muted small mb-2">Lấy danh sách CLB kèm thể loại. Lọc theo thể loại: <code>?category_id=1</code>. Danh sách thể loại: <code>/club-categories</code>.</p>
+                <p class="text-muted small mb-2">4 nhóm phong trào (Tình nguyện, Sáng tạo, Thể lực CAND, Sinh viên 5 Tốt) + Danh sách bài viết phong trào (hỗ trợ phân trang & tìm kiếm).</p>
+                <code>https://youth-union.onrender.com/api/movements</code>
+            </div>
+
+            <!-- 4. Student 5 Good -->
+            <div class="endpoint-row">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <div>
+                        <span class="badge badge-method badge-get me-2">GET</span>
+                        <strong class="fs-6">/student-5-good</strong>
+                    </div>
+                    <span class="badge bg-warning bg-opacity-10 text-warning">🎯 4. Màn hình Hành trình phấn đấu (Sinh viên 5 Tốt)</span>
+                </div>
+                <p class="text-muted small mb-2">Chi tiết 5 Tiêu chuẩn (Đạo đức, Học tập, Thể lực, Tình nguyện, Hội nhập) + Danh sách sinh viên tiêu biểu đạt danh hiệu.</p>
+                <code>https://youth-union.onrender.com/api/student-5-good</code>
+            </div>
+
+            <!-- 5. Clubs -->
+            <div class="endpoint-row">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <div>
+                        <span class="badge badge-method badge-get me-2">GET</span>
+                        <strong class="fs-6">/clubs &nbsp;|&nbsp; /club-categories</strong>
+                    </div>
+                    <span class="badge bg-secondary bg-opacity-10 text-secondary">🏆 5. Màn hình CLB – Đội – Nhóm</span>
+                </div>
+                <p class="text-muted small mb-2">Danh sách 7 CLB thật (Nội san, PPATV, Dân vũ, Sách, Guitar, Karate, Taekwondo). Lọc theo thể loại: <code>?category_id=1</code>.</p>
                 <code>https://youth-union.onrender.com/api/clubs</code>
             </div>
 
-            <!-- Outstanding -->
+            <!-- 6. Activities -->
+            <div class="endpoint-row">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <div>
+                        <span class="badge badge-method badge-get me-2">GET</span>
+                        <strong class="fs-6">/activities &nbsp;|&nbsp; /activities/{id}</strong>
+                    </div>
+                    <span class="badge bg-danger bg-opacity-10 text-danger">📰 6. Màn hình Hoạt động & Tin tức</span>
+                </div>
+                <p class="text-muted small mb-2">Lấy danh sách bài viết sự kiện (hỗ trợ phân trang: <code>?per_page=9</code> và tìm kiếm: <code>?search=...</code>) + Chi tiết 1 bài viết kèm nội dung HTML.</p>
+                <code>https://youth-union.onrender.com/api/activities</code>
+            </div>
+
+            <!-- 7. Outstanding People -->
             <div class="endpoint-row">
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <div>
                         <span class="badge badge-method badge-get me-2">GET</span>
                         <strong class="fs-6">/outstanding-people</strong>
                     </div>
-                    <span class="badge bg-warning bg-opacity-10 text-warning">Gương Mặt Tiêu Biểu</span>
+                    <span class="badge bg-success bg-opacity-10 text-success">⭐ 7. Màn hình Gương mặt sinh viên tiêu biểu</span>
                 </div>
-                <p class="text-muted small mb-2">Lấy danh sách tuyên dương. Lọc nhóm: <code>?role_group=DOAN_VIEN</code> hoặc <code>BI_THU_DOAN</code> hoặc <code>BGD</code>.</p>
+                <p class="text-muted small mb-2">Danh sách tuyên dương: Sinh viên 5 Tốt, Cán bộ Đoàn tiêu biểu, Bí thư chi đoàn xuất sắc, Thủ khoa NCKH.</p>
                 <code>https://youth-union.onrender.com/api/outstanding-people</code>
             </div>
 
-            <!-- Banners -->
+            <!-- 8. Media -->
             <div class="endpoint-row">
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <div>
                         <span class="badge badge-method badge-get me-2">GET</span>
-                        <strong class="fs-6">/banners</strong>
+                        <strong class="fs-6">/media</strong>
                     </div>
-                    <span class="badge bg-secondary bg-opacity-10 text-secondary">Banner Slider</span>
+                    <span class="badge bg-dark bg-opacity-10 text-dark">📚 8. Màn hình Thư viện</span>
                 </div>
-                <p class="text-muted small mb-2">Lấy danh sách ảnh bìa slider đang hiển thị theo thứ tự.</p>
-                <code>https://youth-union.onrender.com/api/banners</code>
+                <p class="text-muted small mb-2">Thư viện ảnh hoạt động + 4 biểu mẫu văn bản (Đơn gia nhập CLB, Mẫu Sinh viên 5 Tốt, Kế hoạch Mùa hè xanh...).</p>
+                <code>https://youth-union.onrender.com/api/media</code>
             </div>
 
-            <!-- Auth -->
+            <!-- 9. Upload -->
+            <div class="endpoint-row">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <div>
+                        <span class="badge badge-method badge-post me-2">POST</span>
+                        <strong class="fs-6">/upload</strong>
+                    </div>
+                    <span class="badge bg-info bg-opacity-10 text-info">🖼️ 9. Tải ảnh lên Server (Upload)</span>
+                </div>
+                <p class="text-muted small mb-2">Form-data key <code>file</code> chứa file ảnh (JPG/PNG, tối đa 5MB), trả về link URL ảnh.</p>
+                <code>https://youth-union.onrender.com/api/upload</code>
+            </div>
+
+            <!-- 10. Login -->
             <div class="endpoint-row">
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <div>
                         <span class="badge badge-method badge-post me-2">POST</span>
                         <strong class="fs-6">/auth/login</strong>
                     </div>
-                    <span class="badge bg-danger bg-opacity-10 text-danger">Đăng Nhập Admin</span>
+                    <span class="badge bg-danger bg-opacity-10 text-danger">🔐 10. Đăng nhập Admin</span>
                 </div>
                 <p class="text-muted small mb-2">Body JSON: <code>{"email": "admin@youthunion.edu.vn", "password": "admin123"}</code></p>
                 <code>https://youth-union.onrender.com/api/auth/login</code>
             </div>
 
         </div>
-    </div>
-
-    <!-- Code mẫu JS -->
-    <div class="card p-4">
-        <h5 class="fw-bold mb-3"><i class="bi bi-code-slash me-2 text-dark"></i> 3. Code mẫu gọi API (JavaScript Fetch)</h5>
-        <pre class="mb-0"><code>// Gọi API Trang Chủ
-async function fetchHomeData() {
-  const response = await fetch('https://youth-union.onrender.com/api/home');
-  const result = await response.json();
-  console.log('Dữ liệu Trang Chủ:', result.data);
-  return result.data;
-}</code></pre>
     </div>
 </div>
 
