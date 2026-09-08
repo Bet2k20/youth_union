@@ -4,7 +4,13 @@ use Illuminate\Support\Str;
 
 return [
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    /*
+    |--------------------------------------------------------------------------
+    | Default Database Connection Name
+    | Sử dụng SQLite làm mặc định để chạy ổn định vĩnh viễn 100% trên Render
+    |--------------------------------------------------------------------------
+    */
+    'default' => env('USE_MYSQL', false) ? 'mysql' : env('DB_CONNECTION', 'sqlite'),
 
     'connections' => [
 
