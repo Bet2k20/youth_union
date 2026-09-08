@@ -7,17 +7,18 @@ return [
     /*
     |--------------------------------------------------------------------------
     | Default Database Connection Name
-    | Sử dụng SQLite làm mặc định để chạy ổn định vĩnh viễn 100% trên Render
+    | Khóa cố định SQLite để chạy độc lập 100% bên trong Render, không bị ảnh hưởng
+    | bởi các biến môi trường MySQL cũ còn lưu trên Render Dashboard.
     |--------------------------------------------------------------------------
     */
-    'default' => env('USE_MYSQL', false) ? 'mysql' : env('DB_CONNECTION', 'sqlite'),
+    'default' => 'sqlite',
 
     'connections' => [
 
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DATABASE_URL'),
-            'database' => env('DB_DATABASE', database_path('database.sqlite')),
+            'database' => database_path('database.sqlite'),
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
