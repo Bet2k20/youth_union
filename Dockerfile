@@ -32,26 +32,13 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
     && sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf \
     && a2enmod rewrite
 
-# 7. Khởi tạo và cấp quyền cho Database SQLite và Storage
-RUN mkdir -p /var/www/html/database \
-    && touch /var/www/html/database/database.sqlite \
-    && chmod -R 777 /var/www/html/database
-
-# 8. Script khởi động tự động chạy migration và nạp dữ liệu vào SQLite
-RUN echo '#!/bin/sh' > /usr/local/bin/docker-entrypoint.sh \
-    && echo 'mkdir -p /var/www/html/storage/framework/sessions /var/www/html/storage/framework/views /var/www/html/storage/framework/cache /var/www/html/storage/logs' >> /usr/local/bin/docker-entrypoint.sh \
-    && echo 'touch /var/www/html/database/database.sqlite' >> /usr/local/bin/docker-entrypoint.sh \
-    && echo 'chmod -R 777 /var/www/html/database' >> /usr/local/bin/docker-entrypoint.sh \
-    && echo 'chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache' >> /usr/local/bin/docker-entrypoint.sh \
-    && echo 'php artisan config:clear' >> /usr/local/bin/docker-entrypoint.sh \
-    && echo 'php artisan package:discover --ansi' >> /usr/local/bin/docker-entrypoint.sh \
-    && echo 'php artisan migrate --force' >> /usr/local/bin/docker-entrypoint.sh \
-    && echo 'php artisan db:seed --class=Database\\Seeders\\SampleDataSeeder --force' >> /usr/local/bin/docker-entrypoint.sh \
-    && echo 'chmod -R 777 /var/www/html/database' >> /usr/local/bin/docker-entrypoint.sh \
-    && echo 'chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache' >> /usr/local/bin/docker-entrypoint.sh \
-    && echo 'exec apache2-foreground' >> /usr/local/bin/docker-entrypoint.sh \
+# 7. Cấp quyền cho Database SQLite và Storage
+RUN chmod -R 777 /var/www/html/database \
+    && chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache \
+    && cp /var/www/html/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh \
     && chmod +x /usr/local/bin/docker-entrypoint.sh
 
 EXPOSE 80
 
 CMD ["/usr/local/bin/docker-entrypoint.sh"]
+
