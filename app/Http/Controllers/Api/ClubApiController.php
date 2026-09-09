@@ -183,6 +183,7 @@ class ClubApiController extends Controller
     {
         $categories = ClubCategory::query()
             ->withCount('clubs')
+            ->with('clubs')
             ->get();
 
         return response()->json([
@@ -191,4 +192,5 @@ class ClubApiController extends Controller
             'data' => $categories,
         ], 200);
     }
+
 }
