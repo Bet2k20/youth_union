@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // ==========================================
-// 1. PUBLIC APIS (Khớp 100% Các Màn Hình Figma)
+// 1. PUBLIC APIS (Khớp 100% Các Màn Hình Figma & Dashboard)
 // ==========================================
 
 // Kích hoạt & Khởi tạo dữ liệu Database 1-Click
@@ -84,6 +84,9 @@ Route::get('/media', [MediaApiController::class, 'index']);
 // 9. BANNER SLIDER
 Route::apiResource('banners', BannerApiController::class);
 
+// 10. QUẢN LÝ TÀI KHOẢN & PHÂN QUYỀN (Users & Roles trên Dashboard)
+Route::apiResource('users', UserApiController::class);
+
 // ==========================================
 // 2. AUTHENTICATION APIS (Xác thực tài khoản)
 // ==========================================
@@ -99,7 +102,4 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/auth/me', [AuthApiController::class, 'me']);
     Route::post('/auth/logout', [AuthApiController::class, 'logout']);
     Route::post('/auth/change-password', [AuthApiController::class, 'changePassword']);
-
-    // Quản lý người dùng / Cán bộ Đoàn (Dành cho Admin)
-    Route::apiResource('users', UserApiController::class);
 });
