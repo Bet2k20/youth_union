@@ -453,12 +453,24 @@
         const [modalOpen, setModalOpen] = useState(false);
         const [isEditing, setIsEditing] = useState(false);
         const [currentId, setCurrentId] = useState(null);
+        const [activeSubTab, setActiveSubTab] = useState('general');
 
+        // Form states
         const [name, setName] = useState('');
         const [logo, setLogo] = useState('');
+        const [imagesList, setImagesList] = useState([]);
+        const [newAlbumImage, setNewAlbumImage] = useState('');
         const [categoryId, setCategoryId] = useState(1);
         const [foundedDate, setFoundedDate] = useState('2026-08-26');
         const [description, setDescription] = useState('');
+
+        const [missionsText, setMissionsText] = useState('');
+        const [positionsText, setPositionsText] = useState('');
+        const [departmentsText, setDepartmentsText] = useState('');
+        const [regularActivitiesText, setRegularActivitiesText] = useState('');
+        const [achievementsText, setAchievementsText] = useState('');
+        const [requirementsText, setRequirementsText] = useState('');
+        const [recruitmentText, setRecruitmentText] = useState('');
 
         useEffect(() => {
             fetchClubs();
@@ -491,21 +503,64 @@
             setCurrentId(null);
             setName('');
             setLogo('');
+            setImagesList([]);
+            setNewAlbumImage('');
             setCategoryId(categories[0]?.id || 1);
             setFoundedDate(new Date().toISOString().substring(0, 10));
             setDescription('');
+
+            setMissionsText('');
+            setPositionsText('');
+            setDepartmentsText('');
+            setRegularActivitiesText('');
+            setAchievementsText('');
+            setRequirementsText('');
+            setRecruitmentText('');
+
+            setActiveSubTab('general');
             setModalOpen(true);
         };
 
         const handleOpenEdit = (c) => {
             setIsEditing(true);
             setCurrentId(c.id);
-            setName(c.name);
+            setName(c.name || '');
             setLogo(c.logo || '');
-            setCategoryId(c.category_id);
+            setImagesList(Array.isArray(c.images) ? c.images : []);
+            setNewAlbumImage('');
+            setCategoryId(c.category_id || 1);
             setFoundedDate(c.founded_date ? c.founded_date.substring(0, 10) : '');
             setDescription(c.description || '');
+
+            setMissionsText(Array.isArray(c.missions) ? c.missions.join('\n') : '');
+            setPositionsText(Array.isArray(c.management_structure?.positions) ? c.management_structure.positions.join('\n') : '');
+            setDepartmentsText(Array.isArray(c.management_structure?.departments) ? c.management_structure.departments.join('\n') : '');
+            setRegularActivitiesText(Array.isArray(c.regular_activities) ? c.regular_activities.join('\n') : '');
+            setAchievementsText(Array.isArray(c.achievements) ? c.achievements.join('\n') : '');
+            setRequirementsText(Array.isArray(c.membership_requirements) ? c.membership_requirements.join('\n') : '');
+            setRecruitmentText(Array.isArray(c.recruitment_process) ? c.recruitment_process.join('\n') : '');
+
+            setActiveSubTab('general');
             setModalOpen(true);
+        };
+
+        const handleAddImageToAlbum = (url) => {
+            if (!url) return;
+            if (!imagesList.includes(url)) {
+                setImagesList([...imagesList, url]);
+            }
+            setNewAlbumImage('');
+        };
+
+        const handleRemoveImageFromAlbum = (index) => {
+            const updated = [...imagesList];
+            updated.splice(index, 1);
+            setImagesList(updated);
+        };
+
+        const parseLines = (text) => {
+            if (!text) return [];
+            return text.split('\n').map(s => s.trim()).filter(Boolean);
         };
 
         const handleSave = async () => {
@@ -513,27 +568,41 @@
             const url = isEditing ? `/api/clubs/${currentId}` : '/api/clubs';
             const method = isEditing ? 'PUT' : 'POST';
 
+            const payload = {
+                name: name.trim(),
+                logo: logo.trim(),
+                images: imagesList,
+                category_id: Number(categoryId),
+                founded_date: foundedDate,
+                description: description.trim(),
+                missions: parseLines(missionsText),
+                management_structure: {
+                    positions: parseLines(positionsText),
+                    departments: parseLines(departmentsText)
+                },
+                regular_activities: parseLines(regularActivitiesText),
+                achievements: parseLines(achievementsText),
+                membership_requirements: parseLines(requirementsText),
+                recruitment_process: parseLines(recruitmentText)
+            };
+
             try {
                 const res = await fetch(url, {
                     method: method,
                     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    body: JSON.stringify({
-                        name: name.trim(),
-                        logo: logo.trim(),
-                        category_id: categoryId,
-                        founded_date: foundedDate,
-                        description: description.trim()
-                    })
+                    body: JSON.stringify(payload)
                 });
 
                 const data = await res.json();
                 if (res.ok) {
                     setModalOpen(false);
                     fetchClubs();
-                    alert(isEditing ? '✅ Cập nhật CLB thành công!' : '🎉 Đã thêm CLB mới!');
+                    alert(isEditing ? '✅ Cập nhật toàn bộ thông tin CLB thành công!' : '🎉 Đã thêm CLB mới thành công!');
+                } else {
+                    alert('Lỗi: ' + (data.message || 'Không thể lưu'));
                 }
             } catch (e) {
-                alert('Lỗi kết nối!');
+                alert('Lỗi kết nối máy chủ!');
             }
         };
 
@@ -555,7 +624,7 @@
                 <div className="d-flex justify-content-between align-items-center mb-4">
                     <div>
                         <h3 className="fw-bold text-dark mb-1">Quản Lý Câu Lạc Bộ</h3>
-                        <p className="text-muted mb-0">Quản lý các CLB, Đội, Nhóm kèm Logo đại diện</p>
+                        <p className="text-muted mb-0">Quản lý chi tiết: Tôn chỉ, Chức năng, Cơ cấu ban chủ nhiệm, Album ảnh và Quy trình tuyển sinh</p>
                     </div>
                     <button className="btn btn-success fw-bold px-3 py-2 shadow-sm" onClick={handleOpenCreate}>
                         <i className="bi bi-plus-circle me-1"></i> + Thêm Câu Lạc Bộ Mới
@@ -564,7 +633,7 @@
 
                 <div className="card table-card bg-white p-4">
                     <div className="d-flex justify-content-between align-items-center mb-3">
-                        <h5 className="fw-bold mb-0">Danh Sách Câu Lạc Bộ</h5>
+                        <h5 className="fw-bold mb-0">Danh Sách Câu Lạc Bộ ({clubs.length})</h5>
                         <button className="btn btn-outline-secondary btn-sm" onClick={fetchClubs}>
                             <i className="bi bi-arrow-clockwise me-1"></i> Làm mới
                         </button>
@@ -575,12 +644,12 @@
                                 <thead className="table-light">
                                     <tr>
                                         <th>ID</th>
-                                        <th>Logo CLB</th>
+                                        <th>Logo</th>
                                         <th>Tên Câu Lạc Bộ</th>
                                         <th>Thể Loại</th>
-                                        <th>Ngày Thành Lập</th>
-                                        <th>Mô Tả</th>
-                                        <th className="text-end">Thao Tác</th>
+                                        <th>Album Ảnh</th>
+                                        <th>Chức Năng & Ban CN</th>
+                                        <th>Thao Tác</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -595,13 +664,27 @@
                                                     onError={(e) => { e.target.src = 'https://via.placeholder.com/55x55?text=Logo'; }}
                                                 />
                                             </td>
-                                            <td className="fw-bold text-dark">{c.name}</td>
+                                            <td>
+                                                <div className="fw-bold text-dark">{c.name}</div>
+                                                <small className="text-muted">TL: {c.founded_date ? c.founded_date.substring(0, 10) : '-'}</small>
+                                            </td>
                                             <td><span className="badge bg-info text-dark">{c.category?.name || 'Chưa phân loại'}</span></td>
-                                            <td className="small">{c.founded_date ? c.founded_date.substring(0, 10) : '-'}</td>
-                                            <td className="text-muted small" style={{maxWidth: "230px"}}>{c.description || '-'}</td>
-                                            <td className="text-end">
+                                            <td>
+                                                <span className="badge bg-secondary">
+                                                    📸 {Array.isArray(c.images) ? c.images.length : 0} ảnh
+                                                </span>
+                                            </td>
+                                            <td className="small">
+                                                <span className="badge bg-light text-dark border me-1">
+                                                    {Array.isArray(c.missions) ? c.missions.length : 0} nhiệm vụ
+                                                </span>
+                                                <span className="badge bg-light text-dark border">
+                                                    {c.management_structure?.positions?.length || 0} vị trí
+                                                </span>
+                                            </td>
+                                            <td>
                                                 <button className="btn btn-outline-warning btn-sm me-1" onClick={() => handleOpenEdit(c)}>
-                                                    <i className="bi bi-pencil-square"></i> Sửa
+                                                    <i className="bi bi-pencil-square"></i> Sửa chi tiết
                                                 </button>
                                                 <button className="btn btn-outline-danger btn-sm" onClick={() => handleDelete(c.id)}>
                                                     <i className="bi bi-trash"></i> Xóa
@@ -617,48 +700,281 @@
 
                 {modalOpen && (
                     <div className="modal show d-block" tabIndex="-1" style={{backgroundColor: "rgba(0,0,0,0.5)"}}>
-                        <div className="modal-dialog">
+                        <div className="modal-dialog modal-xl modal-dialog-scrollable">
                             <div className="modal-content">
                                 <div className="modal-header bg-success text-white">
-                                    <h5 className="modal-title fw-bold">{isEditing ? `✏️ Sửa CLB #${currentId}` : '➕ Thêm Câu Lạc Bộ Mới'}</h5>
+                                    <h5 className="modal-title fw-bold">
+                                        {isEditing ? `✏️ Chỉnh Sửa Chi Tiết CLB: ${name}` : '➕ Thêm Câu Lạc Bộ Mới'}
+                                    </h5>
                                     <button type="button" className="btn-close btn-close-white" onClick={() => setModalOpen(false)}></button>
                                 </div>
-                                <div className="modal-body">
-                                    <div className="mb-3">
-                                        <label className="form-label fw-bold">Tên Câu Lạc Bộ <span className="text-danger">*</span></label>
-                                        <input type="text" className="form-control" value={name} onChange={(e) => setName(e.target.value)} placeholder="Nhập tên CLB..." />
-                                    </div>
+                                <div className="modal-body p-4">
+                                    {/* Sub Navigation Tabs */}
+                                    <ul className="nav nav-pills nav-fill mb-4 p-1 bg-light rounded border">
+                                        <li className="nav-item">
+                                            <button 
+                                                className={`nav-link fw-bold ${activeSubTab === 'general' ? 'active bg-success' : 'text-dark'}`}
+                                                onClick={() => setActiveSubTab('general')}
+                                                type="button"
+                                            >
+                                                <i className="bi bi-info-circle me-1"></i> 1. Thông tin chung & Logo
+                                            </button>
+                                        </li>
+                                        <li className="nav-item">
+                                            <button 
+                                                className={`nav-link fw-bold ${activeSubTab === 'missions' ? 'active bg-success' : 'text-dark'}`}
+                                                onClick={() => setActiveSubTab('missions')}
+                                                type="button"
+                                            >
+                                                <i className="bi bi-shield-check me-1"></i> 2. Nhiệm vụ & Cơ cấu
+                                            </button>
+                                        </li>
+                                        <li className="nav-item">
+                                            <button 
+                                                className={`nav-link fw-bold ${activeSubTab === 'activities' ? 'active bg-success' : 'text-dark'}`}
+                                                onClick={() => setActiveSubTab('activities')}
+                                                type="button"
+                                            >
+                                                <i className="bi bi-calendar-check me-1"></i> 3. Hoạt động & Thành tích
+                                            </button>
+                                        </li>
+                                        <li className="nav-item">
+                                            <button 
+                                                className={`nav-link fw-bold ${activeSubTab === 'recruitment' ? 'active bg-success' : 'text-dark'}`}
+                                                onClick={() => setActiveSubTab('recruitment')}
+                                                type="button"
+                                            >
+                                                <i className="bi bi-person-plus me-1"></i> 4. Tuyển thành viên
+                                            </button>
+                                        </li>
+                                        <li className="nav-item">
+                                            <button 
+                                                className={`nav-link fw-bold ${activeSubTab === 'album' ? 'active bg-success' : 'text-dark'}`}
+                                                onClick={() => setActiveSubTab('album')}
+                                                type="button"
+                                            >
+                                                <i className="bi bi-images me-1"></i> 5. Album Khoảnh khắc ({imagesList.length})
+                                            </button>
+                                        </li>
+                                    </ul>
 
-                                    {/* Upload Logo CLB */}
-                                    <ImageUploadInput
-                                        value={logo}
-                                        onChange={setLogo}
-                                        folder="clubs"
-                                        label="Logo / Biểu trưng Câu Lạc Bộ"
-                                    />
+                                    {/* TAB 1: THÔNG TIN CHUNG & LOGO */}
+                                    {activeSubTab === 'general' && (
+                                        <div>
+                                            <div className="mb-3">
+                                                <label className="form-label fw-bold">Tên Câu Lạc Bộ <span className="text-danger">*</span></label>
+                                                <input type="text" className="form-control form-control-lg" value={name} onChange={(e) => setName(e.target.value)} placeholder="Ví dụ: CLB Karate PPA..." />
+                                            </div>
 
-                                    <div className="row g-2 mb-3">
-                                        <div className="col-6">
-                                            <label className="form-label fw-bold">Thể loại CLB</label>
-                                            <select className="form-select" value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
-                                                {categories.map(cat => (
-                                                    <option key={cat.id} value={cat.id}>{cat.name}</option>
-                                                ))}
-                                            </select>
+                                            <div className="row g-3 mb-3">
+                                                <div className="col-md-6">
+                                                    <label className="form-label fw-bold">Thể loại CLB</label>
+                                                    <select className="form-select" value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
+                                                        {categories.map(cat => (
+                                                            <option key={cat.id} value={cat.id}>{cat.name}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <label className="form-label fw-bold">Ngày thành lập</label>
+                                                    <input type="date" className="form-control" value={foundedDate} onChange={(e) => setFoundedDate(e.target.value)} />
+                                                </div>
+                                            </div>
+
+                                            <div className="mb-3">
+                                                <label className="form-label fw-bold">Tôn chỉ, Mục đích (Giới thiệu tóm tắt)</label>
+                                                <textarea className="form-control" rows="3" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Giới thiệu sứ mệnh, tôn chỉ của CLB..."></textarea>
+                                            </div>
+
+                                            <ImageUploadInput
+                                                value={logo}
+                                                onChange={setLogo}
+                                                folder="clubs"
+                                                label="Ảnh Thumbnail / Logo đại diện chính"
+                                            />
                                         </div>
-                                        <div className="col-6">
-                                            <label className="form-label fw-bold">Ngày thành lập</label>
-                                            <input type="date" className="form-control" value={foundedDate} onChange={(e) => setFoundedDate(e.target.value)} />
+                                    )}
+
+                                    {/* TAB 2: NHIỆM VỤ & CƠ CẤU */}
+                                    {activeSubTab === 'missions' && (
+                                        <div>
+                                            <div className="mb-4">
+                                                <label className="form-label fw-bold text-success">
+                                                    <i className="bi bi-card-checklist me-1"></i> Chức năng, Nhiệm vụ (Mỗi dòng một nhiệm vụ)
+                                                </label>
+                                                <textarea 
+                                                    className="form-control" 
+                                                    rows="4" 
+                                                    value={missionsText} 
+                                                    onChange={(e) => setMissionsText(e.target.value)}
+                                                    placeholder="Dòng 1: Rèn luyện thể lực và phẩm chất đạo đức người chiến sĩ CAND&#10;Dòng 2: Bồi dưỡng lực lượng tham gia thi đấu các giải thể thao toàn quốc&#10;Dòng 3: ..."
+                                                ></textarea>
+                                                <small className="text-muted">Nhấn Enter để xuống dòng cho mỗi nhiệm vụ mới.</small>
+                                            </div>
+
+                                            <div className="row g-3">
+                                                <div className="col-md-6">
+                                                    <label className="form-label fw-bold text-primary">
+                                                        <i className="bi bi-people-fill me-1"></i> Cơ cấu Ban Chủ nhiệm - Vị trí
+                                                    </label>
+                                                    <textarea 
+                                                        className="form-control" 
+                                                        rows="4" 
+                                                        value={positionsText} 
+                                                        onChange={(e) => setPositionsText(e.target.value)}
+                                                        placeholder="Chủ nhiệm: Đ/c Lê Tuấn Anh (Khóa D47)&#10;Phó Chủ nhiệm Huấn luyện: Đ/c Hoàng Long&#10;Phó Chủ nhiệm Phong trào: Đ/c Trần Minh Đức"
+                                                    ></textarea>
+                                                    <small className="text-muted">Mỗi dòng là một chức danh / nhân sự.</small>
+                                                </div>
+
+                                                <div className="col-md-6">
+                                                    <label className="form-label fw-bold text-primary">
+                                                        <i className="bi bi-diagram-3 me-1"></i> Các Ban Chuyên Môn
+                                                    </label>
+                                                    <textarea 
+                                                        className="form-control" 
+                                                        rows="4" 
+                                                        value={departmentsText} 
+                                                        onChange={(e) => setDepartmentsText(e.target.value)}
+                                                        placeholder="Ban Huấn luyện & Chuyên môn&#10;Ban Phong trào & Sự kiện&#10;Ban Truyền thông & Kỷ luật"
+                                                    ></textarea>
+                                                    <small className="text-muted">Mỗi dòng là một ban chuyên môn trực thuộc.</small>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="mb-3">
-                                        <label className="form-label fw-bold">Mô tả hoạt động</label>
-                                        <textarea className="form-control" rows="3" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Mô tả mục tiêu..."></textarea>
-                                    </div>
+                                    )}
+
+                                    {/* TAB 3: HOẠT ĐỘNG & THÀNH TÍCH */}
+                                    {activeSubTab === 'activities' && (
+                                        <div>
+                                            <div className="mb-4">
+                                                <label className="form-label fw-bold text-primary">
+                                                    <i className="bi bi-calendar-event me-1"></i> Hoạt động thường xuyên (Lịch sinh hoạt/tập luyện)
+                                                </label>
+                                                <textarea 
+                                                    className="form-control" 
+                                                    rows="4" 
+                                                    value={regularActivitiesText} 
+                                                    onChange={(e) => setRegularActivitiesText(e.target.value)}
+                                                    placeholder="Tập luyện chuyên môn 3 buổi/tuần (Thứ 2, Thứ 4, Thứ 6) tại Nhà thi đấu Học viện&#10;Tập huấn kỹ năng tự vệ định kỳ cho học viên mới&#10;Tham gia biểu diễn võ thuật trong các chương trình lễ hội của Học viện"
+                                                ></textarea>
+                                                <small className="text-muted">Nhấn Enter xuống dòng để nhập từng hoạt động.</small>
+                                            </div>
+
+                                            <div>
+                                                <label className="form-label fw-bold text-warning text-dark">
+                                                    <i className="bi bi-trophy-fill text-warning me-1"></i> Thành tích nổi bật (Huy chương, Bằng khen)
+                                                </label>
+                                                <textarea 
+                                                    className="form-control" 
+                                                    rows="4" 
+                                                    value={achievementsText} 
+                                                    onChange={(e) => setAchievementsText(e.target.value)}
+                                                    placeholder="Giải Nhất toàn đoàn Hội thao thanh niên CAND năm 2025&#10;03 Huy chương Vàng Giải Vô địch Sinh viên toàn quốc&#10;Giấy khen của Giám đốc Học viện CSND"
+                                                ></textarea>
+                                                <small className="text-muted">Nhấn Enter xuống dòng để nhập từng thành tích.</small>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* TAB 4: TUYỂN THÀNH VIÊN */}
+                                    {activeSubTab === 'recruitment' && (
+                                        <div>
+                                            <div className="mb-4">
+                                                <label className="form-label fw-bold text-success">
+                                                    <i className="bi bi-check2-circle me-1"></i> Điều kiện tham gia
+                                                </label>
+                                                <textarea 
+                                                    className="form-control" 
+                                                    rows="4" 
+                                                    value={requirementsText} 
+                                                    onChange={(e) => setRequirementsText(e.target.value)}
+                                                    placeholder="Đoàn viên, học viên hệ chính quy đang học tập tại Học viện CSND&#10;Có đam mê, sức khỏe tốt và tinh thần kỷ luật cao&#10;Cam kết tham gia tập luyện đều đặn theo lịch CLB"
+                                                ></textarea>
+                                                <small className="text-muted">Mỗi dòng là một tiêu chuẩn tham gia.</small>
+                                            </div>
+
+                                            <div>
+                                                <label className="form-label fw-bold text-info text-dark">
+                                                    <i className="bi bi-list-ol text-info me-1"></i> Quy trình tuyển thành viên
+                                                </label>
+                                                <textarea 
+                                                    className="form-control" 
+                                                    rows="4" 
+                                                    value={recruitmentText} 
+                                                    onChange={(e) => setRecruitmentText(e.target.value)}
+                                                    placeholder="Bước 1: Đăng ký đơn online qua cổng thông tin Đoàn trường&#10;Bước 2: Kiểm tra thể lực và phỏng vấn trực tiếp&#10;Bước 3: Thử thách tập luyện 02 tuần cùng Ban Huấn luyện&#10;Bước 4: Chính thức kết nạp hội viên"
+                                                ></textarea>
+                                                <small className="text-muted">Mỗi dòng là một bước trong quy trình tuyển chọn.</small>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* TAB 5: ALBUM KHOẢNH KHẮC */}
+                                    {activeSubTab === 'album' && (
+                                        <div>
+                                            <div className="d-flex justify-content-between align-items-center mb-3">
+                                                <h6 className="fw-bold mb-0">Danh sách ảnh trong Album ({imagesList.length} ảnh)</h6>
+                                                <span className="badge bg-info text-dark">Đã nạp sẵn ảnh thật</span>
+                                            </div>
+
+                                            {/* Thêm ảnh mới vào album */}
+                                            <div className="p-3 bg-light rounded border mb-4">
+                                                <h6 className="fw-bold text-success mb-2">➕ Tải thêm ảnh mới vào Album:</h6>
+                                                <div className="row g-2 align-items-end">
+                                                    <div className="col-md-9">
+                                                        <ImageUploadInput
+                                                            value={newAlbumImage}
+                                                            onChange={(url) => {
+                                                                setNewAlbumImage(url);
+                                                                handleAddImageToAlbum(url);
+                                                            }}
+                                                            folder="clubs"
+                                                            label="Chọn ảnh từ máy tính để thêm vào Album"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Lưới hiển thị các ảnh trong Album */}
+                                            {imagesList.length === 0 ? (
+                                                <div className="text-center py-4 text-muted bg-white border rounded">Chưa có ảnh nào trong album này.</div>
+                                            ) : (
+                                                <div className="row g-3">
+                                                    {imagesList.map((imgUrl, idx) => (
+                                                        <div key={idx} className="col-6 col-md-3 col-lg-2">
+                                                            <div className="card h-100 shadow-sm position-relative border">
+                                                                <img 
+                                                                    src={imgUrl} 
+                                                                    alt="" 
+                                                                    className="card-img-top" 
+                                                                    style={{height: '110px', objectFit: 'cover'}}
+                                                                    onError={(e) => { e.target.src = 'https://via.placeholder.com/150x110?text=Anh+Loi'; }}
+                                                                />
+                                                                <div className="p-2 text-center bg-white">
+                                                                    <small className="text-muted d-block text-truncate" title={imgUrl}>#{idx + 1}</small>
+                                                                    <button 
+                                                                        type="button" 
+                                                                        className="btn btn-outline-danger btn-sm p-1 py-0 mt-1"
+                                                                        onClick={() => handleRemoveImageFromAlbum(idx)}
+                                                                        title="Xóa ảnh này khỏi Album"
+                                                                    >
+                                                                        <i className="bi bi-trash"></i> Xóa
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
                                 </div>
-                                <div className="modal-footer">
+                                <div className="modal-footer bg-light">
                                     <button type="button" className="btn btn-secondary" onClick={() => setModalOpen(false)}>Hủy</button>
-                                    <button type="button" className="btn btn-success fw-bold px-4" onClick={handleSave}>Lưu Câu Lạc Bộ</button>
+                                    <button type="button" className="btn btn-success fw-bold px-4 shadow" onClick={handleSave}>
+                                        <i className="bi bi-save me-1"></i> Lưu Toàn Bộ Thông Tin CLB
+                                    </button>
                                 </div>
                             </div>
                         </div>
