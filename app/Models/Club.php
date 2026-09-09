@@ -17,12 +17,25 @@ class Club extends Model
         'founded_date',
         'category_id',
         'description',
+        'missions',
+        'management_structure',
+        'regular_activities',
+        'achievements',
+        'membership_requirements',
+        'recruitment_process',
     ];
 
     protected $casts = [
         'founded_date' => 'date',
         'images' => 'array',
+        'missions' => 'array',
+        'management_structure' => 'array',
+        'regular_activities' => 'array',
+        'achievements' => 'array',
+        'membership_requirements' => 'array',
+        'recruitment_process' => 'array',
     ];
+
 
 
     public function category(): BelongsTo

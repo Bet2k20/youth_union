@@ -90,13 +90,22 @@ class ClubApiController extends Controller
             ], 422);
         }
 
-        $club = Club::create([
-            'name' => $request->name,
-            'logo' => $request->logo,
-            'category_id' => $request->category_id,
-            'founded_date' => $request->founded_date,
-            'description' => $request->description,
-        ]);
+        $fields = [
+            'name',
+            'logo',
+            'images',
+            'category_id',
+            'founded_date',
+            'description',
+            'missions',
+            'management_structure',
+            'regular_activities',
+            'achievements',
+            'membership_requirements',
+            'recruitment_process',
+        ];
+
+        $club = Club::create($request->only($fields));
 
         $club->load('category');
 
@@ -142,8 +151,24 @@ class ClubApiController extends Controller
             ], 422);
         }
 
-        $club->update($request->only(['name', 'logo', 'category_id', 'founded_date', 'description']));
+        $fields = [
+            'name',
+            'logo',
+            'images',
+            'category_id',
+            'founded_date',
+            'description',
+            'missions',
+            'management_structure',
+            'regular_activities',
+            'achievements',
+            'membership_requirements',
+            'recruitment_process',
+        ];
+
+        $club->update($request->only($fields));
         $club->load('category');
+
 
         return response()->json([
             'status' => 'success',
