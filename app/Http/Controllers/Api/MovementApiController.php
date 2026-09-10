@@ -43,12 +43,27 @@ class MovementApiController extends Controller
             ],
         ];
 
-        // 2. Lấy danh sách các bài viết / sự kiện phong trào
+        // 2. Lấy danh sách theo từng loại phong trào cho màn hình Figma
+        $denOnDapNghia = Activity::where('is_active', true)
+            ->where('movement_type', 'den_on_dap_nghia')
+            ->latest('id')
+            ->get();
+
+        $thanhNienXungKich = Activity::where('is_active', true)
+            ->where('movement_type', 'thanh_nien_xung_kich')
+            ->latest('id')
+            ->get();
+
+        // 3. Lấy danh sách chung (hỗ trợ tìm kiếm & phân trang)
         $query = Activity::where('is_active', true)->latest('id');
 
         if ($request->filled('search')) {
             $keyword = $request->input('search');
             $query->where('title', 'like', "%{$keyword}%");
+        }
+
+        if ($request->filled('movement_type')) {
+            $query->where('movement_type', $request->input('movement_type'));
         }
 
         $activities = $query->paginate((int) $request->input('per_page', 9));
@@ -58,6 +73,8 @@ class MovementApiController extends Controller
             'message' => 'Lấy dữ liệu trang Phong trào thành công',
             'data' => [
                 'categories' => $movementCategories,
+                'den_on_dap_nghia' => $denOnDapNghia,
+                'thanh_nien_xung_kich' => $thanhNienXungKich,
                 'activities' => $activities,
             ],
         ], 200);

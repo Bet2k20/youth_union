@@ -23,6 +23,11 @@ class ActivityApiController extends Controller
             $query->where('is_active', true);
         }
 
+        // Lọc theo loại phong trào nếu có ?movement_type=...
+        if ($request->filled('movement_type')) {
+            $query->where('movement_type', $request->input('movement_type'));
+        }
+
         // Tìm kiếm theo tiêu đề nếu có ?search=...
         if ($request->filled('search')) {
             $keyword = $request->input('search');
@@ -93,12 +98,31 @@ class ActivityApiController extends Controller
             ], 422);
         }
 
-        $activity = Activity::create([
-            'title' => $request->title,
-            'content' => $request->content,
-            'thumbnail' => $request->thumbnail,
-            'is_active' => $request->boolean('is_active', true),
-        ]);
+        $fields = [
+            'title',
+            'content',
+            'thumbnail',
+            'is_active',
+            'movement_type',
+            'activity_type',
+            'location',
+            'target_audience',
+            'participants',
+            'summary_content',
+            'significance',
+            'result',
+            'objective',
+            'cooperation',
+            'value',
+            'comment',
+        ];
+
+        $payload = $request->only($fields);
+        if ($request->has('is_active')) {
+            $payload['is_active'] = $request->boolean('is_active');
+        }
+
+        $activity = Activity::create($payload);
 
         return response()->json([
             'status' => 'success',
@@ -139,7 +163,32 @@ class ActivityApiController extends Controller
             ], 422);
         }
 
-        $activity->update($request->only(['title', 'content', 'thumbnail', 'is_active']));
+        $fields = [
+            'title',
+            'content',
+            'thumbnail',
+            'is_active',
+            'movement_type',
+            'activity_type',
+            'location',
+            'target_audience',
+            'participants',
+            'summary_content',
+            'significance',
+            'result',
+            'objective',
+            'cooperation',
+            'value',
+            'comment',
+        ];
+
+        $payload = $request->only($fields);
+        if ($request->has('is_active')) {
+            $payload['is_active'] = $request->boolean('is_active');
+        }
+
+        $activity->update($payload);
+
 
         return response()->json([
             'status' => 'success',

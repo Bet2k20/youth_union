@@ -238,6 +238,22 @@
         const [thumbnail, setThumbnail] = useState('');
         const [isActive, setIsActive] = useState(true);
 
+        // Các trường phong trào mở rộng
+        const [movementType, setMovementType] = useState('den_on_dap_nghia'); // 'den_on_dap_nghia' | 'thanh_nien_xung_kich'
+        const [activityType, setActivityType] = useState('Thắp nến tri ân');
+        const [location, setLocation] = useState('');
+        const [targetAudience, setTargetAudience] = useState('');
+        const [participants, setParticipants] = useState('');
+        const [summaryContent, setSummaryContent] = useState('');
+        const [significance, setSignificance] = useState('');
+        const [result, setResult] = useState('');
+        const [objective, setObjective] = useState('');
+        const [cooperation, setCooperation] = useState('');
+        const [valueField, setValueField] = useState('');
+        const [commentContent, setCommentContent] = useState('');
+        const [commentAuthor, setCommentAuthor] = useState('');
+        const [commentClass, setCommentClass] = useState('');
+
         const quillRef = useRef(null);
         const editorElementRef = useRef(null);
 
@@ -282,6 +298,20 @@
             setTitle('');
             setThumbnail('');
             setIsActive(true);
+            setMovementType('den_on_dap_nghia');
+            setActivityType('Thắp nến tri ân');
+            setLocation('');
+            setTargetAudience('');
+            setParticipants('');
+            setSummaryContent('');
+            setSignificance('');
+            setResult('');
+            setObjective('');
+            setCooperation('');
+            setValueField('');
+            setCommentContent('');
+            setCommentAuthor('');
+            setCommentClass('');
             if (quillRef.current) quillRef.current.root.innerHTML = '';
             setModalOpen(true);
         };
@@ -289,9 +319,23 @@
         const handleOpenEdit = (item) => {
             setIsEditing(true);
             setCurrentId(item.id);
-            setTitle(item.title);
+            setTitle(item.title || '');
             setThumbnail(item.thumbnail || '');
             setIsActive(Boolean(item.is_active));
+            setMovementType(item.movement_type || 'den_on_dap_nghia');
+            setActivityType(item.activity_type || '');
+            setLocation(item.location || '');
+            setTargetAudience(item.target_audience || '');
+            setParticipants(item.participants || '');
+            setSummaryContent(item.summary_content || '');
+            setSignificance(item.significance || '');
+            setResult(item.result || '');
+            setObjective(item.objective || '');
+            setCooperation(item.cooperation || '');
+            setValueField(item.value || '');
+            setCommentContent(item.comment?.content || '');
+            setCommentAuthor(item.comment?.author || '');
+            setCommentClass(item.comment?.class_unit || '');
             setModalOpen(true);
             setTimeout(() => {
                 if (quillRef.current) quillRef.current.root.innerHTML = item.content || '';
@@ -304,16 +348,42 @@
             const url = isEditing ? `/api/activities/${currentId}` : '/api/activities';
             const method = isEditing ? 'PUT' : 'POST';
 
+            const payload = {
+                title: title.trim(),
+                thumbnail: thumbnail.trim(),
+                content,
+                is_active: isActive,
+                movement_type: movementType,
+                activity_type: activityType.trim(),
+                location: location.trim(),
+                target_audience: targetAudience.trim(),
+                participants: participants.trim(),
+                summary_content: summaryContent.trim(),
+                significance: significance.trim(),
+                result: result.trim(),
+                objective: objective.trim(),
+                cooperation: cooperation.trim(),
+                value: valueField.trim(),
+                comment: (commentContent || commentAuthor) ? {
+                    content: commentContent.trim(),
+                    author: commentAuthor.trim(),
+                    class_unit: commentClass.trim()
+                } : null
+            };
+
             try {
                 const res = await fetch(url, {
                     method: method,
                     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    body: JSON.stringify({ title: title.trim(), thumbnail: thumbnail.trim(), content, is_active: isActive })
+                    body: JSON.stringify(payload)
                 });
                 if (res.ok) {
                     setModalOpen(false);
                     fetchActivities();
-                    alert(isEditing ? '✅ Cập nhật bài viết thành công!' : '🎉 Đã thêm bài viết mới!');
+                    alert(isEditing ? '✅ Cập nhật hoạt động thành công!' : '🎉 Đã thêm hoạt động mới!');
+                } else {
+                    const data = await res.json();
+                    alert('Lỗi: ' + (data.message || 'Không thể lưu bài viết'));
                 }
             } catch (e) {
                 alert('Lỗi kết nối máy chủ!');
@@ -337,8 +407,8 @@
             <div>
                 <div className="d-flex justify-content-between align-items-center mb-4">
                     <div>
-                        <h3 className="fw-bold text-dark mb-1">Quản Lý Hoạt Động & Tin Tức</h3>
-                        <p className="text-muted mb-0">Quản lý bài viết, có hỗ trợ tải ảnh đại diện từ máy tính</p>
+                        <h3 className="fw-bold text-dark mb-1">Quản Lý Hoạt Động & Phong Trào</h3>
+                        <p className="text-muted mb-0">Hỗ trợ đầy đủ: Đền ơn đáp nghĩa, Xung kích tình nguyện, Địa bàn, Ý nghĩa, Kết quả và Trích dẫn bình luận</p>
                     </div>
                     <button className="btn btn-success fw-bold px-3 py-2 shadow-sm" onClick={handleOpenCreate}>
                         <i className="bi bi-plus-circle me-1"></i> + Đăng Hoạt Động Mới
@@ -347,7 +417,7 @@
 
                 <div className="card table-card bg-white p-4">
                     <div className="d-flex justify-content-between align-items-center mb-3">
-                        <h5 className="fw-bold mb-0">Danh Sách Hoạt Động</h5>
+                        <h5 className="fw-bold mb-0">Danh Sách Hoạt Động ({activities.length})</h5>
                         <button className="btn btn-outline-secondary btn-sm" onClick={fetchActivities}>
                             <i className="bi bi-arrow-clockwise me-1"></i> Làm mới
                         </button>
@@ -358,9 +428,10 @@
                                 <thead className="table-light">
                                     <tr>
                                         <th>ID</th>
-                                        <th>Ảnh Đại Diện</th>
+                                        <th>Ảnh</th>
                                         <th>Tiêu Đề</th>
-                                        <th>Ngày Đăng</th>
+                                        <th>Loại Phong Trào</th>
+                                        <th>Badge / Địa Bàn</th>
                                         <th>Trạng Thái</th>
                                         <th className="text-end">Thao Tác</th>
                                     </tr>
@@ -377,8 +448,25 @@
                                                     onError={(e) => { e.target.src = 'https://via.placeholder.com/55x55?text=Anh+Loi'; }}
                                                 />
                                             </td>
-                                            <td className="fw-bold text-dark">{a.title}</td>
-                                            <td className="small">{a.created_at ? a.created_at.substring(0, 10) : 'Hôm nay'}</td>
+                                            <td>
+                                                <div className="fw-bold text-dark">{a.title}</div>
+                                                <small className="text-muted">{a.created_at ? a.created_at.substring(0, 10) : 'Mới'}</small>
+                                            </td>
+                                            <td>
+                                                {a.movement_type === 'den_on_dap_nghia' && (
+                                                    <span className="badge bg-danger text-white">Đền ơn đáp nghĩa</span>
+                                                )}
+                                                {a.movement_type === 'thanh_nien_xung_kich' && (
+                                                    <span className="badge bg-success text-white">Xung kích tình nguyện</span>
+                                                )}
+                                                {!a.movement_type && (
+                                                    <span className="badge bg-secondary">Hoạt động chung</span>
+                                                )}
+                                            </td>
+                                            <td className="small">
+                                                {a.activity_type && <span className="badge bg-light text-dark border me-1">{a.activity_type}</span>}
+                                                {a.location && <span className="text-muted d-block small"><i className="bi bi-geo-alt"></i> {a.location}</span>}
+                                            </td>
                                             <td>
                                                 <span className={`badge ${a.is_active ? 'bg-success' : 'bg-secondary'}`}>
                                                     {a.is_active ? 'Hiển thị' : 'Đang ẩn'}
@@ -402,38 +490,140 @@
 
                 {modalOpen && (
                     <div className="modal show d-block" tabIndex="-1" style={{backgroundColor: "rgba(0,0,0,0.5)"}}>
-                        <div className="modal-dialog modal-lg">
+                        <div className="modal-dialog modal-xl modal-dialog-scrollable">
                             <div className="modal-content">
                                 <div className="modal-header bg-success text-white">
                                     <h5 className="modal-title fw-bold">{isEditing ? `✏️ Sửa Hoạt Động #${currentId}` : '➕ Đăng Hoạt Động Mới'}</h5>
                                     <button type="button" className="btn-close btn-close-white" onClick={() => setModalOpen(false)}></button>
                                 </div>
-                                <div className="modal-body">
+                                <div className="modal-body p-4">
+                                    {/* THÔNG TIN CHÍNH */}
                                     <div className="mb-3">
                                         <label className="form-label fw-bold">Tiêu đề hoạt động <span className="text-danger">*</span></label>
-                                        <input type="text" className="form-control" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Nhập tiêu đề..." />
+                                        <input type="text" className="form-control form-control-lg" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Nhập tiêu đề hoạt động..." />
                                     </div>
 
-                                    {/* Upload Ảnh Đại Diện Bài Viết */}
+                                    <div className="row g-3 mb-3">
+                                        <div className="col-md-6">
+                                            <label className="form-label fw-bold text-success">Loại phong trào chính</label>
+                                            <select className="form-select fw-bold" value={movementType} onChange={(e) => setMovementType(e.target.value)}>
+                                                <option value="den_on_dap_nghia">🎗️ Hoạt động Đền ơn đáp nghĩa (Uống nước nhớ nguồn)</option>
+                                                <option value="thanh_nien_xung_kich">🌱 Hoạt động Vì cộng đồng (Xung kích tình nguyện)</option>
+                                            </select>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="form-label fw-bold">Loại hoạt động (Badge trên ảnh)</label>
+                                            <input type="text" className="form-control" value={activityType} onChange={(e) => setActivityType(e.target.value)} placeholder="Ví dụ: Thắp nến tri ân, Tặng quà người có công, Chiến dịch tiêu biểu..." />
+                                        </div>
+                                    </div>
+
+                                    {/* Upload Ảnh Thumbnail */}
                                     <ImageUploadInput
                                         value={thumbnail}
                                         onChange={setThumbnail}
                                         folder="activities"
-                                        label="Ảnh đại diện bài viết (Thumbnail)"
+                                        label="Ảnh bìa hoạt động (Thumbnail)"
                                     />
 
+                                    {/* CÁC TRƯỜNG THEO PHONG TRÀO ĐỀN ƠN ĐÁP NGHĨA */}
+                                    {movementType === 'den_on_dap_nghia' && (
+                                        <div className="p-3 bg-light rounded border mb-3">
+                                            <h6 className="fw-bold text-danger mb-3">🎗️ Thông số Hoạt Động Đền Ơn Đáp Nghĩa:</h6>
+                                            <div className="row g-3 mb-3">
+                                                <div className="col-md-4">
+                                                    <label className="form-label fw-bold">Địa điểm</label>
+                                                    <input type="text" className="form-control" value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Ví dụ: Nghĩa trang Liệt sĩ TP. Hà Nội" />
+                                                </div>
+                                                <div className="col-md-4">
+                                                    <label className="form-label fw-bold">Đối tượng</label>
+                                                    <input type="text" className="form-control" value={targetAudience} onChange={(e) => setTargetAudience(e.target.value)} placeholder="Ví dụ: Các anh hùng liệt sĩ, Mẹ VNAH..." />
+                                                </div>
+                                                <div className="col-md-4">
+                                                    <label className="form-label fw-bold">Tham gia</label>
+                                                    <input type="text" className="form-control" value={participants} onChange={(e) => setParticipants(e.target.value)} placeholder="Ví dụ: 300+ đoàn viên" />
+                                                </div>
+                                            </div>
+                                            <div className="row g-3">
+                                                <div className="col-md-4">
+                                                    <label className="form-label fw-bold">Nội dung tóm tắt</label>
+                                                    <input type="text" className="form-control" value={summaryContent} onChange={(e) => setSummaryContent(e.target.value)} placeholder="Ví dụ: Dâng hương, thắp nến, dọn vệ sinh" />
+                                                </div>
+                                                <div className="col-md-4">
+                                                    <label className="form-label fw-bold">Ý nghĩa</label>
+                                                    <input type="text" className="form-control" value={significance} onChange={(e) => setSignificance(e.target.value)} placeholder="Ví dụ: Giáo dục lòng biết ơn" />
+                                                </div>
+                                                <div className="col-md-4">
+                                                    <label className="form-label fw-bold">Kết quả</label>
+                                                    <input type="text" className="form-control" value={result} onChange={(e) => setResult(e.target.value)} placeholder="Ví dụ: Chăm sóc, thắp nến toàn bộ khu nghĩa trang" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* CÁC TRƯỜNG THEO PHONG TRÀO VÌ CỘNG ĐỒNG / XUNG KÍCH */}
+                                    {movementType === 'thanh_nien_xung_kich' && (
+                                        <div className="p-3 bg-light rounded border mb-3">
+                                            <h6 className="fw-bold text-success mb-3">🌱 Thông số Hoạt Động Vì Cộng Đồng / Xung Kích:</h6>
+                                            <div className="row g-3 mb-3">
+                                                <div className="col-md-6">
+                                                    <label className="form-label fw-bold">Mục tiêu</label>
+                                                    <input type="text" className="form-control" value={objective} onChange={(e) => setObjective(e.target.value)} placeholder="Ví dụ: Hỗ trợ địa phương xây dựng nông thôn mới" />
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <label className="form-label fw-bold">Địa bàn</label>
+                                                    <input type="text" className="form-control" value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Ví dụ: Xã miền núi tỉnh Hòa Bình" />
+                                                </div>
+                                            </div>
+                                            <div className="row g-3 mb-3">
+                                                <div className="col-md-4">
+                                                    <label className="form-label fw-bold">Phối hợp</label>
+                                                    <input type="text" className="form-control" value={cooperation} onChange={(e) => setCooperation(e.target.value)} placeholder="Ví dụ: Đoàn xã, Đồn Công an địa phương" />
+                                                </div>
+                                                <div className="col-md-4">
+                                                    <label className="form-label fw-bold">Kết quả</label>
+                                                    <input type="text" className="form-control" value={result} onChange={(e) => setResult(e.target.value)} placeholder="Ví dụ: Sửa 2km đường, mở lớp học hè" />
+                                                </div>
+                                                <div className="col-md-4">
+                                                    <label className="form-label fw-bold">Giá trị</label>
+                                                    <input type="text" className="form-control" value={valueField} onChange={(e) => setValueField(e.target.value)} placeholder="Ví dụ: Gắn kết quân dân, rèn luyện bản lĩnh" />
+                                                </div>
+                                            </div>
+
+                                            {/* Khối Cảm nghĩ / Bình luận */}
+                                            <div className="p-3 bg-white rounded border">
+                                                <h6 className="fw-bold text-primary mb-2">💬 Cảm nghĩ / Bình luận tiêu biểu (Testimonial Quote):</h6>
+                                                <div className="mb-2">
+                                                    <label className="form-label small fw-bold">Nội dung bình luận / trích dẫn</label>
+                                                    <textarea className="form-control" rows="2" value={commentContent} onChange={(e) => setCommentContent(e.target.value)} placeholder="Ví dụ: Một mùa hè không nghỉ ngơi nhưng đầy ý nghĩa..."></textarea>
+                                                </div>
+                                                <div className="row g-2">
+                                                    <div className="col-md-6">
+                                                        <label className="form-label small fw-bold">Người bình luận (Đoàn viên)</label>
+                                                        <input type="text" className="form-control form-control-sm" value={commentAuthor} onChange={(e) => setCommentAuthor(e.target.value)} placeholder="Ví dụ: Đoàn viên Nguyễn Văn A" />
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <label className="form-label small fw-bold">Lớp / Chi đoàn</label>
+                                                        <input type="text" className="form-control form-control-sm" value={commentClass} onChange={(e) => setCommentClass(e.target.value)} placeholder="Ví dụ: D48" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+
                                     <div className="mb-3">
-                                        <label className="form-label fw-bold">Nội dung chi tiết (Quill Editor)</label>
+                                        <label className="form-label fw-bold">Nội dung bài viết chi tiết (Quill HTML Editor)</label>
                                         <div ref={editorElementRef} className="bg-white"></div>
                                     </div>
                                     <div className="form-check form-switch mb-2">
                                         <input className="form-check-input" type="checkbox" id="act_is_active" checked={isActive} onChange={(e) => setIsActive(e.target.checked)} />
-                                        <label className="form-check-label fw-bold" htmlFor="act_is_active">Cho phép hiển thị</label>
+                                        <label className="form-check-label fw-bold" htmlFor="act_is_active">Cho phép hiển thị ra ngoài web</label>
                                     </div>
                                 </div>
-                                <div className="modal-footer">
+                                <div className="modal-footer bg-light">
                                     <button type="button" className="btn btn-secondary" onClick={() => setModalOpen(false)}>Hủy</button>
-                                    <button type="button" className="btn btn-success fw-bold px-4" onClick={handleSave}>Lưu Bài Viết</button>
+                                    <button type="button" className="btn btn-success fw-bold px-4 shadow" onClick={handleSave}>
+                                        <i className="bi bi-save me-1"></i> Lưu Toàn Bộ Hoạt Động
+                                    </button>
                                 </div>
                             </div>
                         </div>
