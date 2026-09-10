@@ -78,8 +78,13 @@ Route::apiResource('activities', ActivityApiController::class);
 // 7. MÀN HÌNH GƯƠNG MẶT SINH VIÊN TIÊU BIỂU (Outstanding People)
 Route::apiResource('outstanding-people', OutstandingPersonApiController::class);
 
-// 8. MÀN HÌNH THƯ VIỆN ẢNH & BIỂU MẪU (Media & Documents)
+// 8. MÀN HÌNH THƯ VIỆN (Thư viện ảnh & Thông tư, quy định, biểu mẫu)
 Route::get('/media', [MediaApiController::class, 'index']);
+Route::get('/media/photos', [MediaApiController::class, 'photos']);
+Route::get('/media/documents', [MediaApiController::class, 'documents']);
+Route::get('/photos', [MediaApiController::class, 'photos']);
+Route::get('/documents', [MediaApiController::class, 'documents']);
+
 
 // 9. BANNER SLIDER
 Route::apiResource('banners', BannerApiController::class);
