@@ -17,7 +17,13 @@ class ClubApiController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
+        // Nếu có truyền ?id=... thì trả về chi tiết của ID đó luôn
+        if ($request->filled('id')) {
+            return $this->show((int) $request->input('id'));
+        }
+
         $query = Club::query()->with('category');
+
 
         // Lọc theo thể loại nếu có ?category_id=...
         if ($request->filled('category_id')) {

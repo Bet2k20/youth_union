@@ -16,7 +16,15 @@ class ActivityApiController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
+
+        // Nếu có truyền ?id=... thì trả về chi tiết của ID đó luôn
+        if ($request->filled('id')) {
+            return $this->show((int) $request->input('id'));
+        }
+
         $query = Activity::query();
+
+
 
         // Mặc định lấy bài đang active, nếu có truyền ?all=1 thì lấy tất cả (dành cho trang Admin)
         if (!$request->boolean('all')) {
