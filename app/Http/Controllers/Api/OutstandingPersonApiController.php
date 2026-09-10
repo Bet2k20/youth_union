@@ -11,11 +11,16 @@ use Illuminate\Support\Facades\Validator;
 class OutstandingPersonApiController extends Controller
 {
     /**
-     * [R] Lấy danh sách Gương mặt tiêu biểu / Cán bộ Đoàn xuất sắc
+     * [R] Lấy danh sách Gương mặt tiêu biểu / Cán bộ Đoàn xuất sắc / Sinh viên tiêu biểu
      * GET /api/outstanding-people
      */
     public function index(Request $request): JsonResponse
     {
+        // 1. Hỗ trợ truy vấn chi tiết 1 người qua query param ?id=...
+        if ($request->filled('id')) {
+            return $this->show((int) $request->input('id'));
+        }
+
         $query = OutstandingPerson::query();
 
         // Mặc định lấy bài đang active, trừ khi có ?all=1
@@ -23,9 +28,19 @@ class OutstandingPersonApiController extends Controller
             $query->where('is_active', true);
         }
 
-        // Lọc theo nhóm vai trò / danh hiệu nếu có ?role_group=...
-        if ($request->filled('role_group')) {
-            $query->where('role_group', $request->input('role_group'));
+        // Lọc theo nhóm vai trò / danh hiệu: role_group, role, hoặc type
+        $rawRole = $request->input('role_group') ?? $request->input('role') ?? $request->input('type');
+        if ($rawRole) {
+            $roleNormalized = strtoupper(trim($rawRole));
+            if (in_array($roleNormalized, ['CAN_BO', 'CADRE', 'CADRES', 'CAN_BO_DOAN', 'BI_THU_DOAN', 'CAN_BO_TIEU_BIEU'])) {
+                $query->where('role_group', 'BI_THU_DOAN');
+            } elseif (in_array($roleNormalized, ['SINH_VIEN', 'STUDENT', 'STUDENTS', 'DOAN_VIEN', 'DOAN_VIEN_XUAT_SAC', 'SINH_VIEN_TIEU_BIEU'])) {
+                $query->where('role_group', 'DOAN_VIEN');
+            } elseif ($roleNormalized === 'BGD') {
+                $query->where('role_group', 'BGD');
+            } else {
+                $query->where('role_group', $rawRole);
+            }
         }
 
         // Tìm kiếm theo tên nếu có ?search=...
@@ -36,12 +51,45 @@ class OutstandingPersonApiController extends Controller
 
         $people = $query->orderBy('id', 'desc')->get();
 
+        // Nếu Frontend muốn trả về cấu trúc chia nhóm sẵn (?grouped=1)
+        if ($request->boolean('grouped')) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Lấy danh sách gương mặt tiêu biểu theo nhóm thành công',
+                'data' => [
+                    'cadres' => $people->where('role_group', 'BI_THU_DOAN')->values(),
+                    'students' => $people->where('role_group', 'DOAN_VIEN')->values(),
+                    'leaders' => $people->where('role_group', 'BGD')->values(),
+                ],
+            ], 200);
+        }
+
         return response()->json([
             'status' => 'success',
             'message' => 'Lấy danh sách gương mặt tiêu biểu thành công',
             'total' => $people->count(),
             'data' => $people,
         ], 200);
+    }
+
+    /**
+     * [R] API chuyên biệt lấy danh sách Cán bộ Đoàn tiêu biểu
+     * GET /api/cadres hoặc GET /api/can-bo-tieu-bieu
+     */
+    public function cadres(Request $request): JsonResponse
+    {
+        $request->merge(['role_group' => 'BI_THU_DOAN']);
+        return $this->index($request);
+    }
+
+    /**
+     * [R] API chuyên biệt lấy danh sách Sinh viên tiêu biểu
+     * GET /api/students hoặc GET /api/sinh-vien-tieu-bieu
+     */
+    public function students(Request $request): JsonResponse
+    {
+        $request->merge(['role_group' => 'DOAN_VIEN']);
+        return $this->index($request);
     }
 
     /**

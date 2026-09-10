@@ -75,7 +75,11 @@ Route::apiResource('clubs', ClubApiController::class);
 // 6. MÀN HÌNH HOẠT ĐỘNG & TIN TỨC (Activities)
 Route::apiResource('activities', ActivityApiController::class);
 
-// 7. MÀN HÌNH GƯƠNG MẶT SINH VIÊN TIÊU BIỂU (Outstanding People)
+// 7. MÀN HÌNH GƯƠNG MẶT CÁN BỘ ĐOÀN & SINH VIÊN TIÊU BIỂU (Outstanding People)
+Route::get('/cadres', [OutstandingPersonApiController::class, 'cadres']);
+Route::get('/can-bo-tieu-bieu', [OutstandingPersonApiController::class, 'cadres']);
+Route::get('/students', [OutstandingPersonApiController::class, 'students']);
+Route::get('/sinh-vien-tieu-bieu', [OutstandingPersonApiController::class, 'students']);
 Route::apiResource('outstanding-people', OutstandingPersonApiController::class);
 
 // 8. MÀN HÌNH THƯ VIỆN (Thư viện ảnh & Thông tư, quy định, biểu mẫu)

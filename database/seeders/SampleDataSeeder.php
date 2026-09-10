@@ -303,38 +303,54 @@ class SampleDataSeeder extends Seeder
             Activity::updateOrCreate(['title' => $act['title']], $act);
         }
 
-        // 5. Nạp dữ liệu Gương mặt tiêu biểu
+        // 5. Nạp dữ liệu Gương mặt tiêu biểu (Cán bộ Đoàn & Sinh viên tiêu biểu T02)
         $people = [
             [
-                'name' => 'ThS. Nguyễn Văn Hùng',
-                'avatar' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&q=80',
-                'role_group' => 'BGD',
-                'class_unit' => 'Ban Giám Đốc / Đảng Ủy',
-                'achievement' => 'Phụ trách công tác thanh niên và hỗ trợ sinh viên khởi nghiệp đổi mới sáng tạo.',
+                'name' => 'Đại úy Nguyễn Văn Hùng',
+                'avatar' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&q=80',
+                'role_group' => 'BI_THU_DOAN',
+                'class_unit' => 'Ban Thường vụ Đoàn Học viện CSND',
+                'achievement' => 'Cán bộ Đoàn tiêu biểu toàn lực lượng CAND năm 2025, Bằng khen của Trung ương Đoàn TNCS Hồ Chí Minh.',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Thượng úy Trần Minh Tuấn',
+                'avatar' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&q=80',
+                'role_group' => 'BI_THU_DOAN',
+                'class_unit' => 'Bí thư Liên chi đoàn Khóa D47',
+                'achievement' => 'Đạt danh hiệu Thanh niên tiên tiến làm theo lời Bác cấp Bộ Công an, Giải Nhất Báo cáo viên giỏi cấp Học viện.',
                 'is_active' => true,
             ],
             [
                 'name' => 'Nguyễn Văn Nam',
-                'avatar' => 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&q=80',
+                'avatar' => 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=300&q=80',
                 'role_group' => 'BI_THU_DOAN',
-                'class_unit' => 'Chi đoàn K15 CNTT 1',
-                'achievement' => 'Đạt danh hiệu Cán bộ Đoàn tiêu biểu cấp Trường, Điểm rèn luyện Xuất sắc 3 năm liên tiếp.',
+                'class_unit' => 'Bí thư Chi đoàn B11 - Khóa D48',
+                'achievement' => 'Cán bộ Đoàn xuất sắc 3 năm liên tiếp, Chủ nhiệm CLB Truyền thông PPA Media, Điểm rèn luyện Xuất sắc.',
                 'is_active' => true,
             ],
             [
                 'name' => 'Trần Thị Thu Trang',
-                'avatar' => 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200&q=80',
+                'avatar' => 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300&q=80',
                 'role_group' => 'DOAN_VIEN',
-                'class_unit' => 'Chi đoàn K16 Kinh tế',
-                'achievement' => 'Đạt danh hiệu "Sinh viên 5 tốt" cấp Thành phố, Giải Nhì cuộc thi Ý tưởng Khởi nghiệp sáng tạo.',
+                'class_unit' => 'Chi đoàn B3 - Khóa D48',
+                'achievement' => 'Danh hiệu "Sinh viên 5 tốt" cấp Trung ương, Giải Nhì cuộc thi Olympic Tiếng Anh sinh viên toàn quốc.',
                 'is_active' => true,
             ],
             [
                 'name' => 'Lê Hoàng Long',
-                'avatar' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80',
+                'avatar' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80',
                 'role_group' => 'DOAN_VIEN',
-                'class_unit' => 'Chi đoàn K14 Tự động hóa',
-                'achievement' => 'Giải Nhất Hội nghị NCKH Sinh viên toàn trường, có 2 bài báo quốc tế thuộc danh mục Scopus.',
+                'class_unit' => 'Chi đoàn B1 - Khóa D47',
+                'achievement' => 'Giải Nhất Hội nghị NCKH Học viên Cảnh sát, Tác giả 2 bài báo quốc tế thuộc danh mục Scopus, Học viên Giỏi.',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Phạm Phương Linh',
+                'avatar' => 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&q=80',
+                'role_group' => 'DOAN_VIEN',
+                'class_unit' => 'Chi đoàn B5 - Khóa D49',
+                'achievement' => 'Huy chương Vàng Giải Bắn súng - Võ thuật ứng dụng CAND 2025, Danh hiệu "Sinh viên 5 tốt" cấp Học viện.',
                 'is_active' => true,
             ],
         ];
