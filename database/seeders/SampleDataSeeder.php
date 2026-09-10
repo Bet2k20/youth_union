@@ -306,7 +306,17 @@ class SampleDataSeeder extends Seeder
         // 5. Nạp dữ liệu Gương mặt tiêu biểu (Cán bộ Đoàn & Sinh viên tiêu biểu T02)
         $people = [
             [
+                'name' => 'Thượng úy Trần Minh Tuấn',
+                'position' => 'Bí thư Liên chi đoàn',
+                'avatar' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&q=80',
+                'role_group' => 'BI_THU_DOAN',
+                'class_unit' => 'Liên chi đoàn Khóa D47',
+                'achievement' => 'Đạt danh hiệu Thanh niên tiên tiến làm theo lời Bác cấp Bộ Công an, Giải Nhất Báo cáo viên giỏi cấp Học viện.',
+                'is_active' => true,
+            ],
+            [
                 'name' => 'Đại úy Nguyễn Văn Hùng',
+                'position' => 'Ủy viên Ban Thường vụ',
                 'avatar' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&q=80',
                 'role_group' => 'BI_THU_DOAN',
                 'class_unit' => 'Ban Thường vụ Đoàn Học viện CSND',
@@ -314,23 +324,17 @@ class SampleDataSeeder extends Seeder
                 'is_active' => true,
             ],
             [
-                'name' => 'Thượng úy Trần Minh Tuấn',
-                'avatar' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&q=80',
-                'role_group' => 'BI_THU_DOAN',
-                'class_unit' => 'Bí thư Liên chi đoàn Khóa D47',
-                'achievement' => 'Đạt danh hiệu Thanh niên tiên tiến làm theo lời Bác cấp Bộ Công an, Giải Nhất Báo cáo viên giỏi cấp Học viện.',
-                'is_active' => true,
-            ],
-            [
                 'name' => 'Nguyễn Văn Nam',
+                'position' => 'Bí thư Chi đoàn',
                 'avatar' => 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=300&q=80',
                 'role_group' => 'BI_THU_DOAN',
-                'class_unit' => 'Bí thư Chi đoàn B11 - Khóa D48',
+                'class_unit' => 'Chi đoàn B11 - Khóa D48',
                 'achievement' => 'Cán bộ Đoàn xuất sắc 3 năm liên tiếp, Chủ nhiệm CLB Truyền thông PPA Media, Điểm rèn luyện Xuất sắc.',
                 'is_active' => true,
             ],
             [
                 'name' => 'Trần Thị Thu Trang',
+                'position' => 'Đoàn viên xuất sắc',
                 'avatar' => 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300&q=80',
                 'role_group' => 'DOAN_VIEN',
                 'class_unit' => 'Chi đoàn B3 - Khóa D48',
@@ -339,6 +343,7 @@ class SampleDataSeeder extends Seeder
             ],
             [
                 'name' => 'Lê Hoàng Long',
+                'position' => 'Đoàn viên xuất sắc',
                 'avatar' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80',
                 'role_group' => 'DOAN_VIEN',
                 'class_unit' => 'Chi đoàn B1 - Khóa D47',
@@ -347,6 +352,7 @@ class SampleDataSeeder extends Seeder
             ],
             [
                 'name' => 'Phạm Phương Linh',
+                'position' => 'Đoàn viên xuất sắc',
                 'avatar' => 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&q=80',
                 'role_group' => 'DOAN_VIEN',
                 'class_unit' => 'Chi đoàn B5 - Khóa D49',

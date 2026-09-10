@@ -1185,6 +1185,7 @@
         const [currentId, setCurrentId] = useState(null);
 
         const [name, setName] = useState('');
+        const [position, setPosition] = useState('');
         const [avatar, setAvatar] = useState('');
         const [roleGroup, setRoleGroup] = useState('DOAN_VIEN');
         const [classUnit, setClassUnit] = useState('');
@@ -1212,6 +1213,7 @@
             setIsEditing(false);
             setCurrentId(null);
             setName('');
+            setPosition('');
             setAvatar('');
             setRoleGroup('DOAN_VIEN');
             setClassUnit('');
@@ -1224,6 +1226,7 @@
             setIsEditing(true);
             setCurrentId(p.id);
             setName(p.name);
+            setPosition(p.position || '');
             setAvatar(p.avatar || '');
             setRoleGroup(p.role_group || 'DOAN_VIEN');
             setClassUnit(p.class_unit || '');
@@ -1243,6 +1246,7 @@
                     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                     body: JSON.stringify({
                         name: name.trim(),
+                        position: position.trim(),
                         avatar: avatar.trim(),
                         role_group: roleGroup,
                         class_unit: classUnit.trim(),
@@ -1311,8 +1315,9 @@
                                         <th>ID</th>
                                         <th>Ảnh Chân Dung</th>
                                         <th>Họ Và Tên</th>
+                                        <th>Chức Vụ</th>
+                                        <th>Lớp / Chi Đoàn</th>
                                         <th>Danh Hiệu / Nhóm</th>
-                                        <th>Chi Đoàn / Đơn Vị</th>
                                         <th>Thành Tích Nổi Bật</th>
                                         <th>Trạng Thái</th>
                                         <th className="text-end">Thao Tác</th>
@@ -1331,9 +1336,10 @@
                                                 />
                                             </td>
                                             <td className="fw-bold text-dark">{p.name}</td>
-                                            <td>{getRoleBadge(p.role_group)}</td>
+                                            <td className="small fw-semibold text-primary">{p.position || '-'}</td>
                                             <td className="small text-muted">{p.class_unit || '-'}</td>
-                                            <td className="small" style={{maxWidth: "260px"}}>{p.achievement || '-'}</td>
+                                            <td>{getRoleBadge(p.role_group)}</td>
+                                            <td className="small" style={{maxWidth: "220px"}}>{p.achievement || '-'}</td>
                                             <td><span className={`badge ${p.is_active ? 'bg-success' : 'bg-secondary'}`}>{p.is_active ? 'Hiển thị' : 'Ẩn'}</span></td>
                                             <td className="text-end">
                                                 <button className="btn btn-outline-warning btn-sm me-1" onClick={() => handleOpenEdit(p)}>
@@ -1365,6 +1371,17 @@
                                         <input type="text" className="form-control" value={name} onChange={(e) => setName(e.target.value)} placeholder="Nhập họ và tên..." />
                                     </div>
 
+                                    <div className="row g-2 mb-3">
+                                        <div className="col-6">
+                                            <label className="form-label fw-bold">Chức vụ / Vai trò</label>
+                                            <input type="text" className="form-control" value={position} onChange={(e) => setPosition(e.target.value)} placeholder="VD: Bí thư Chi đoàn..." />
+                                        </div>
+                                        <div className="col-6">
+                                            <label className="form-label fw-bold">Chi đoàn / Lớp</label>
+                                            <input type="text" className="form-control" value={classUnit} onChange={(e) => setClassUnit(e.target.value)} placeholder="VD: Chi đoàn B11 - D48..." />
+                                        </div>
+                                    </div>
+
                                     {/* Upload Ảnh Chân Dung */}
                                     <ImageUploadInput
                                         value={avatar}
@@ -1373,19 +1390,13 @@
                                         label="Ảnh chân dung sinh viên (Avatar)"
                                     />
 
-                                    <div className="row g-2 mb-3">
-                                        <div className="col-6">
-                                            <label className="form-label fw-bold">Danh hiệu / Nhóm</label>
-                                            <select className="form-select" value={roleGroup} onChange={(e) => setRoleGroup(e.target.value)}>
-                                                <option value="DOAN_VIEN">Đoàn Viên Xuất Sắc</option>
-                                                <option value="BI_THU_DOAN">Bí Thư Chi Đoàn</option>
-                                                <option value="BGD">Ban Giám Đốc / Đảng Ủy</option>
-                                            </select>
-                                        </div>
-                                        <div className="col-6">
-                                            <label className="form-label fw-bold">Chi đoàn / Lớp</label>
-                                            <input type="text" className="form-control" value={classUnit} onChange={(e) => setClassUnit(e.target.value)} placeholder="VD: Chi đoàn K15 CNTT" />
-                                        </div>
+                                    <div className="mb-3">
+                                        <label className="form-label fw-bold">Danh hiệu / Nhóm</label>
+                                        <select className="form-select" value={roleGroup} onChange={(e) => setRoleGroup(e.target.value)}>
+                                            <option value="DOAN_VIEN">Sinh Viên Tiêu Biểu / Đoàn Viên Xuất Sắc</option>
+                                            <option value="BI_THU_DOAN">Cán Bộ Đoàn Tiêu Biểu / Bí Thư Đoàn</option>
+                                            <option value="BGD">Ban Giám Đốc / Đảng Ủy</option>
+                                        </select>
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label fw-bold">Thành tích nổi bật</label>

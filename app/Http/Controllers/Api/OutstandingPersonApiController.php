@@ -122,6 +122,7 @@ class OutstandingPersonApiController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
+            'position' => 'nullable|string|max:255',
             'avatar' => 'nullable|string|max:500',
             'role_group' => 'required|in:BGD,BI_THU_DOAN,DOAN_VIEN',
             'class_unit' => 'nullable|string|max:255',
@@ -141,11 +142,14 @@ class OutstandingPersonApiController extends Controller
             ], 422);
         }
 
+        $classUnit = $request->input('class_unit') ?? $request->input('class_name') ?? $request->input('class');
+
         $person = OutstandingPerson::create([
             'name' => $request->name,
+            'position' => $request->position,
             'avatar' => $request->avatar,
             'role_group' => $request->role_group,
-            'class_unit' => $request->class_unit,
+            'class_unit' => $classUnit,
             'achievement' => $request->achievement,
             'is_active' => $request->boolean('is_active', true),
         ]);
@@ -174,6 +178,7 @@ class OutstandingPersonApiController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'sometimes|required|string|max:255',
+            'position' => 'nullable|string|max:255',
             'avatar' => 'nullable|string|max:500',
             'role_group' => 'sometimes|required|in:BGD,BI_THU_DOAN,DOAN_VIEN',
             'class_unit' => 'nullable|string|max:255',
@@ -192,7 +197,12 @@ class OutstandingPersonApiController extends Controller
             ], 422);
         }
 
-        $person->update($request->only(['name', 'avatar', 'role_group', 'class_unit', 'achievement', 'is_active']));
+        $data = $request->only(['name', 'position', 'avatar', 'role_group', 'class_unit', 'achievement', 'is_active']);
+        if (!$request->has('class_unit') && ($request->has('class_name') || $request->has('class'))) {
+            $data['class_unit'] = $request->input('class_name') ?? $request->input('class');
+        }
+
+        $person->update($data);
 
         return response()->json([
             'status' => 'success',

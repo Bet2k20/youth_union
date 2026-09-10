@@ -11,6 +11,7 @@ class OutstandingPerson extends Model
 
     protected $fillable = [
         'name',
+        'position',
         'avatar',
         'role_group',
         'class_unit',
@@ -24,6 +25,8 @@ class OutstandingPerson extends Model
 
     protected $appends = [
         'role_label',
+        'class_name',
+        'class',
     ];
 
     /**
@@ -49,5 +52,21 @@ class OutstandingPerson extends Model
             'DOAN_VIEN' => 'Sinh viên tiêu biểu',
             default => 'Gương mặt tiêu biểu',
         };
+    }
+
+    /**
+     * Alias class_name cho class_unit (để Frontend dùng trực tiếp)
+     */
+    public function getClassNameAttribute(): ?string
+    {
+        return $this->class_unit;
+    }
+
+    /**
+     * Alias class cho class_unit
+     */
+    public function getClassAttribute(): ?string
+    {
+        return $this->class_unit;
     }
 }
