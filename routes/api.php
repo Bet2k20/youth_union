@@ -59,8 +59,11 @@ Route::post('/upload', [UploadApiController::class, 'upload']);
 // 1. MÀN HÌNH TRANG CHỦ (Home Page)
 Route::get('/home', [HomeSummaryApiController::class, 'index']);
 
-// 2. MÀN HÌNH GIỚI THIỆU & ĐOÀN THANH NIÊN HỌC VIỆN (About & Organization)
+// 2. MÀN HÌNH GIỚI THIỆU & ĐOÀN THANH NIÊN HỌC VIỆN (About & Organization & Achievements)
 Route::get('/about', [AboutApiController::class, 'index']);
+Route::get('/achievements', [AboutApiController::class, 'achievements']);
+Route::get('/thanh-tich', [AboutApiController::class, 'achievements']);
+Route::get('/khen-thuong', [AboutApiController::class, 'achievements']);
 
 // 3. MÀN HÌNH PHONG TRÀO ĐOÀN (Movements)
 Route::get('/movements', [MovementApiController::class, 'index']);
