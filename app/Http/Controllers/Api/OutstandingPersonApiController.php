@@ -32,7 +32,9 @@ class OutstandingPersonApiController extends Controller
         $rawRole = $request->input('role_group') ?? $request->input('role') ?? $request->input('type');
         if ($rawRole) {
             $roleNormalized = strtoupper(trim($rawRole));
-            if (in_array($roleNormalized, ['CAN_BO', 'CADRE', 'CADRES', 'CAN_BO_DOAN', 'BI_THU_DOAN', 'CAN_BO_TIEU_BIEU'])) {
+            if (in_array($roleNormalized, ['BTV', 'BTV_DOAN', 'BAN_THUONG_VU', 'THUONG_VU', 'STANDING_COMMITTEE'])) {
+                $query->where('role_group', 'BTV_DOAN');
+            } elseif (in_array($roleNormalized, ['CAN_BO', 'CADRE', 'CADRES', 'CAN_BO_DOAN', 'BI_THU_DOAN', 'CAN_BO_TIEU_BIEU'])) {
                 $query->where('role_group', 'BI_THU_DOAN');
             } elseif (in_array($roleNormalized, ['SINH_VIEN', 'STUDENT', 'STUDENTS', 'DOAN_VIEN', 'DOAN_VIEN_XUAT_SAC', 'SINH_VIEN_TIEU_BIEU'])) {
                 $query->where('role_group', 'DOAN_VIEN');
@@ -49,7 +51,7 @@ class OutstandingPersonApiController extends Controller
             $query->where('name', 'like', "%{$keyword}%");
         }
 
-        $people = $query->orderBy('id', 'desc')->get();
+        $people = $query->orderBy('order', 'asc')->orderBy('id', 'desc')->get();
 
         // Nếu Frontend muốn trả về cấu trúc chia nhóm sẵn (?grouped=1)
         if ($request->boolean('grouped')) {
@@ -57,6 +59,7 @@ class OutstandingPersonApiController extends Controller
                 'status' => 'success',
                 'message' => 'Lấy danh sách gương mặt tiêu biểu theo nhóm thành công',
                 'data' => [
+                    'btv' => $people->where('role_group', 'BTV_DOAN')->values(),
                     'cadres' => $people->where('role_group', 'BI_THU_DOAN')->values(),
                     'students' => $people->where('role_group', 'DOAN_VIEN')->values(),
                     'leaders' => $people->where('role_group', 'BGD')->values(),
@@ -70,6 +73,16 @@ class OutstandingPersonApiController extends Controller
             'total' => $people->count(),
             'data' => $people,
         ], 200);
+    }
+
+    /**
+     * [R] API chuyên biệt lấy danh sách Ban Thường Vụ Đoàn Học Viện
+     * GET /api/btv-doan hoặc GET /api/ban-thuong-vu
+     */
+    public function btv(Request $request): JsonResponse
+    {
+        $request->merge(['role_group' => 'BTV_DOAN']);
+        return $this->index($request);
     }
 
     /**
@@ -123,15 +136,16 @@ class OutstandingPersonApiController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'position' => 'nullable|string|max:255',
+            'order' => 'nullable|integer',
             'avatar' => 'nullable|string|max:500',
-            'role_group' => 'required|in:BGD,BI_THU_DOAN,DOAN_VIEN',
+            'role_group' => 'required|in:BGD,BTV_DOAN,BI_THU_DOAN,DOAN_VIEN',
             'class_unit' => 'nullable|string|max:255',
             'achievement' => 'nullable|string',
             'is_active' => 'boolean',
         ], [
             'name.required' => 'Vui lòng nhập họ và tên!',
-            'role_group.required' => 'Vui lòng chọn nhóm danh hiệu (BGD, BI_THU_DOAN, DOAN_VIEN)!',
-            'role_group.in' => 'Nhóm danh hiệu phải là một trong các giá trị: BGD, BI_THU_DOAN, DOAN_VIEN',
+            'role_group.required' => 'Vui lòng chọn nhóm danh hiệu (BGD, BTV_DOAN, BI_THU_DOAN, DOAN_VIEN)!',
+            'role_group.in' => 'Nhóm danh hiệu phải là một trong các giá trị: BGD, BTV_DOAN, BI_THU_DOAN, DOAN_VIEN',
         ]);
 
         if ($validator->fails()) {
@@ -147,6 +161,7 @@ class OutstandingPersonApiController extends Controller
         $person = OutstandingPerson::create([
             'name' => $request->name,
             'position' => $request->position,
+            'order' => (int) $request->input('order', 0),
             'avatar' => $request->avatar,
             'role_group' => $request->role_group,
             'class_unit' => $classUnit,
@@ -179,8 +194,9 @@ class OutstandingPersonApiController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'sometimes|required|string|max:255',
             'position' => 'nullable|string|max:255',
+            'order' => 'nullable|integer',
             'avatar' => 'nullable|string|max:500',
-            'role_group' => 'sometimes|required|in:BGD,BI_THU_DOAN,DOAN_VIEN',
+            'role_group' => 'sometimes|required|in:BGD,BTV_DOAN,BI_THU_DOAN,DOAN_VIEN',
             'class_unit' => 'nullable|string|max:255',
             'achievement' => 'nullable|string',
             'is_active' => 'boolean',
@@ -197,7 +213,7 @@ class OutstandingPersonApiController extends Controller
             ], 422);
         }
 
-        $data = $request->only(['name', 'position', 'avatar', 'role_group', 'class_unit', 'achievement', 'is_active']);
+        $data = $request->only(['name', 'position', 'order', 'avatar', 'role_group', 'class_unit', 'achievement', 'is_active']);
         if (!$request->has('class_unit') && ($request->has('class_name') || $request->has('class'))) {
             $data['class_unit'] = $request->input('class_name') ?? $request->input('class');
         }

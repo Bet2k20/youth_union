@@ -303,11 +303,65 @@ class SampleDataSeeder extends Seeder
             Activity::updateOrCreate(['title' => $act['title']], $act);
         }
 
-        // 5. Nạp dữ liệu Gương mặt tiêu biểu (Cán bộ Đoàn & Sinh viên tiêu biểu T02)
+        // 5. Nạp dữ liệu Ban Thường Vụ Đoàn Học viện & Gương mặt tiêu biểu
         $people = [
+            // --- BAN THƯỜNG VỤ ĐOÀN THANH NIÊN HỌC VIỆN CSND ---
+            [
+                'name' => 'Nguyễn Văn Duy',
+                'position' => 'Bí thư Đoàn Học viện',
+                'order' => 1,
+                'avatar' => '/images/btv-doan/nguyen-van-duy.jpg',
+                'role_group' => 'BTV_DOAN',
+                'class_unit' => 'Ban Thường vụ Đoàn Học viện CSND',
+                'achievement' => 'Bí thư Đoàn TNCS Hồ Chí Minh Học viện Cảnh sát nhân dân',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Nguyễn Xuân Vinh',
+                'position' => 'Phó Bí thư Đoàn Học viện',
+                'order' => 2,
+                'avatar' => '/images/btv-doan/nguyen-xuan-vinh.jpg',
+                'role_group' => 'BTV_DOAN',
+                'class_unit' => 'Ban Thường vụ Đoàn Học viện CSND',
+                'achievement' => 'Phó Bí thư Đoàn TNCS Hồ Chí Minh Học viện Cảnh sát nhân dân',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Trần Văn Phú',
+                'position' => 'Phó Bí thư Đoàn Học viện',
+                'order' => 3,
+                'avatar' => '/images/btv-doan/tran-van-phu.jpg',
+                'role_group' => 'BTV_DOAN',
+                'class_unit' => 'Ban Thường vụ Đoàn Học viện CSND',
+                'achievement' => 'Phó Bí thư Đoàn TNCS Hồ Chí Minh Học viện Cảnh sát nhân dân',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Nguyễn Thành Nghĩa',
+                'position' => 'Ủy viên Thường trực BTV',
+                'order' => 4,
+                'avatar' => '/images/btv-doan/nguyen-thanh-nghia.jpg',
+                'role_group' => 'BTV_DOAN',
+                'class_unit' => 'Ban Thường vụ Đoàn Học viện CSND',
+                'achievement' => 'Ủy viên Thường trực Ban Thường vụ Đoàn Học viện CSND',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Nguyễn Xuân Hiếu',
+                'position' => 'Ủy viên Thường trực BTV',
+                'order' => 5,
+                'avatar' => '/images/btv-doan/nguyen-xuan-hieu.jpg',
+                'role_group' => 'BTV_DOAN',
+                'class_unit' => 'Ban Thường vụ Đoàn Học viện CSND',
+                'achievement' => 'Ủy viên Thường trực Ban Thường vụ Đoàn Học viện CSND',
+                'is_active' => true,
+            ],
+
+            // --- CÁN BỘ ĐOÀN & SINH VIÊN TIÊU BIỂU ---
             [
                 'name' => 'Thượng úy Trần Minh Tuấn',
                 'position' => 'Bí thư Liên chi đoàn',
+                'order' => 10,
                 'avatar' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&q=80',
                 'role_group' => 'BI_THU_DOAN',
                 'class_unit' => 'Liên chi đoàn Khóa D47',
@@ -315,17 +369,9 @@ class SampleDataSeeder extends Seeder
                 'is_active' => true,
             ],
             [
-                'name' => 'Đại úy Nguyễn Văn Hùng',
-                'position' => 'Ủy viên Ban Thường vụ',
-                'avatar' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&q=80',
-                'role_group' => 'BI_THU_DOAN',
-                'class_unit' => 'Ban Thường vụ Đoàn Học viện CSND',
-                'achievement' => 'Cán bộ Đoàn tiêu biểu toàn lực lượng CAND năm 2025, Bằng khen của Trung ương Đoàn TNCS Hồ Chí Minh.',
-                'is_active' => true,
-            ],
-            [
                 'name' => 'Nguyễn Văn Nam',
                 'position' => 'Bí thư Chi đoàn',
+                'order' => 11,
                 'avatar' => 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=300&q=80',
                 'role_group' => 'BI_THU_DOAN',
                 'class_unit' => 'Chi đoàn B11 - Khóa D48',
@@ -335,6 +381,7 @@ class SampleDataSeeder extends Seeder
             [
                 'name' => 'Trần Thị Thu Trang',
                 'position' => 'Đoàn viên xuất sắc',
+                'order' => 12,
                 'avatar' => 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300&q=80',
                 'role_group' => 'DOAN_VIEN',
                 'class_unit' => 'Chi đoàn B3 - Khóa D48',
@@ -344,6 +391,7 @@ class SampleDataSeeder extends Seeder
             [
                 'name' => 'Lê Hoàng Long',
                 'position' => 'Đoàn viên xuất sắc',
+                'order' => 13,
                 'avatar' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80',
                 'role_group' => 'DOAN_VIEN',
                 'class_unit' => 'Chi đoàn B1 - Khóa D47',
@@ -353,6 +401,7 @@ class SampleDataSeeder extends Seeder
             [
                 'name' => 'Phạm Phương Linh',
                 'position' => 'Đoàn viên xuất sắc',
+                'order' => 14,
                 'avatar' => 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&q=80',
                 'role_group' => 'DOAN_VIEN',
                 'class_unit' => 'Chi đoàn B5 - Khóa D49',

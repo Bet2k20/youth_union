@@ -75,7 +75,9 @@ Route::apiResource('clubs', ClubApiController::class);
 // 6. MÀN HÌNH HOẠT ĐỘNG & TIN TỨC (Activities)
 Route::apiResource('activities', ActivityApiController::class);
 
-// 7. MÀN HÌNH GƯƠNG MẶT CÁN BỘ ĐOÀN & SINH VIÊN TIÊU BIỂU (Outstanding People)
+// 7. MÀN HÌNH GƯƠNG MẶT CÁN BỘ ĐOÀN, BTV & SINH VIÊN TIÊU BIỂU (Outstanding People)
+Route::get('/btv-doan', [OutstandingPersonApiController::class, 'btv']);
+Route::get('/ban-thuong-vu', [OutstandingPersonApiController::class, 'btv']);
 Route::get('/cadres', [OutstandingPersonApiController::class, 'cadres']);
 Route::get('/can-bo-tieu-bieu', [OutstandingPersonApiController::class, 'cadres']);
 Route::get('/students', [OutstandingPersonApiController::class, 'students']);

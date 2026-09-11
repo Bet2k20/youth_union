@@ -1186,6 +1186,7 @@
 
         const [name, setName] = useState('');
         const [position, setPosition] = useState('');
+        const [order, setOrder] = useState(0);
         const [avatar, setAvatar] = useState('');
         const [roleGroup, setRoleGroup] = useState('DOAN_VIEN');
         const [classUnit, setClassUnit] = useState('');
@@ -1214,6 +1215,7 @@
             setCurrentId(null);
             setName('');
             setPosition('');
+            setOrder(0);
             setAvatar('');
             setRoleGroup('DOAN_VIEN');
             setClassUnit('');
@@ -1227,6 +1229,7 @@
             setCurrentId(p.id);
             setName(p.name);
             setPosition(p.position || '');
+            setOrder(p.order || 0);
             setAvatar(p.avatar || '');
             setRoleGroup(p.role_group || 'DOAN_VIEN');
             setClassUnit(p.class_unit || '');
@@ -1247,6 +1250,7 @@
                     body: JSON.stringify({
                         name: name.trim(),
                         position: position.trim(),
+                        order: parseInt(order) || 0,
                         avatar: avatar.trim(),
                         role_group: roleGroup,
                         class_unit: classUnit.trim(),
@@ -1282,7 +1286,8 @@
         const getRoleBadge = (role) => {
             switch(role) {
                 case 'BGD': return <span className="badge bg-danger">BGD / Đảng Ủy</span>;
-                case 'BI_THU_DOAN': return <span className="badge bg-primary">Bí Thư Đoàn</span>;
+                case 'BTV_DOAN': return <span className="badge bg-warning text-dark">BTV Đoàn Học Viện</span>;
+                case 'BI_THU_DOAN': return <span className="badge bg-primary">Cán Bộ Đoàn</span>;
                 case 'DOAN_VIEN': return <span className="badge bg-success">Đoàn Viên Xuất Sắc</span>;
                 default: return <span className="badge bg-secondary">{role}</span>;
             }
@@ -1390,17 +1395,24 @@
                                         label="Ảnh chân dung sinh viên (Avatar)"
                                     />
 
-                                    <div className="mb-3">
-                                        <label className="form-label fw-bold">Danh hiệu / Nhóm</label>
-                                        <select className="form-select" value={roleGroup} onChange={(e) => setRoleGroup(e.target.value)}>
-                                            <option value="DOAN_VIEN">Sinh Viên Tiêu Biểu / Đoàn Viên Xuất Sắc</option>
-                                            <option value="BI_THU_DOAN">Cán Bộ Đoàn Tiêu Biểu / Bí Thư Đoàn</option>
-                                            <option value="BGD">Ban Giám Đốc / Đảng Ủy</option>
-                                        </select>
+                                    <div className="row g-2 mb-3">
+                                        <div className="col-8">
+                                            <label className="form-label fw-bold">Danh hiệu / Nhóm</label>
+                                            <select className="form-select" value={roleGroup} onChange={(e) => setRoleGroup(e.target.value)}>
+                                                <option value="BTV_DOAN">Ban Thường Vụ Đoàn Học Viện</option>
+                                                <option value="BI_THU_DOAN">Cán Bộ Đoàn Tiêu Biểu / Bí Thư Chi Đoàn</option>
+                                                <option value="DOAN_VIEN">Sinh Viên Tiêu Biểu / Đoàn Viên Xuất Sắc</option>
+                                                <option value="BGD">Ban Giám Đốc / Đảng Ủy</option>
+                                            </select>
+                                        </div>
+                                        <div className="col-4">
+                                            <label className="form-label fw-bold">Thứ tự ưu tiên</label>
+                                            <input type="number" className="form-control" value={order} onChange={(e) => setOrder(e.target.value)} placeholder="1, 2, 3..." />
+                                        </div>
                                     </div>
                                     <div className="mb-3">
-                                        <label className="form-label fw-bold">Thành tích nổi bật</label>
-                                        <textarea className="form-control" rows="3" value={achievement} onChange={(e) => setAchievement(e.target.value)} placeholder="Sinh viên 5 tốt..."></textarea>
+                                        <label className="form-label fw-bold">Thành tích / Giới thiệu</label>
+                                        <textarea className="form-control" rows="3" value={achievement} onChange={(e) => setAchievement(e.target.value)} placeholder="Thông tin thành tích hoặc nhiệm vụ..."></textarea>
                                     </div>
                                     <div className="form-check form-switch mb-2">
                                         <input className="form-check-input" type="checkbox" id="person_is_active" checked={isActive} onChange={(e) => setIsActive(e.target.checked)} />

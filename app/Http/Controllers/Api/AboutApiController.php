@@ -30,14 +30,26 @@ class AboutApiController extends Controller
             ->where('is_active', true)
             ->get();
 
-        // 3. Cơ cấu tổ chức Đoàn trường
+        // 3. Cơ cấu tổ chức Đoàn trường (Ban Thường Vụ ĐTN Học viện)
+        $btvMembers = OutstandingPerson::where('role_group', 'BTV_DOAN')
+            ->where('is_active', true)
+            ->orderBy('order', 'asc')
+            ->orderBy('id', 'asc')
+            ->get();
+
+        if ($btvMembers->isEmpty()) {
+            $btvMembers = OutstandingPerson::where('role_group', 'BI_THU_DOAN')
+                ->where('is_active', true)
+                ->orderBy('order', 'asc')
+                ->orderBy('id', 'asc')
+                ->get();
+        }
+
         $organizationStructure = [
             'executive_board' => [
-                'name' => 'Ban Thường Vụ & Ban Chấp Hành Đoàn Học Viện',
+                'name' => 'Ban Thường Vụ Đoàn Thanh Niên Học Viện CSND',
                 'description' => 'Cơ quan lãnh đạo cao nhất của Đoàn trường giữa hai kỳ Đại hội, chỉ đạo toàn diện công tác Đoàn và phong trào thanh niên trong toàn Học viện.',
-                'members' => OutstandingPerson::where('role_group', 'BI_THU_DOAN')
-                    ->where('is_active', true)
-                    ->get(),
+                'members' => $btvMembers,
             ],
             'departments' => [
                 [

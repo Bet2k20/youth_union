@@ -12,6 +12,7 @@ class OutstandingPerson extends Model
     protected $fillable = [
         'name',
         'position',
+        'order',
         'avatar',
         'role_group',
         'class_unit',
@@ -21,6 +22,7 @@ class OutstandingPerson extends Model
 
     protected $casts = [
         'is_active' => 'boolean',
+        'order' => 'integer',
     ];
 
     protected $appends = [
@@ -48,6 +50,7 @@ class OutstandingPerson extends Model
     {
         return match ($this->role_group) {
             'BGD' => 'Ban Giám Đốc / Đảng Ủy',
+            'BTV_DOAN' => 'Ban Thường Vụ Đoàn Học Viện',
             'BI_THU_DOAN' => 'Cán bộ Đoàn tiêu biểu',
             'DOAN_VIEN' => 'Sinh viên tiêu biểu',
             default => 'Gương mặt tiêu biểu',
