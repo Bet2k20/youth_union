@@ -193,33 +193,62 @@ class SampleDataSeeder extends Seeder
             Club::updateOrCreate(['name' => $c['name']], $c);
         }
 
-        // 3. Nạp dữ liệu Banners (Slider ảnh bìa)
+        // 3. Nạp dữ liệu Banners (Slider ảnh bìa thực tế từ Đoàn Học viện)
+        Banner::truncate();
         $banners = [
             [
-                'title' => 'Tuổi trẻ Học viện: Bản lĩnh • Kỷ cương • Trách nhiệm • Sáng tạo',
-                'image_url' => 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1200&q=80',
+                'title' => 'Tuổi trẻ Học viện CSND: Bản lĩnh • Kỷ cương • Trách nhiệm • Sáng tạo',
+                'image_url' => '/images/banners/banner-2.jpg',
                 'link_url' => '/hoat-dong',
                 'order' => 1,
                 'is_active' => true,
             ],
             [
-                'title' => 'Chiến Dịch Tình Nguyện Mùa Hè Xanh 2026',
-                'image_url' => 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1200&q=80',
-                'link_url' => '/hoat-dong',
+                'title' => 'Sổ tay Đoàn viên - Học viện Cảnh sát nhân dân',
+                'image_url' => '/images/banners/banner-7.jpg',
+                'link_url' => '/gioi-thieu',
                 'order' => 2,
                 'is_active' => true,
             ],
             [
-                'title' => 'Ngày Hội Câu Lạc Bộ Sinh Viên Đoàn Trường',
-                'image_url' => 'https://images.unsplash.com/photo-1511578314322-379afb476865?w=1200&q=80',
-                'link_url' => '/',
+                'title' => 'Đoàn viên thanh niên Học viện vững bước dưới cờ Đảng quang vinh',
+                'image_url' => '/images/banners/banner-5.jpg',
+                'link_url' => '/hanh-trinh-phan-dau',
                 'order' => 3,
+                'is_active' => true,
+            ],
+            [
+                'title' => 'Chiến dịch Thanh niên tình nguyện hè - Tuổi trẻ Học viện vì cộng đồng',
+                'image_url' => '/images/banners/banner-4.jpg',
+                'link_url' => '/hoat-dong',
+                'order' => 4,
+                'is_active' => true,
+            ],
+            [
+                'title' => 'Công trình thanh niên "Cầu Kha Hạ" - Dự án Ánh sáng núi rừng',
+                'image_url' => '/images/banners/banner-1.jpg',
+                'link_url' => '/hoat-dong',
+                'order' => 5,
+                'is_active' => true,
+            ],
+            [
+                'title' => 'Đẩy mạnh phong trào học tập, nghiên cứu khoa học và văn hóa đọc',
+                'image_url' => '/images/banners/banner-6.jpg',
+                'link_url' => '/cau-lac-bo',
+                'order' => 6,
+                'is_active' => true,
+            ],
+            [
+                'title' => 'Xung kích, sáng tạo trong công tác Đoàn và phong trào thanh niên Học viện',
+                'image_url' => '/images/banners/banner-3.jpg',
+                'link_url' => '/thanh-tich',
+                'order' => 7,
                 'is_active' => true,
             ],
         ];
 
         foreach ($banners as $b) {
-            Banner::updateOrCreate(['title' => $b['title']], $b);
+            Banner::create($b);
         }
 
         // 4. Nạp dữ liệu Hoạt động / Tin tức (kèm thông số Phong trào chuẩn Figma)
