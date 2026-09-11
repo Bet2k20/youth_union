@@ -174,6 +174,18 @@ class MediaApiController extends Controller
                 'file_size' => '3.4 MB',
                 'download_url' => url('/uploads/documents/ke_hoach_tinh_nguyen_he_2026.pdf'),
             ],
+            [
+                'id' => 8,
+                'title' => 'Hướng dẫn kiểm điểm, đánh giá, xếp loại đoàn viên, đoàn viên ưu tú và kết nạp Đảng',
+                'code_number' => 'HD 638 & HD 02-HD/ĐTN-T02',
+                'issuer' => 'BCH Đoàn Bộ Công an & BCH Đoàn Học viện CSND',
+                'issued_date' => '2025-02-20',
+                'category' => 'Hướng dẫn rèn luyện & Phân loại',
+                'description' => 'Quy định chi tiết tiêu chí xếp loại đoàn viên hằng năm (HTXS, HTT, HT, KHT), tiêu chuẩn xét đoàn viên ưu tú và điều kiện kết nạp Đảng.',
+                'file_type' => 'DOCX',
+                'file_size' => '35 KB',
+                'download_url' => url('/uploads/documents/phan_loai_doan_vien.docx'),
+            ],
         ];
     }
 

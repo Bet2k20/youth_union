@@ -65,8 +65,12 @@ Route::get('/about', [AboutApiController::class, 'index']);
 // 3. MÀN HÌNH PHONG TRÀO ĐOÀN (Movements)
 Route::get('/movements', [MovementApiController::class, 'index']);
 
-// 4. MÀN HÌNH HÀNH TRÌNH PHẤN ĐẤU / SINH VIÊN 5 TỐT (Student 5 Good)
+// 4. MÀN HÌNH HÀNH TRÌNH PHẤN ĐẤU / SINH VIÊN 5 TỐT (Student 5 Good & Member Classification)
 Route::get('/student-5-good', [Student5GoodApiController::class, 'index']);
+Route::get('/hanh-trinh-phan-dau', [Student5GoodApiController::class, 'index']);
+Route::get('/phan-loai-doan-vien', [Student5GoodApiController::class, 'memberClassification']);
+Route::get('/doan-vien-uu-tu', [Student5GoodApiController::class, 'eliteMember']);
+Route::get('/ket-nap-dang', [Student5GoodApiController::class, 'partyAdmission']);
 
 // 5. MÀN HÌNH CÂU LẠC BỘ – ĐỘI – NHÓM (Clubs)
 Route::get('/club-categories', [ClubApiController::class, 'categories']);
