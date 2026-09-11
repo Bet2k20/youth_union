@@ -21,6 +21,8 @@ class Student5GoodApiController extends Controller
                 'title' => 'Hành Trình Phấn Đấu Của Đoàn Viên PPA',
                 'subtitle' => 'Chặng đường rèn luyện và trưởng thành của người chiến sĩ Cảnh sát nhân dân tương lai – Từ Đoàn viên tiêu biểu đến Đảng viên Đảng Cộng sản Việt Nam.',
                 'student_5_good' => $this->getStudent5GoodData(),
+                'awards_comparison' => $this->getAwardsData()['levels_comparison'],
+                'sao_thang_gieng' => $this->getAwardsData()['sao_thang_gieng'],
                 'member_classification' => $this->getMemberClassificationData(),
                 'elite_member' => $this->getEliteMemberData(),
                 'party_admission' => $this->getPartyAdmissionData(),
@@ -34,6 +36,12 @@ class Student5GoodApiController extends Controller
                         'name' => 'Hướng dẫn xếp loại đoàn viên, đoàn viên ưu tú và kết nạp Đảng',
                         'code' => 'HD 638 & HD 02-HD/ĐTN-T02',
                         'file_url' => url('/uploads/documents/phan_loai_doan_vien.docx'),
+                        'type' => 'DOCX',
+                    ],
+                    [
+                        'name' => 'Quy định tiêu chuẩn Giải thưởng Sinh viên 5 Tốt các cấp và Giải thưởng Sao Tháng Giêng',
+                        'code' => 'SV5T & STG - TW Đoàn & ĐTN BCA',
+                        'file_url' => url('/uploads/documents/giai_thuong_so_tay.docx'),
                         'type' => 'DOCX',
                     ],
                 ],
@@ -332,6 +340,86 @@ class Student5GoodApiController extends Controller
                 'title' => '2. Quy Định Đối Với Cảm Tình Đảng Chuyển Đến',
                 'summary' => 'Học viên đã được công nhận là Cảm tình Đảng từ công an các đơn vị, địa phương hoặc cơ sở đào tạo khác chuyển đến Học viện CSND:',
                 'rule' => 'Chỉ được xem xét kết nạp Đảng sau khi đã có kết quả học tập và rèn luyện của ít nhất 01 năm học liền kề tại Học viện Cảnh sát nhân dân đạt yêu cầu theo quy định.',
+            ],
+        ];
+    }
+
+    /**
+     * API chuyên biệt: Tiêu chuẩn Sinh viên 5 Tốt 3 cấp & Giải thưởng Sao Tháng Giêng
+     * GET /api/giai-thuong-so-tay
+     */
+    public function awards(): JsonResponse
+    {
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Lấy dữ liệu giải thưởng Sinh viên 5 Tốt các cấp & Sao Tháng Giêng thành công',
+            'data' => $this->getAwardsData(),
+        ], 200);
+    }
+
+    /**
+     * Dữ liệu so sánh tiêu chuẩn Sinh viên 5 Tốt 3 cấp và Sao Tháng Giêng
+     */
+    private function getAwardsData(): array
+    {
+        return [
+            'levels_comparison' => [
+                'title' => 'Tiêu Chuẩn Giải Thưởng "Sinh Viên 5 Tốt" Các Cấp (Học Viện, Bộ Công An & Trung Ương)',
+                'columns' => [
+                    ['key' => 'standard', 'label' => 'Tiêu chuẩn'],
+                    ['key' => 'academy', 'label' => 'Cấp Học viện'],
+                    ['key' => 'ministry', 'label' => 'Cấp Bộ (Bộ Công an)'],
+                    ['key' => 'central', 'label' => 'Cấp Trung ương'],
+                ],
+                'rows' => [
+                    [
+                        'standard' => 'Đạo đức tốt',
+                        'academy' => 'Điểm rèn luyện ≥ 8.0. Không vi phạm pháp luật, điều lệnh CAND, nội quy Học viện.',
+                        'ministry' => 'Bắt buộc: Điểm rèn luyện ≥ 95/100; Không vi phạm pháp luật/quy chế. Đạt thêm (chọn 1): Gương thanh niên tiêu biểu ≥ cấp tỉnh biểu dương HOẶC Đảng viên xuất sắc năm gần nhất.',
+                        'central' => 'Tương tự cấp Bộ về tiêu chí bắt buộc. Yêu cầu mức độ khen thưởng/biểu dương ở cấp độ cao hơn hoặc danh hiệu cấp Trung ương.',
+                    ],
+                    [
+                        'standard' => 'Học tập tốt',
+                        'academy' => 'ĐTB cả năm ≥ 8.0/10. Có tham gia NCKH (viết đề tài, chuyên đề, bài đăng hội thảo...).',
+                        'ministry' => 'Bắt buộc: ĐTB cả năm ≥ 3.4/4 (tín chỉ) hoặc ≥ 8.5/10 (niên chế). Đạt thêm (chọn 1): Đề tài NCKH đạt giải ≥ cấp tỉnh; Tác giả bài báo WoS/Scopus (Q1–Q4); Sản phẩm sáng tạo/bằng sáng chế; Giải Ba trở lên cuộc thi học thuật/KHKT/khởi nghiệp cấp quốc gia/quốc tế.',
+                        'central' => 'Bắt buộc: ĐTB cả năm ≥ 3.4/4 hoặc ≥ 8.5/10. Đạt thêm: Yêu cầu giải thưởng NCKH/học thuật cấp quốc gia/quốc tế hoặc bài báo ISI/Scopus uy tín cao.',
+                    ],
+                    [
+                        'standard' => 'Thể lực tốt',
+                        'academy' => 'Tham gia các phong trào, hoạt động thể thao do Bộ Công an, Học viện hoặc Đoàn Học viện tổ chức.',
+                        'ministry' => 'Bắt buộc: Tham gia & đạt giải thể thao ≥ cấp trường HOẶC tham gia cấp Trung ương. Đạt thêm: Đạt giải Ba trở lên cấp tỉnh.',
+                        'central' => 'Bắt buộc: Tham gia & đạt giải thể thao cấp Trung ương/toàn quốc hoặc thành viên đội tuyển đại diện tham gia cấp quốc tế.',
+                    ],
+                    [
+                        'standard' => 'Tình nguyện tốt',
+                        'academy' => 'Tham gia ≥ 03 ngày tình nguyện/năm (tính cộng dồn/quy đổi). Ưu tiên: Thành viên tích cực (>1 năm) CLB/đội tình nguyện hoặc được khen thưởng.',
+                        'ministry' => 'Bắt buộc: Tham gia ≥ 05 ngày tình nguyện/năm (tính cộng dồn). Đạt thêm (chọn 1): Sáng lập/đồng sáng lập dự án tình nguyện hiệu quả; Bằng khen ≥ cấp tỉnh về tình nguyện.',
+                        'central' => 'Bắt buộc: Tham gia ≥ 05 ngày tình nguyện/năm. Đạt thêm: Được khen thưởng cấp Trung ương/Bằng khen Trung ương Đoàn về hoạt động tình nguyện.',
+                    ],
+                    [
+                        'standard' => 'Hội nhập tốt',
+                        'academy' => 'Đạt ít nhất 01 tiêu chí: Ngoại ngữ chứng chỉ ≥ A1 hoặc ĐTB môn ngoại ngữ ≥ 7.5; Tham gia ≥ 01 hoạt động giao lưu quốc tế; Tham gia cuộc thi kiến thức/ngoại ngữ ≥ cấp trường.',
+                        'ministry' => 'Bắt buộc: Ngoại ngữ B2 (hoặc tương đương) / điểm học phần ≥ 3.4/4 hay ≥ 8.5/10; Giao lưu quốc tế tham gia ≥ 01 hoạt động/hội thảo quốc tế. Đạt thêm: BCN CLB Ngoại ngữ, giải Ba cuộc thi ngoại ngữ ≥ cấp tỉnh, hoặc có chứng chỉ ≥ B1 ngoại ngữ thứ 2.',
+                        'central' => 'Bắt buộc: Sử dụng ngoại ngữ thành thạo (chứng chỉ B2/IELTS/TOEIC tương đương); Tham gia chính thức các chương trình/diễn đàn giao lưu thanh niên quốc tế cấp Trung ương. Đạt thêm: Đạt giải cấp quốc gia/quốc tế bằng ngoại ngữ.',
+                    ],
+                ],
+                'special_mechanism' => 'Cơ chế vận dụng / Miễn xét: Cá nhân chưa đủ tiêu chuẩn nhưng có 01 Giấy khen của Đoàn Học viện CSND về thành tích xuất sắc công tác Đoàn/phong trào có thể được xem xét.',
+            ],
+            'sao_thang_gieng' => [
+                'title' => 'Giải Thưởng "Sao Tháng Giêng"',
+                'description' => 'Giải thưởng cao quý của Ban Chấp hành Trung ương Hội Sinh viên Việt Nam dành cho cán bộ Đoàn - Hội xuất sắc.',
+                'targets' => [
+                    [
+                        'target' => 'Sinh viên trong nước',
+                        'training_standard' => 'Điểm rèn luyện ≥ 90/100 (hoặc loại Xuất sắc); Làm cán bộ Đoàn - Hội (≥ Bí thư Chi đoàn/Chi hội trưởng) từ 02 năm trở lên; Có khen thưởng ≥ cấp trường về công tác Đoàn - Hội.',
+                        'academic_standard' => 'ĐTB cả năm ≥ 3.2/4 (tín chỉ) hoặc ≥ 8.0/10 (niên chế). Riêng DTTS, miền núi, biên giới, hải đảo: ≥ 3.0/4 hoặc ≥ 7.5/10.',
+                    ],
+                    [
+                        'target' => 'Sinh viên ngoài nước',
+                        'training_standard' => 'Chấp hành tốt pháp luật Việt Nam, nước sở tại và nội quy trường; Tích cực tham gia hoạt động Đoàn, Hội, Đại sứ quán; đóng góp cho cộng đồng người Việt.',
+                        'academic_standard' => 'Xếp loại học tập cả năm đạt loại Giỏi (theo thang điểm nước sở tại).',
+                    ],
+                ],
             ],
         ];
     }

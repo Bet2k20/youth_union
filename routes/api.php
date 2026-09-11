@@ -74,6 +74,8 @@ Route::get('/hanh-trinh-phan-dau', [Student5GoodApiController::class, 'index']);
 Route::get('/phan-loai-doan-vien', [Student5GoodApiController::class, 'memberClassification']);
 Route::get('/doan-vien-uu-tu', [Student5GoodApiController::class, 'eliteMember']);
 Route::get('/ket-nap-dang', [Student5GoodApiController::class, 'partyAdmission']);
+Route::get('/giai-thuong-so-tay', [Student5GoodApiController::class, 'awards']);
+Route::get('/sinh-vien-5-tot-cac-cap', [Student5GoodApiController::class, 'awards']);
 
 // 5. MÀN HÌNH CÂU LẠC BỘ – ĐỘI – NHÓM (Clubs)
 Route::get('/club-categories', [ClubApiController::class, 'categories']);
