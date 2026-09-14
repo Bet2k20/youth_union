@@ -337,13 +337,13 @@ class SampleDataSeeder extends Seeder
         $people = [
             // --- BAN GIÁM ĐỐC HỌC VIỆN CẢNH SÁT NHÂN DÂN ---
             [
-                'name' => 'Trung tướng, GS.TS Trần Minh Hưởng',
+                'name' => 'Trung tướng, GS.TS, NGƯT Trần Minh Hưởng',
                 'position' => 'Bí thư Đảng ủy, Giám đốc Học viện',
                 'order' => 1,
                 'avatar' => '/images/bgd-hoc-vien/tran-minh-huong.jpg',
                 'role_group' => 'BGD',
                 'class_unit' => 'Ban Giám đốc Học viện CSND',
-                'achievement' => 'Trung tướng, Giáo sư, Tiến sĩ Trần Minh Hưởng - Bí thư Đảng ủy, Giám đốc Học viện Cảnh sát nhân dân',
+                'achievement' => 'Trung tướng, Giáo sư, Tiến sĩ, Nhà giáo Ưu tú Trần Minh Hưởng - Bí thư Đảng ủy, Giám đốc Học viện Cảnh sát nhân dân',
                 'is_active' => true,
             ],
             [
