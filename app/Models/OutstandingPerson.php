@@ -49,7 +49,7 @@ class OutstandingPerson extends Model
     public function getRoleLabelAttribute(): string
     {
         return match ($this->role_group) {
-            'BGD' => 'Ban Giám Đốc / Đảng Ủy',
+            'BGD' => 'Ban Giám Đốc Học Viện',
             'BTV_DOAN' => 'Ban Thường Vụ Đoàn Học Viện',
             'BI_THU_DOAN' => 'Cán bộ Đoàn tiêu biểu',
             'DOAN_VIEN' => 'Sinh viên tiêu biểu',

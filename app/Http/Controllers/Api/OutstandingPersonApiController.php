@@ -38,7 +38,7 @@ class OutstandingPersonApiController extends Controller
                 $query->where('role_group', 'BI_THU_DOAN');
             } elseif (in_array($roleNormalized, ['SINH_VIEN', 'STUDENT', 'STUDENTS', 'DOAN_VIEN', 'DOAN_VIEN_XUAT_SAC', 'SINH_VIEN_TIEU_BIEU'])) {
                 $query->where('role_group', 'DOAN_VIEN');
-            } elseif ($roleNormalized === 'BGD') {
+            } elseif (in_array($roleNormalized, ['BGD', 'BAN_GIAM_DOC', 'GIAM_DOC', 'LEADER', 'LEADERSHIP', 'LANH_DAO'])) {
                 $query->where('role_group', 'BGD');
             } else {
                 $query->where('role_group', $rawRole);
@@ -59,10 +59,11 @@ class OutstandingPersonApiController extends Controller
                 'status' => 'success',
                 'message' => 'Lấy danh sách gương mặt tiêu biểu theo nhóm thành công',
                 'data' => [
+                    'bgd' => $people->where('role_group', 'BGD')->values(),
+                    'leaders' => $people->where('role_group', 'BGD')->values(),
                     'btv' => $people->where('role_group', 'BTV_DOAN')->values(),
                     'cadres' => $people->where('role_group', 'BI_THU_DOAN')->values(),
                     'students' => $people->where('role_group', 'DOAN_VIEN')->values(),
-                    'leaders' => $people->where('role_group', 'BGD')->values(),
                 ],
             ], 200);
         }
@@ -73,6 +74,16 @@ class OutstandingPersonApiController extends Controller
             'total' => $people->count(),
             'data' => $people,
         ], 200);
+    }
+
+    /**
+     * [R] API chuyên biệt lấy danh sách Ban Giám Đốc Học Viện
+     * GET /api/bgd hoặc GET /api/ban-giam-doc hoặc GET /api/leadership
+     */
+    public function bgd(Request $request): JsonResponse
+    {
+        $request->merge(['role_group' => 'BGD']);
+        return $this->index($request);
     }
 
     /**

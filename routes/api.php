@@ -85,6 +85,9 @@ Route::apiResource('clubs', ClubApiController::class);
 Route::apiResource('activities', ActivityApiController::class);
 
 // 7. MÀN HÌNH GƯƠNG MẶT CÁN BỘ ĐOÀN, BTV & SINH VIÊN TIÊU BIỂU (Outstanding People)
+Route::get('/bgd', [OutstandingPersonApiController::class, 'bgd']);
+Route::get('/ban-giam-doc', [OutstandingPersonApiController::class, 'bgd']);
+Route::get('/leadership', [OutstandingPersonApiController::class, 'bgd']);
 Route::get('/btv-doan', [OutstandingPersonApiController::class, 'btv']);
 Route::get('/ban-thuong-vu', [OutstandingPersonApiController::class, 'btv']);
 Route::get('/cadres', [OutstandingPersonApiController::class, 'cadres']);

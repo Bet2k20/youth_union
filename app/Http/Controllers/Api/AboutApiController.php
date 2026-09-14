@@ -22,12 +22,14 @@ class AboutApiController extends Controller
             'slogan' => 'Bản lĩnh • Kỷ cương • Trách nhiệm • Sáng tạo',
             'intro' => 'Đoàn Thanh niên Học viện Cảnh sát nhân dân là tổ chức chính trị - xã hội của đoàn viên, thanh niên, sinh viên Học viện; là cánh tay đắc lực và lực lượng hậu bị tin cậy của Đảng ủy, Ban Giám đốc Học viện trong sự nghiệp giáo dục, đào tạo nguồn cán bộ Cảnh sát nhân dân tương lai.',
             'mission' => 'Bồi dưỡng lý tưởng cách mạng, nâng cao bản lĩnh chính trị, chấp hành nghiêm điều lệnh CAND, rèn luyện thể lực và tác phong tinh nhuệ; xung kích trong nghiên cứu khoa học, chuyển đổi số và các hoạt động tình nguyện vì cộng đồng.',
-            'cover_image' => 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1200&q=80',
+            'cover_image' => url('/images/banners/banner-7.jpg'),
         ];
 
         // 2. Lãnh đạo & Cố vấn (Ban Giám Đốc / Đảng Ủy)
         $leadership = OutstandingPerson::where('role_group', 'BGD')
             ->where('is_active', true)
+            ->orderBy('order', 'asc')
+            ->orderBy('id', 'asc')
             ->get();
 
         // 3. Cơ cấu tổ chức Đoàn trường (Ban Thường Vụ ĐTN Học viện)

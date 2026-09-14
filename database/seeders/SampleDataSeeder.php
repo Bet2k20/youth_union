@@ -332,8 +332,51 @@ class SampleDataSeeder extends Seeder
             Activity::updateOrCreate(['title' => $act['title']], $act);
         }
 
-        // 5. Nạp dữ liệu Ban Thường Vụ Đoàn Học viện & Gương mặt tiêu biểu
+        // 5. Nạp dữ liệu Ban Giám Đốc Học viện, Ban Thường Vụ Đoàn & Gương mặt tiêu biểu
+        OutstandingPerson::where('role_group', 'BGD')->delete();
         $people = [
+            // --- BAN GIÁM ĐỐC HỌC VIỆN CẢNH SÁT NHÂN DÂN ---
+            [
+                'name' => 'Trung tướng, GS.TS Trần Minh Hưởng',
+                'position' => 'Bí thư Đảng ủy, Giám đốc Học viện',
+                'order' => 1,
+                'avatar' => '/images/bgd-hoc-vien/tran-minh-huong.jpg',
+                'role_group' => 'BGD',
+                'class_unit' => 'Ban Giám đốc Học viện CSND',
+                'achievement' => 'Trung tướng, Giáo sư, Tiến sĩ Trần Minh Hưởng - Bí thư Đảng ủy, Giám đốc Học viện Cảnh sát nhân dân',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Thiếu tướng, PGS.TS Chử Văn Dũng',
+                'position' => 'Ủy viên BTV Đảng ủy, Phó Giám đốc Học viện',
+                'order' => 2,
+                'avatar' => '/images/bgd-hoc-vien/chu-van-dung.jpg',
+                'role_group' => 'BGD',
+                'class_unit' => 'Ban Giám đốc Học viện CSND',
+                'achievement' => 'Thiếu tướng, Phó Giáo sư, Tiến sĩ Chử Văn Dũng - Ủy viên Ban Thường vụ Đảng ủy, Phó Giám đốc Học viện Cảnh sát nhân dân',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Thiếu tướng, PGS.TS Trần Quang Huyên',
+                'position' => 'Ủy viên BTV Đảng ủy, Phó Giám đốc Học viện',
+                'order' => 3,
+                'avatar' => '/images/bgd-hoc-vien/tran-quang-huyen.jpg',
+                'role_group' => 'BGD',
+                'class_unit' => 'Ban Giám đốc Học viện CSND',
+                'achievement' => 'Thiếu tướng, Phó Giáo sư, Tiến sĩ Trần Quang Huyên - Ủy viên Ban Thường vụ Đảng ủy, Phó Giám đốc Học viện Cảnh sát nhân dân',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Đại tá, PGS.TS Hoàng Anh Tuấn',
+                'position' => 'Ủy viên BTV Đảng ủy, Phó Giám đốc Học viện',
+                'order' => 4,
+                'avatar' => '/images/bgd-hoc-vien/hoang-anh-tuan.jpg',
+                'role_group' => 'BGD',
+                'class_unit' => 'Ban Giám đốc Học viện CSND',
+                'achievement' => 'Đại tá, Phó Giáo sư, Tiến sĩ Hoàng Anh Tuấn - Ủy viên Ban Thường vụ Đảng ủy, Phó Giám đốc Học viện Cảnh sát nhân dân',
+                'is_active' => true,
+            ],
+
             // --- BAN THƯỜNG VỤ ĐOÀN THANH NIÊN HỌC VIỆN CSND ---
             [
                 'name' => 'Nguyễn Văn Duy',
