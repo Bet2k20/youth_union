@@ -14,7 +14,10 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo_mysql pdo_sqlite mbstring exif pcntl bcmath gd zip \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# 2. Cài đặt Composer
+# 2. Cấu hình PHP & Composer
+RUN echo "memory_limit = 512M" > /usr/local/etc/php/conf.d/memory-limit.ini
+ENV COMPOSER_ALLOW_SUPERUSER=1
+ENV COMPOSER_MEMORY_LIMIT=-1
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # 3. Thiết lập thư mục làm việc
@@ -35,6 +38,7 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
 # 7. Cấp quyền cho Database SQLite và Storage
 RUN chmod -R 777 /var/www/html/database \
     && chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache \
+    && sed -i 's/\r$//' /var/www/html/docker-entrypoint.sh \
     && cp /var/www/html/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh \
     && chmod +x /usr/local/bin/docker-entrypoint.sh
 

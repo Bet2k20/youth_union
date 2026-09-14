@@ -57,10 +57,10 @@ Route::get('/ping', function () {
 });
 
 // Trang chủ: Hiển thị Câu lạc bộ
-Route::get('/', [ClubController::class, 'index'])->name('clubs.index');
+Route::get('/', [ClubController::class, 'index'])->name('web.clubs.index');
 
 // Trang hoạt động: Hiển thị các Hoạt động / Tin tức của Đoàn trường
-Route::get('/hoat-dong', [ActivityController::class, 'index'])->name('activities.index');
+Route::get('/hoat-dong', [ActivityController::class, 'index'])->name('web.activities.index');
 
 // Trang kiểm thử API (Tester)
 Route::get('/test-api', function () {
