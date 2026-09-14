@@ -62,29 +62,8 @@ class HomeSummaryApiController extends Controller
             'images' => $activityImages,
         ];
 
-        // 4. Số liệu thống kê (Counter Metrics)
-        $metrics = [
-            [
-                'key' => 'tradition_years',
-                'value' => '68',
-                'label' => 'Năm truyền thống',
-            ],
-            [
-                'key' => 'total_clubs',
-                'value' => '8+',
-                'label' => 'Câu lạc bộ - Đội - Nhóm',
-            ],
-            [
-                'key' => 'total_members',
-                'value' => '9.6K',
-                'label' => 'Đoàn viên toàn Học viện',
-            ],
-            [
-                'key' => 'title_badge',
-                'value' => 'Sinh viên 5 Tốt',
-                'label' => 'Danh hiệu sinh viên tiêu biểu',
-            ],
-        ];
+        // 4. Số liệu thống kê (Counter Metrics chuẩn: 4114 Đoàn viên, 24 Cơ sở Đoàn, 9 CLB, 100+ Chương trình/năm)
+        $metrics = MetricsApiController::getMetricsData();
 
         // 5. 5 Tiêu chí Sinh viên 5 Tốt
         $student5Criteria = [

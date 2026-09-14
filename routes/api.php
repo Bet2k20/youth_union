@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\BannerApiController;
 use App\Http\Controllers\Api\ClubApiController;
 use App\Http\Controllers\Api\HomeSummaryApiController;
 use App\Http\Controllers\Api\MediaApiController;
+use App\Http\Controllers\Api\MetricsApiController;
 use App\Http\Controllers\Api\MovementApiController;
 use App\Http\Controllers\Api\OutstandingPersonApiController;
 use App\Http\Controllers\Api\Student5GoodApiController;
@@ -56,8 +57,11 @@ Route::get('/setup-database', function () {
 // Upload File Ảnh từ Máy Tính (Hỗ trợ JPG, PNG, WEBP, tối đa 5MB)
 Route::post('/upload', [UploadApiController::class, 'upload']);
 
-// 1. MÀN HÌNH TRANG CHỦ (Home Page)
+// 1. MÀN HÌNH TRANG CHỦ & SỐ LIỆU THỐNG KÊ (Home Page & Metrics)
 Route::get('/home', [HomeSummaryApiController::class, 'index']);
+Route::get('/metrics', [MetricsApiController::class, 'index']);
+Route::get('/thong-ke', [MetricsApiController::class, 'index']);
+Route::get('/statistics', [MetricsApiController::class, 'index']);
 
 // 2. MÀN HÌNH GIỚI THIỆU & ĐOÀN THANH NIÊN HỌC VIỆN (About & Organization & Achievements)
 Route::get('/about', [AboutApiController::class, 'index']);
