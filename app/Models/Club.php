@@ -38,9 +38,24 @@ class Club extends Model
 
 
 
+    protected $appends = [
+        'category_name',
+        'category_slug',
+    ];
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(ClubCategory::class, 'category_id');
+    }
+
+    public function getCategoryNameAttribute(): ?string
+    {
+        return $this->category?->name;
+    }
+
+    public function getCategorySlugAttribute(): ?string
+    {
+        return $this->category ? \Illuminate\Support\Str::slug($this->category->name) : null;
     }
 
     public function getLogoAttribute($value): ?string

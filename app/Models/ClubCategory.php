@@ -15,6 +15,15 @@ class ClubCategory extends Model
         'description',
     ];
 
+    protected $appends = [
+        'slug',
+    ];
+
+    public function getSlugAttribute(): string
+    {
+        return \Illuminate\Support\Str::slug($this->name);
+    }
+
     public function clubs(): HasMany
     {
         return $this->hasMany(Club::class, 'category_id');

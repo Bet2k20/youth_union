@@ -51,22 +51,33 @@ class SampleDataSeeder extends Seeder
             User::updateOrCreate(['email' => $u['email']], $u);
         }
 
-        // 1. Tạo 5 Thể loại CLB chuẩn hóa
-        $catAcademic = ClubCategory::updateOrCreate(
-            ['name' => 'Học thuật'],
-            ['description' => 'Các CLB học tập, nghiên cứu khoa học, văn hóa đọc và kỹ năng chuyên ngành']
+        // 1. Tạo các Thể loại CLB chuẩn hóa
+        Club::truncate();
+        ClubCategory::truncate();
+
+        $catMartialArts = ClubCategory::updateOrCreate(
+            ['name' => 'Võ thuật'],
+            ['description' => 'Các CLB võ thuật truyền thống, võ thuật CAND, Karate, Taekwondo, rèn luyện bản lĩnh chiến đấu và kỹ năng tự vệ']
         );
-        $catArts = ClubCategory::updateOrCreate(
-            ['name' => 'Văn hóa – Nghệ thuật'],
-            ['description' => 'Các CLB âm nhạc, đàn guitar, nhảy hiện đại, dân vũ và kịch nghệ']
+        $catMusic = ClubCategory::updateOrCreate(
+            ['name' => 'Âm nhạc'],
+            ['description' => 'Các CLB âm nhạc, đàn guitar, piano, organ, acoustic, thanh nhạc và ban nhạc biểu diễn']
         );
-        $catSports = ClubCategory::updateOrCreate(
-            ['name' => 'Thể thao – Võ thuật'],
-            ['description' => 'Các CLB rèn luyện thể lực, thi đấu thể thao và các bộ môn võ thuật truyền thống & quốc tế']
+        $catDance = ClubCategory::updateOrCreate(
+            ['name' => 'Dân vũ – Nghệ thuật'],
+            ['description' => 'Các CLB dân vũ, nhảy hiện đại, flashmob, khiêu vũ và dàn dựng tiết mục sân khấu']
         );
         $catMedia = ClubCategory::updateOrCreate(
-            ['name' => 'Truyền thông – Tuyên truyền'],
-            ['description' => 'Các CLB báo chí, phát thanh, truyền hình đa phương tiện, nhiếp ảnh và tổ chức sự kiện']
+            ['name' => 'Truyền thông – Báo chí'],
+            ['description' => 'Các CLB báo chí, phát thanh, truyền hình đa phương tiện PPA TV, phóng sự và nhiếp ảnh']
+        );
+        $catAcademic = ClubCategory::updateOrCreate(
+            ['name' => 'Học thuật – Nghiên cứu'],
+            ['description' => 'Các CLB học tập, nghiên cứu khoa học, văn hóa đọc, tranh biện và kỹ năng chuyên ngành Cảnh sát']
+        );
+        $catSports = ClubCategory::updateOrCreate(
+            ['name' => 'Thể thao'],
+            ['description' => 'Các CLB thể thao phong trào, bóng đá, bóng chuyền, rèn luyện thể lực chiến sĩ CAND']
         );
         $catVolunteer = ClubCategory::updateOrCreate(
             ['name' => 'Tình nguyện – Kỹ năng'],
@@ -75,77 +86,6 @@ class SampleDataSeeder extends Seeder
 
         // 2. Nạp dữ liệu Danh sách Câu Lạc Bộ thực tế của Học viện CSND
         $clubs = [
-            [
-                'name' => 'CLB Nội San – Truyền Thanh',
-                'logo' => '/images/clubs/noi-san-truyen-thanh/noi-san-truyen-thanh-1.jpg',
-                'images' => [
-                    '/images/clubs/noi-san-truyen-thanh/noi-san-truyen-thanh-1.jpg',
-                    '/images/clubs/noi-san-truyen-thanh/noi-san-truyen-thanh-2.jpg',
-                    '/images/clubs/noi-san-truyen-thanh/noi-san-truyen-thanh-3.jpg',
-                ],
-                'founded_date' => '2006-03-18',
-                'category_id' => $catMedia->id,
-                'description' => 'Sân chơi học thuật và nghiệp vụ dành cho các đoàn viên có niềm đam mê với công tác truyền thông, phóng sự, nhiếp ảnh, biên tập báo chí và kỹ thuật phát thanh tuyên truyền (Chủ nhiệm: Đ/c Huy Trần).',
-            ],
-            [
-                'name' => 'CLB Truyền Hình PPA TV',
-                'logo' => 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=200&q=80',
-                'images' => [],
-                'founded_date' => '2017-09-25',
-                'category_id' => $catMedia->id,
-                'description' => 'Kênh truyền thông đa phương tiện trực thuộc Đoàn trường, quy tụ các bạn trẻ đam mê báo chí, sản xuất video, dẫn chương trình (MC) và tổ chức các sự kiện lớn của Học viện (Chủ nhiệm: Đ/c Tuấn Phong).',
-            ],
-            [
-                'name' => 'CLB Dân Vũ Học Viện CSND',
-                'logo' => '/images/clubs/dan-vu/dan-vu-1.jpg',
-                'images' => [
-                    '/images/clubs/dan-vu/dan-vu-1.jpg',
-                    '/images/clubs/dan-vu/dan-vu-2.jpg',
-                    '/images/clubs/dan-vu/dan-vu-3.jpg',
-                    '/images/clubs/dan-vu/dan-vu-4.jpg',
-                    '/images/clubs/dan-vu/dan-vu-5.jpg',
-                    '/images/clubs/dan-vu/dan-vu-6.jpg',
-                    '/images/clubs/dan-vu/dan-vu-7.jpg',
-                    '/images/clubs/dan-vu/dan-vu-8.jpg',
-                ],
-                'founded_date' => '2012-09-30',
-                'category_id' => $catArts->id,
-                'description' => 'Môi trường sinh hoạt nghệ thuật năng động dành cho các bạn trẻ yêu thích các vũ điệu dân vũ, nhảy hiện đại và flashmob, góp phần lan tỏa năng lượng tích cực và nhiệt huyết tuổi trẻ (Chủ nhiệm: Đ/c Hà Nghĩa).',
-            ],
-            [
-                'name' => 'CLB Sách Và Hành Động PPA',
-                'logo' => '/images/clubs/sach-va-hanh-dong/sach-va-hanh-dong-1.jpg',
-                'images' => [
-                    '/images/clubs/sach-va-hanh-dong/sach-va-hanh-dong-1.jpg',
-                    '/images/clubs/sach-va-hanh-dong/sach-va-hanh-dong-2.jpg',
-                    '/images/clubs/sach-va-hanh-dong/sach-va-hanh-dong-3.jpg',
-                    '/images/clubs/sach-va-hanh-dong/sach-va-hanh-dong-4.jpg',
-                    '/images/clubs/sach-va-hanh-dong/sach-va-hanh-dong-5.jpg',
-                    '/images/clubs/sach-va-hanh-dong/sach-va-hanh-dong-6.jpg',
-                    '/images/clubs/sach-va-hanh-dong/sach-va-hanh-dong-7.jpg',
-                    '/images/clubs/sach-va-hanh-dong/sach-va-hanh-dong-8.jpg',
-                    '/images/clubs/sach-va-hanh-dong/sach-va-hanh-dong-9.jpg',
-                    '/images/clubs/sach-va-hanh-dong/sach-va-hanh-dong-10.jpg',
-                ],
-                'founded_date' => '2021-05-30',
-                'category_id' => $catAcademic->id,
-                'description' => 'Không gian học thuật kết nối niềm đam mê đọc sách, phát triển kỹ năng viết lách, tư duy phản biện và lan tỏa văn hóa đọc sâu rộng trong toàn thể đoàn viên, sinh viên (Chủ nhiệm: Đ/c Ma Nguyệt Hà).',
-            ],
-            [
-                'name' => 'CLB Guitar Học Viện CSND (PGC)',
-                'logo' => '/images/clubs/guitar/guitar-1.jpg',
-                'images' => [
-                    '/images/clubs/guitar/guitar-1.jpg',
-                    '/images/clubs/guitar/guitar-2.jpg',
-                    '/images/clubs/guitar/guitar-3.jpg',
-                    '/images/clubs/guitar/guitar-4.jpg',
-                    '/images/clubs/guitar/guitar-5.jpg',
-                    '/images/clubs/guitar/guitar-6.jpg',
-                ],
-                'founded_date' => '2010-04-22',
-                'category_id' => $catArts->id,
-                'description' => 'Ngôi nhà chung của những trái tim yêu âm nhạc và nhạc cụ mộc (Acoustic), nơi giao lưu tài năng âm nhạc và biểu diễn sân khấu trong các chương trình văn nghệ của Học viện (Chủ nhiệm: Đ/c Minh).',
-            ],
             [
                 'name' => 'CLB Karate PPA',
                 'logo' => '/images/clubs/karate/karate-1.jpg',
@@ -167,7 +107,7 @@ class SampleDataSeeder extends Seeder
                     '/images/clubs/karate/karate-15.jpg',
                 ],
                 'founded_date' => '2015-10-01',
-                'category_id' => $catSports->id,
+                'category_id' => $catMartialArts->id,
                 'description' => 'Môi trường rèn luyện thể lực, kỷ luật và kỹ năng thực chiến dành cho các bạn đam mê bộ môn Karate, nâng cao bản lĩnh tự vệ và rèn luyện thể chất dẻo dai.',
             ],
             [
@@ -184,8 +124,91 @@ class SampleDataSeeder extends Seeder
                     '/images/clubs/taekwondo/taekwondo-8.jpg',
                 ],
                 'founded_date' => '2016-10-15',
-                'category_id' => $catSports->id,
+                'category_id' => $catMartialArts->id,
                 'description' => 'Nơi hội tụ các võ sinh đam mê nghệ thuật đòn chân và tinh thần thượng võ của Taekwondo, giúp tăng cường thể lực, ý chí kiên định và phong thái tự tin cho học viên.',
+            ],
+            [
+                'name' => 'CLB Guitar Học Viện CSND (PGC)',
+                'logo' => '/images/clubs/guitar/guitar-1.jpg',
+                'images' => [
+                    '/images/clubs/guitar/guitar-1.jpg',
+                    '/images/clubs/guitar/guitar-2.jpg',
+                    '/images/clubs/guitar/guitar-3.jpg',
+                    '/images/clubs/guitar/guitar-4.jpg',
+                    '/images/clubs/guitar/guitar-5.jpg',
+                    '/images/clubs/guitar/guitar-6.jpg',
+                ],
+                'founded_date' => '2010-04-22',
+                'category_id' => $catMusic->id,
+                'description' => 'Ngôi nhà chung của những trái tim yêu âm nhạc và nhạc cụ mộc (Acoustic), nơi giao lưu tài năng âm nhạc và biểu diễn sân khấu trong các chương trình văn nghệ của Học viện (Chủ nhiệm: Đ/c Minh).',
+            ],
+            [
+                'name' => 'CLB Piano & Nhạc Cụ Học Viện CSND',
+                'logo' => '/images/clubs/guitar/guitar-2.jpg',
+                'images' => [
+                    '/images/clubs/guitar/guitar-2.jpg',
+                    '/images/clubs/guitar/guitar-3.jpg',
+                    '/images/clubs/guitar/guitar-4.jpg',
+                ],
+                'founded_date' => '2018-11-20',
+                'category_id' => $catMusic->id,
+                'description' => 'Không gian nghệ thuật dành cho các đoàn viên yêu thích đàn Piano, Organ, nhạc cụ thính phòng và hòa tấu; thường xuyên biểu diễn phục vụ các chương trình chính trị, hội nghị và giao lưu văn hóa nghệ thuật của Học viện.',
+            ],
+            [
+                'name' => 'CLB Dân Vũ Học Viện CSND',
+                'logo' => '/images/clubs/dan-vu/dan-vu-1.jpg',
+                'images' => [
+                    '/images/clubs/dan-vu/dan-vu-1.jpg',
+                    '/images/clubs/dan-vu/dan-vu-2.jpg',
+                    '/images/clubs/dan-vu/dan-vu-3.jpg',
+                    '/images/clubs/dan-vu/dan-vu-4.jpg',
+                    '/images/clubs/dan-vu/dan-vu-5.jpg',
+                    '/images/clubs/dan-vu/dan-vu-6.jpg',
+                    '/images/clubs/dan-vu/dan-vu-7.jpg',
+                    '/images/clubs/dan-vu/dan-vu-8.jpg',
+                ],
+                'founded_date' => '2012-09-30',
+                'category_id' => $catDance->id,
+                'description' => 'Môi trường sinh hoạt nghệ thuật năng động dành cho các bạn trẻ yêu thích các vũ điệu dân vũ, nhảy hiện đại và flashmob, góp phần lan tỏa năng lượng tích cực và nhiệt huyết tuổi trẻ (Chủ nhiệm: Đ/c Hà Nghĩa).',
+            ],
+            [
+                'name' => 'CLB Nội San – Truyền Thanh',
+                'logo' => '/images/clubs/noi-san-truyen-thanh/noi-san-truyen-thanh-1.jpg',
+                'images' => [
+                    '/images/clubs/noi-san-truyen-thanh/noi-san-truyen-thanh-1.jpg',
+                    '/images/clubs/noi-san-truyen-thanh/noi-san-truyen-thanh-2.jpg',
+                    '/images/clubs/noi-san-truyen-thanh/noi-san-truyen-thanh-3.jpg',
+                ],
+                'founded_date' => '2006-03-18',
+                'category_id' => $catMedia->id,
+                'description' => 'Sân chơi học thuật và nghiệp vụ dành cho các đoàn viên có niềm đam mê với công tác truyền thông, phóng sự, nhiếp ảnh, biên tập báo chí và kỹ thuật phát thanh tuyên truyền (Chủ nhiệm: Đ/c Huy Trần).',
+            ],
+            [
+                'name' => 'CLB Truyền Hình PPA TV',
+                'logo' => 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=200&q=80',
+                'images' => [],
+                'founded_date' => '2017-09-25',
+                'category_id' => $catMedia->id,
+                'description' => 'Kênh truyền thông đa phương tiện trực thuộc Đoàn trường, quy tụ các bạn trẻ đam mê báo chí, sản xuất video, dẫn chương trình (MC) và tổ chức các sự kiện lớn của Học viện (Chủ nhiệm: Đ/c Tuấn Phong).',
+            ],
+            [
+                'name' => 'CLB Sách Và Hành Động PPA',
+                'logo' => '/images/clubs/sach-va-hanh-dong/sach-va-hanh-dong-1.jpg',
+                'images' => [
+                    '/images/clubs/sach-va-hanh-dong/sach-va-hanh-dong-1.jpg',
+                    '/images/clubs/sach-va-hanh-dong/sach-va-hanh-dong-2.jpg',
+                    '/images/clubs/sach-va-hanh-dong/sach-va-hanh-dong-3.jpg',
+                    '/images/clubs/sach-va-hanh-dong/sach-va-hanh-dong-4.jpg',
+                    '/images/clubs/sach-va-hanh-dong/sach-va-hanh-dong-5.jpg',
+                    '/images/clubs/sach-va-hanh-dong/sach-va-hanh-dong-6.jpg',
+                    '/images/clubs/sach-va-hanh-dong/sach-va-hanh-dong-7.jpg',
+                    '/images/clubs/sach-va-hanh-dong/sach-va-hanh-dong-8.jpg',
+                    '/images/clubs/sach-va-hanh-dong/sach-va-hanh-dong-9.jpg',
+                    '/images/clubs/sach-va-hanh-dong/sach-va-hanh-dong-10.jpg',
+                ],
+                'founded_date' => '2021-05-30',
+                'category_id' => $catAcademic->id,
+                'description' => 'Không gian học thuật kết nối niềm đam mê đọc sách, phát triển kỹ năng viết lách, tư duy phản biện và lan tỏa văn hóa đọc sâu rộng trong toàn thể đoàn viên, sinh viên (Chủ nhiệm: Đ/c Ma Nguyệt Hà).',
             ],
         ];
 
@@ -347,13 +370,13 @@ class SampleDataSeeder extends Seeder
                 'is_active' => true,
             ],
             [
-                'name' => 'Thiếu tướng, PGS.TS Chử Văn Dũng',
+                'name' => 'Thiếu tướng, TS Chử Văn Dũng',
                 'position' => 'Ủy viên BTV Đảng ủy, Phó Giám đốc Học viện',
                 'order' => 2,
                 'avatar' => '/images/bgd-hoc-vien/chu-van-dung.jpg',
                 'role_group' => 'BGD',
                 'class_unit' => 'Ban Giám đốc Học viện CSND',
-                'achievement' => 'Thiếu tướng, Phó Giáo sư, Tiến sĩ Chử Văn Dũng - Ủy viên Ban Thường vụ Đảng ủy, Phó Giám đốc Học viện Cảnh sát nhân dân',
+                'achievement' => 'Thiếu tướng, Tiến sĩ Chử Văn Dũng - Ủy viên Ban Thường vụ Đảng ủy, Phó Giám đốc Học viện Cảnh sát nhân dân',
                 'is_active' => true,
             ],
             [

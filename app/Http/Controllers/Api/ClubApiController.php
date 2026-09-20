@@ -25,15 +25,36 @@ class ClubApiController extends Controller
         $query = Club::query()->with('category');
 
 
-        // Lọc theo thể loại nếu có ?category_id=...
+        // Lọc linh hoạt theo thể loại (?category_id=1, ?category=vo-thuat, ?category=am-nhac, ?category=Võ thuật, ...)
         if ($request->filled('category_id')) {
             $query->where('category_id', $request->input('category_id'));
+        } elseif ($request->filled('category') || $request->filled('category_name') || $request->filled('type')) {
+            $catParam = trim($request->input('category') ?? $request->input('category_name') ?? $request->input('type'));
+            if (is_numeric($catParam)) {
+                $query->where('category_id', (int) $catParam);
+            } else {
+                $catSlug = \Illuminate\Support\Str::slug($catParam);
+                $matchedCatIds = ClubCategory::all()
+                    ->filter(function ($cat) use ($catParam, $catSlug) {
+                        $nameSlug = \Illuminate\Support\Str::slug($cat->name);
+                        return $nameSlug === $catSlug ||
+                               str_contains($nameSlug, $catSlug) ||
+                               str_contains(mb_strtolower($cat->name), mb_strtolower($catParam));
+                    })
+                    ->pluck('id')
+                    ->toArray();
+
+                $query->whereIn('category_id', $matchedCatIds);
+            }
         }
 
         // Tìm kiếm theo tên CLB nếu có ?search=...
         if ($request->filled('search')) {
             $keyword = $request->input('search');
-            $query->where('name', 'like', "%{$keyword}%");
+            $query->where(function ($q) use ($keyword) {
+                $q->where('name', 'like', "%{$keyword}%")
+                  ->orWhere('description', 'like', "%{$keyword}%");
+            });
         }
 
         $clubs = $query->orderBy('name')->get();
