@@ -52,9 +52,6 @@ class SampleDataSeeder extends Seeder
         }
 
         // 1. Tạo các Thể loại CLB chuẩn hóa
-        Club::truncate();
-        ClubCategory::truncate();
-
         $catMartialArts = ClubCategory::updateOrCreate(
             ['name' => 'Võ thuật'],
             ['description' => 'Các CLB võ thuật truyền thống, võ thuật CAND, Karate, Taekwondo, rèn luyện bản lĩnh chiến đấu và kỹ năng tự vệ']
@@ -217,7 +214,6 @@ class SampleDataSeeder extends Seeder
         }
 
         // 3. Nạp dữ liệu Banners (Slider ảnh bìa thực tế từ Đoàn Học viện)
-        Banner::truncate();
         $banners = [
             [
                 'title' => 'Tuổi trẻ Học viện CSND: Bản lĩnh • Kỷ cương • Trách nhiệm • Sáng tạo',
@@ -271,7 +267,7 @@ class SampleDataSeeder extends Seeder
         ];
 
         foreach ($banners as $b) {
-            Banner::create($b);
+            Banner::updateOrCreate(['image_url' => $b['image_url']], $b);
         }
 
         // 4. Nạp dữ liệu Hoạt động / Tin tức (kèm thông số Phong trào chuẩn Figma)
@@ -356,7 +352,6 @@ class SampleDataSeeder extends Seeder
         }
 
         // 5. Nạp dữ liệu Ban Giám Đốc Học viện, Ban Thường Vụ Đoàn & Gương mặt tiêu biểu
-        OutstandingPerson::where('role_group', 'BGD')->delete();
         $people = [
             // --- BAN GIÁM ĐỐC HỌC VIỆN CẢNH SÁT NHÂN DÂN ---
             [

@@ -1,17 +1,18 @@
 FROM php:8.2-apache
 
-# 1. Cài đặt các thư viện hệ thống cần thiết cho Laravel (bao gồm SQLite và MySQL)
+# 1. Cài đặt các thư viện hệ thống cần thiết cho Laravel (bao gồm SQLite, MySQL và PostgreSQL)
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
     libzip-dev \
     libsqlite3-dev \
+    libpq-dev \
     zip \
     unzip \
     git \
     curl \
-    && docker-php-ext-install pdo_mysql pdo_sqlite mbstring exif pcntl bcmath gd zip \
+    && docker-php-ext-install pdo_mysql pdo_pgsql pdo_sqlite mbstring exif pcntl bcmath gd zip \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # 2. Cấu hình PHP & Composer

@@ -21,9 +21,17 @@ chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache
 php artisan config:clear || true
 php artisan package:discover --ansi || true
 
-# Chạy migration và seeder nạp dữ liệu mẫu
+# Chạy migration tự động tạo bảng nếu chưa có
 php artisan migrate --force || true
-php artisan db:seed --class="Database\\Seeders\\SampleDataSeeder" --force || true
+
+# Chỉ seed dữ liệu mẫu ban đầu nếu database hoàn toàn mới / chưa có user nào
+NEED_SEED=$(php artisan tinker --execute="echo App\Models\User::count() === 0 ? 'yes' : 'no';" 2>/dev/null || echo "yes")
+if [ "$NEED_SEED" = "yes" ]; then
+    echo "==> Database trống, tiến hành nạp dữ liệu mẫu ban đầu..."
+    php artisan db:seed --class="Database\\Seeders\\SampleDataSeeder" --force || true
+else
+    echo "==> Database đã có dữ liệu, bảo toàn dữ liệu chỉnh sửa của người dùng."
+fi
 
 # Cấp lại quyền ghi sau khi tạo bảng
 chmod -R 777 /var/www/html/database
