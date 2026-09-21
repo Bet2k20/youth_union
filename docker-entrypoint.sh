@@ -1,21 +1,30 @@
 #!/bin/sh
 set -e
 
-# Đảm bảo các thư mục storage tồn tại
+# Đảm bảo các thư mục storage và upload tồn tại
 mkdir -p /var/www/html/storage/framework/sessions \
          /var/www/html/storage/framework/views \
          /var/www/html/storage/framework/cache \
          /var/www/html/storage/logs \
-         /var/www/html/database
+         /var/www/html/database \
+         /var/www/html/public/uploads/activities \
+         /var/www/html/public/uploads/clubs \
+         /var/www/html/public/uploads/people \
+         /var/www/html/public/uploads/banners \
+         /var/www/html/public/uploads/avatars \
+         /var/www/html/public/uploads/general \
+         /var/www/html/public/uploads/documents
 
 # Đảm bảo file database.sqlite tồn tại
 if [ ! -f /var/www/html/database/database.sqlite ]; then
     touch /var/www/html/database/database.sqlite
 fi
 
-# Cấp quyền ghi đầy đủ cho SQLite và Storage
+# Cấp quyền ghi đầy đủ cho SQLite, Storage và Uploads
 chmod -R 777 /var/www/html/database
 chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache
+chmod -R 777 /var/www/html/public/uploads
+chown -R www-data:www-data /var/www/html/public/uploads || true
 
 # Khởi tạo config cache và package discover
 php artisan config:clear || true

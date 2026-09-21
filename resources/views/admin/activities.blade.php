@@ -51,7 +51,7 @@
         const fileInputRef = useRef(null);
 
         const handleFileChange = async (e) => {
-            const file = e.target.files[0];
+            const file = e.target.files && e.target.files[0];
             if (!file) return;
 
             const formData = new FormData();
@@ -62,18 +62,25 @@
                 setUploading(true);
                 const res = await fetch('/api/upload', {
                     method: 'POST',
+                    headers: {
+                        'Accept': 'application/json'
+                    },
                     body: formData
                 });
                 const result = await res.json();
-                if (res.ok && result.data?.url) {
-                    onChange(result.data.url);
+                if (res.ok && (result.data?.url || result.data?.urls?.[0])) {
+                    const uploadedUrl = result.data?.url || result.data?.urls?.[0];
+                    onChange(uploadedUrl);
                 } else {
-                    alert('Lỗi tải ảnh: ' + (result.message || 'Không thể tải ảnh'));
+                    alert('Lỗi tải ảnh: ' + (result.message || 'Không thể tải ảnh lên máy chủ'));
                 }
             } catch (err) {
-                alert('Lỗi kết nối khi tải ảnh!');
+                alert('Lỗi kết nối khi tải ảnh: ' + (err.message || 'Vui lòng thử lại'));
             } finally {
                 setUploading(false);
+                if (fileInputRef.current) {
+                    fileInputRef.current.value = '';
+                }
             }
         };
 
@@ -650,6 +657,8 @@
         const [logo, setLogo] = useState('');
         const [imagesList, setImagesList] = useState([]);
         const [newAlbumImage, setNewAlbumImage] = useState('');
+        const [albumUploading, setAlbumUploading] = useState(false);
+        const albumFileInputRef = useRef(null);
         const [categoryId, setCategoryId] = useState(1);
         const [foundedDate, setFoundedDate] = useState('2026-08-26');
         const [description, setDescription] = useState('');
@@ -734,11 +743,56 @@
             setModalOpen(true);
         };
 
+        const handleAlbumFilesUpload = async (e) => {
+            const files = e.target.files;
+            if (!files || files.length === 0) return;
+
+            const formData = new FormData();
+            formData.append('folder', 'clubs');
+            for (let i = 0; i < files.length; i++) {
+                formData.append('files[]', files[i]);
+            }
+
+            try {
+                setAlbumUploading(true);
+                const res = await fetch('/api/upload', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json'
+                    },
+                    body: formData
+                });
+                const result = await res.json();
+                if (res.ok && result.data?.urls) {
+                    setImagesList(prev => {
+                        const newUrls = result.data.urls.filter(u => !prev.includes(u));
+                        return [...prev, ...newUrls];
+                    });
+                } else if (res.ok && result.data?.url) {
+                    setImagesList(prev => prev.includes(result.data.url) ? prev : [...prev, result.data.url]);
+                } else {
+                    alert('Lỗi tải ảnh: ' + (result.message || 'Không thể tải ảnh lên máy chủ'));
+                }
+            } catch (err) {
+                alert('Lỗi kết nối khi tải ảnh: ' + (err.message || 'Vui lòng kiểm tra lại file tải lên'));
+            } finally {
+                setAlbumUploading(false);
+                if (albumFileInputRef.current) {
+                    albumFileInputRef.current.value = '';
+                }
+            }
+        };
+
+        const handleAddUrlToAlbum = () => {
+            const trimmed = (newAlbumImage || '').trim();
+            if (!trimmed) return;
+            setImagesList(prev => prev.includes(trimmed) ? prev : [...prev, trimmed]);
+            setNewAlbumImage('');
+        };
+
         const handleAddImageToAlbum = (url) => {
             if (!url) return;
-            if (!imagesList.includes(url)) {
-                setImagesList([...imagesList, url]);
-            }
+            setImagesList(prev => prev.includes(url) ? prev : [...prev, url]);
             setNewAlbumImage('');
         };
 
@@ -1105,23 +1159,80 @@
                                         <div>
                                             <div className="d-flex justify-content-between align-items-center mb-3">
                                                 <h6 className="fw-bold mb-0">Danh sách ảnh trong Album ({imagesList.length} ảnh)</h6>
-                                                <span className="badge bg-info text-dark">Đã nạp sẵn ảnh thật</span>
+                                                {imagesList.length > 0 && (
+                                                    <button 
+                                                        type="button" 
+                                                        className="btn btn-outline-danger btn-sm"
+                                                        onClick={() => {
+                                                            if (confirm('Bạn có chắc chắn muốn xóa toàn bộ ảnh trong album này?')) {
+                                                                setImagesList([]);
+                                                            }
+                                                        }}
+                                                    >
+                                                        <i className="bi bi-trash me-1"></i> Xóa toàn bộ album
+                                                    </button>
+                                                )}
                                             </div>
 
                                             {/* Thêm ảnh mới vào album */}
                                             <div className="p-3 bg-light rounded border mb-4">
-                                                <h6 className="fw-bold text-success mb-2">➕ Tải thêm ảnh mới vào Album:</h6>
-                                                <div className="row g-2 align-items-end">
-                                                    <div className="col-md-9">
-                                                        <ImageUploadInput
-                                                            value={newAlbumImage}
-                                                            onChange={(url) => {
-                                                                setNewAlbumImage(url);
-                                                                handleAddImageToAlbum(url);
-                                                            }}
-                                                            folder="clubs"
-                                                            label="Chọn ảnh từ máy tính để thêm vào Album"
-                                                        />
+                                                <h6 className="fw-bold text-success mb-3">➕ Tải ảnh từ máy tính hoặc dán link ảnh:</h6>
+                                                <div className="row g-3">
+                                                    <div className="col-md-6">
+                                                        <label className="form-label fw-bold text-dark">
+                                                            <i className="bi bi-images me-1 text-primary"></i> Cách 1: Tải trực tiếp từ máy tính
+                                                        </label>
+                                                        <div>
+                                                            <button
+                                                                type="button"
+                                                                className="btn btn-success fw-bold w-100 py-2 shadow-sm"
+                                                                onClick={() => albumFileInputRef.current?.click()}
+                                                                disabled={albumUploading}
+                                                            >
+                                                                {albumUploading ? (
+                                                                    <>
+                                                                        <span className="spinner-border spinner-border-sm me-2"></span> Đang tải ảnh lên máy chủ...
+                                                                    </>
+                                                                ) : (
+                                                                    <>
+                                                                        <i className="bi bi-cloud-arrow-up-fill me-2"></i> Chọn ảnh từ máy tính (hỗ trợ nhiều ảnh)
+                                                                    </>
+                                                                )}
+                                                            </button>
+                                                            <input
+                                                                type="file"
+                                                                ref={albumFileInputRef}
+                                                                className="d-none"
+                                                                multiple
+                                                                accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/svg+xml"
+                                                                onChange={handleAlbumFilesUpload}
+                                                            />
+                                                            <small className="text-muted d-block mt-1">Hỗ trợ JPG, PNG, WEBP tối đa 20MB. Có thể chọn cùng lúc nhiều ảnh từ máy tính.</small>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="col-md-6">
+                                                        <label className="form-label fw-bold text-dark">
+                                                            <i className="bi bi-link-45deg me-1 text-info"></i> Cách 2: Dán link ảnh (URL)
+                                                        </label>
+                                                        <div className="input-group">
+                                                            <input
+                                                                type="text"
+                                                                className="form-control"
+                                                                value={newAlbumImage}
+                                                                onChange={(e) => setNewAlbumImage(e.target.value)}
+                                                                onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleAddUrlToAlbum(); } }}
+                                                                placeholder="https://example.com/anh.jpg"
+                                                            />
+                                                            <button
+                                                                type="button"
+                                                                className="btn btn-outline-primary fw-bold"
+                                                                onClick={handleAddUrlToAlbum}
+                                                            >
+                                                                <i className="bi bi-plus-lg me-1"></i> Thêm
+                                                            </button>
+                                                        </div>
+                                                        <small className="text-muted d-block mt-1">Dán liên kết ảnh từ web và nhấn 'Thêm' hoặc Enter.</small>
                                                     </div>
                                                 </div>
                                             </div>
