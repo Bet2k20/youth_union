@@ -51,6 +51,7 @@ class OutstandingPerson extends Model
         return match ($this->role_group) {
             'BGD' => 'Ban Giám Đốc Học Viện',
             'BTV_DOAN' => 'Ban Thường Vụ Đoàn Học Viện',
+            'UY_VIEN_DTN' => 'Ủy viên Đoàn Thanh niên',
             'BI_THU_DOAN' => 'Cán bộ Đoàn tiêu biểu',
             'DOAN_VIEN' => 'Sinh viên tiêu biểu',
             default => 'Gương mặt tiêu biểu',

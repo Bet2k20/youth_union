@@ -34,6 +34,8 @@ class OutstandingPersonApiController extends Controller
             $roleNormalized = strtoupper(trim($rawRole));
             if (in_array($roleNormalized, ['BTV', 'BTV_DOAN', 'BAN_THUONG_VU', 'THUONG_VU', 'STANDING_COMMITTEE'])) {
                 $query->where('role_group', 'BTV_DOAN');
+            } elseif (in_array($roleNormalized, ['UY_VIEN', 'UY_VIEN_DTN', 'BCH', 'BCH_DOAN', 'UY_VIEN_BCH', 'COMMITTEE'])) {
+                $query->where('role_group', 'UY_VIEN_DTN');
             } elseif (in_array($roleNormalized, ['CAN_BO', 'CADRE', 'CADRES', 'CAN_BO_DOAN', 'BI_THU_DOAN', 'CAN_BO_TIEU_BIEU'])) {
                 $query->where('role_group', 'BI_THU_DOAN');
             } elseif (in_array($roleNormalized, ['SINH_VIEN', 'STUDENT', 'STUDENTS', 'DOAN_VIEN', 'DOAN_VIEN_XUAT_SAC', 'SINH_VIEN_TIEU_BIEU'])) {
@@ -62,6 +64,9 @@ class OutstandingPersonApiController extends Controller
                     'bgd' => $people->where('role_group', 'BGD')->values(),
                     'leaders' => $people->where('role_group', 'BGD')->values(),
                     'btv' => $people->where('role_group', 'BTV_DOAN')->values(),
+                    'specialized_cadres' => $people->where('role_group', 'BTV_DOAN')->filter(fn($p) => str_contains($p->position, 'chuyên trách') || in_array($p->name, ['Nguyễn Thành Nghĩa', 'Nguyễn Xuân Hiếu']))->values(),
+                    'uy_vien_dtn' => $people->where('role_group', 'UY_VIEN_DTN')->values(),
+                    'committee' => $people->where('role_group', 'UY_VIEN_DTN')->values(),
                     'cadres' => $people->where('role_group', 'BI_THU_DOAN')->values(),
                     'students' => $people->where('role_group', 'DOAN_VIEN')->values(),
                 ],
@@ -93,6 +98,16 @@ class OutstandingPersonApiController extends Controller
     public function btv(Request $request): JsonResponse
     {
         $request->merge(['role_group' => 'BTV_DOAN']);
+        return $this->index($request);
+    }
+
+    /**
+     * [R] API chuyên biệt lấy danh sách Ủy viên Ban Chấp Hành Đoàn Thanh niên (Ủy viên ĐTN)
+     * GET /api/uy-vien-dtn hoặc GET /api/bch-doan
+     */
+    public function uyVienDtn(Request $request): JsonResponse
+    {
+        $request->merge(['role_group' => 'UY_VIEN_DTN']);
         return $this->index($request);
     }
 
@@ -149,14 +164,14 @@ class OutstandingPersonApiController extends Controller
             'position' => 'nullable|string|max:255',
             'order' => 'nullable|integer',
             'avatar' => 'nullable|string|max:500',
-            'role_group' => 'required|in:BGD,BTV_DOAN,BI_THU_DOAN,DOAN_VIEN',
+            'role_group' => 'required|in:BGD,BTV_DOAN,BI_THU_DOAN,DOAN_VIEN,UY_VIEN_DTN',
             'class_unit' => 'nullable|string|max:255',
             'achievement' => 'nullable|string',
             'is_active' => 'boolean',
         ], [
             'name.required' => 'Vui lòng nhập họ và tên!',
-            'role_group.required' => 'Vui lòng chọn nhóm danh hiệu (BGD, BTV_DOAN, BI_THU_DOAN, DOAN_VIEN)!',
-            'role_group.in' => 'Nhóm danh hiệu phải là một trong các giá trị: BGD, BTV_DOAN, BI_THU_DOAN, DOAN_VIEN',
+            'role_group.required' => 'Vui lòng chọn nhóm danh hiệu (BGD, BTV_DOAN, UY_VIEN_DTN, BI_THU_DOAN, DOAN_VIEN)!',
+            'role_group.in' => 'Nhóm danh hiệu phải là một trong các giá trị: BGD, BTV_DOAN, UY_VIEN_DTN, BI_THU_DOAN, DOAN_VIEN',
         ]);
 
         if ($validator->fails()) {
@@ -207,7 +222,7 @@ class OutstandingPersonApiController extends Controller
             'position' => 'nullable|string|max:255',
             'order' => 'nullable|integer',
             'avatar' => 'nullable|string|max:500',
-            'role_group' => 'sometimes|required|in:BGD,BTV_DOAN,BI_THU_DOAN,DOAN_VIEN',
+            'role_group' => 'sometimes|required|in:BGD,BTV_DOAN,BI_THU_DOAN,DOAN_VIEN,UY_VIEN_DTN',
             'class_unit' => 'nullable|string|max:255',
             'achievement' => 'nullable|string',
             'is_active' => 'boolean',

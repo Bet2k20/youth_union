@@ -97,6 +97,8 @@ Route::get('/ban-giam-doc', [OutstandingPersonApiController::class, 'bgd']);
 Route::get('/leadership', [OutstandingPersonApiController::class, 'bgd']);
 Route::get('/btv-doan', [OutstandingPersonApiController::class, 'btv']);
 Route::get('/ban-thuong-vu', [OutstandingPersonApiController::class, 'btv']);
+Route::get('/uy-vien-dtn', [OutstandingPersonApiController::class, 'uyVienDtn']);
+Route::get('/bch-doan', [OutstandingPersonApiController::class, 'uyVienDtn']);
 Route::get('/cadres', [OutstandingPersonApiController::class, 'cadres']);
 Route::get('/can-bo-tieu-bieu', [OutstandingPersonApiController::class, 'cadres']);
 Route::get('/students', [OutstandingPersonApiController::class, 'students']);

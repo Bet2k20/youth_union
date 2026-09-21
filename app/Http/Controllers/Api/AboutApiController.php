@@ -32,26 +32,48 @@ class AboutApiController extends Controller
             ->orderBy('id', 'asc')
             ->get();
 
-        // 3. Cơ cấu tổ chức Đoàn trường (Ban Thường Vụ ĐTN Học viện)
+        // 3. Cơ cấu tổ chức Đoàn trường (Ban Thường Vụ & Ủy Viên ĐTN)
         $btvMembers = OutstandingPerson::where('role_group', 'BTV_DOAN')
             ->where('is_active', true)
             ->orderBy('order', 'asc')
             ->orderBy('id', 'asc')
             ->get();
 
-        if ($btvMembers->isEmpty()) {
-            $btvMembers = OutstandingPerson::where('role_group', 'BI_THU_DOAN')
+        $uyVienMembers = OutstandingPerson::where('role_group', 'UY_VIEN_DTN')
+            ->where('is_active', true)
+            ->orderBy('order', 'asc')
+            ->orderBy('id', 'asc')
+            ->get();
+
+        if ($uyVienMembers->isEmpty()) {
+            $uyVienMembers = OutstandingPerson::where('role_group', 'BI_THU_DOAN')
                 ->where('is_active', true)
                 ->orderBy('order', 'asc')
                 ->orderBy('id', 'asc')
                 ->get();
         }
 
+        $secretary = $btvMembers->firstWhere('position', 'Bí thư Đoàn Học viện') ?? $btvMembers->first();
+        $deputySecretaries = $btvMembers->filter(fn($m) => str_contains($m->position, 'Phó Bí thư'))->values();
+        $specializedCadres = $btvMembers->filter(fn($m) => str_contains($m->position, 'chuyên trách') || in_array($m->name, ['Nguyễn Thành Nghĩa', 'Nguyễn Xuân Hiếu']))->values();
+
         $organizationStructure = [
             'executive_board' => [
                 'name' => 'Ban Thường Vụ Đoàn Thanh Niên Học Viện CSND',
                 'description' => 'Cơ quan lãnh đạo cao nhất của Đoàn trường giữa hai kỳ Đại hội, chỉ đạo toàn diện công tác Đoàn và phong trào thanh niên trong toàn Học viện.',
                 'members' => $btvMembers,
+            ],
+            'executive_committee' => [
+                'name' => 'Ban Chấp Hành Đoàn Thanh Niên (Ủy viên ĐTN)',
+                'description' => 'Các đồng chí Ủy viên Ban Chấp hành Đoàn Thanh niên Học viện CSND nhiệm kỳ 2025 - 2027.',
+                'members' => $uyVienMembers,
+            ],
+            'tree' => [
+                'term' => '2025 - 2027',
+                'secretary' => $secretary,
+                'deputy_secretaries' => $deputySecretaries,
+                'specialized_cadres' => $specializedCadres, // 2 đồng chí Nghĩa và Hiếu: Cán bộ Đoàn chuyên trách
+                'committee_members' => $uyVienMembers,      // Các đồng chí cấp dưới: Ủy viên ĐTN
             ],
             'departments' => [
                 [
