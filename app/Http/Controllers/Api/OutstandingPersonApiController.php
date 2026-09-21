@@ -35,7 +35,13 @@ class OutstandingPersonApiController extends Controller
             if (in_array($roleNormalized, ['BTV', 'BTV_DOAN', 'BAN_THUONG_VU', 'THUONG_VU', 'STANDING_COMMITTEE'])) {
                 $query->where('role_group', 'BTV_DOAN');
             } elseif (in_array($roleNormalized, ['UY_VIEN', 'UY_VIEN_DTN', 'BCH', 'BCH_DOAN', 'UY_VIEN_BCH', 'COMMITTEE'])) {
-                $query->where('role_group', 'UY_VIEN_DTN');
+                $query->where(function($q) {
+                    $q->where('role_group', 'UY_VIEN_DTN')
+                      ->orWhere(function($sub) {
+                          $sub->where('role_group', 'BTV_DOAN')
+                              ->where('position', 'like', '%Ủy viên%');
+                      });
+                });
             } elseif (in_array($roleNormalized, ['CAN_BO', 'CADRE', 'CADRES', 'CAN_BO_DOAN', 'BI_THU_DOAN', 'CAN_BO_TIEU_BIEU'])) {
                 $query->where('role_group', 'BI_THU_DOAN');
             } elseif (in_array($roleNormalized, ['SINH_VIEN', 'STUDENT', 'STUDENTS', 'DOAN_VIEN', 'DOAN_VIEN_XUAT_SAC', 'SINH_VIEN_TIEU_BIEU'])) {
@@ -57,6 +63,8 @@ class OutstandingPersonApiController extends Controller
 
         // Nếu Frontend muốn trả về cấu trúc chia nhóm sẵn (?grouped=1)
         if ($request->boolean('grouped')) {
+            $uyVienGroup = $people->filter(fn($p) => $p->role_group === 'UY_VIEN_DTN' || ($p->role_group === 'BTV_DOAN' && str_contains($p->position, 'Ủy viên')))->values();
+
             return response()->json([
                 'status' => 'success',
                 'message' => 'Lấy danh sách gương mặt tiêu biểu theo nhóm thành công',
@@ -65,8 +73,8 @@ class OutstandingPersonApiController extends Controller
                     'leaders' => $people->where('role_group', 'BGD')->values(),
                     'btv' => $people->where('role_group', 'BTV_DOAN')->values(),
                     'specialized_cadres' => $people->where('role_group', 'BTV_DOAN')->filter(fn($p) => str_contains($p->position, 'chuyên trách') || in_array($p->name, ['Nguyễn Thành Nghĩa', 'Nguyễn Xuân Hiếu']))->values(),
-                    'uy_vien_dtn' => $people->where('role_group', 'UY_VIEN_DTN')->values(),
-                    'committee' => $people->where('role_group', 'UY_VIEN_DTN')->values(),
+                    'uy_vien_dtn' => $uyVienGroup,
+                    'committee' => $uyVienGroup,
                     'cadres' => $people->where('role_group', 'BI_THU_DOAN')->values(),
                     'students' => $people->where('role_group', 'DOAN_VIEN')->values(),
                 ],

@@ -56,6 +56,9 @@ class AboutApiController extends Controller
         $secretary = $btvMembers->firstWhere('position', 'Bí thư Đoàn Học viện') ?? $btvMembers->first();
         $deputySecretaries = $btvMembers->filter(fn($m) => str_contains($m->position, 'Phó Bí thư'))->values();
         $specializedCadres = $btvMembers->filter(fn($m) => str_contains($m->position, 'chuyên trách') || in_array($m->name, ['Nguyễn Thành Nghĩa', 'Nguyễn Xuân Hiếu']))->values();
+        $standingMembers = $btvMembers->filter(fn($m) => !str_contains($m->position, 'Bí thư') && !str_contains($m->position, 'chuyên trách') && !in_array($m->name, ['Nguyễn Thành Nghĩa', 'Nguyễn Xuân Hiếu']))->values();
+
+        $committeeMembers = $standingMembers->isNotEmpty() ? $standingMembers : $uyVienMembers;
 
         $organizationStructure = [
             'executive_board' => [
@@ -64,16 +67,17 @@ class AboutApiController extends Controller
                 'members' => $btvMembers,
             ],
             'executive_committee' => [
-                'name' => 'Ban Chấp Hành Đoàn Thanh Niên (Ủy viên ĐTN)',
-                'description' => 'Các đồng chí Ủy viên Ban Chấp hành Đoàn Thanh niên Học viện CSND nhiệm kỳ 2025 - 2027.',
-                'members' => $uyVienMembers,
+                'name' => 'Ban Chấp Hành Đoàn Thanh Niên (Ủy viên Ban Thường vụ / Ủy viên ĐTN)',
+                'description' => 'Các đồng chí Ủy viên Ban Thường vụ và Ban Chấp hành Đoàn Thanh niên Học viện CSND nhiệm kỳ 2025 - 2027.',
+                'members' => $committeeMembers,
             ],
             'tree' => [
                 'term' => '2025 - 2027',
                 'secretary' => $secretary,
                 'deputy_secretaries' => $deputySecretaries,
                 'specialized_cadres' => $specializedCadres, // 2 đồng chí Nghĩa và Hiếu: Cán bộ Đoàn chuyên trách
-                'committee_members' => $uyVienMembers,      // Các đồng chí cấp dưới: Ủy viên ĐTN
+                'standing_members' => $standingMembers,     // 6 đồng chí Ủy viên Ban Thường vụ
+                'committee_members' => $committeeMembers,   // Các đồng chí cấp dưới: 6 Ủy viên Ban Thường vụ / Ủy viên ĐTN
             ],
             'departments' => [
                 [
