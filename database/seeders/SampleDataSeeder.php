@@ -48,7 +48,7 @@ class SampleDataSeeder extends Seeder
         ];
 
         foreach ($users as $u) {
-            User::updateOrCreate(['email' => $u['email']], $u);
+            User::firstOrCreate(['email' => $u['email']], $u);
         }
 
         // 1. Tạo các Thể loại CLB chuẩn hóa
@@ -210,7 +210,7 @@ class SampleDataSeeder extends Seeder
         ];
 
         foreach ($clubs as $c) {
-            Club::updateOrCreate(['name' => $c['name']], $c);
+            Club::firstOrCreate(['name' => $c['name']], $c);
         }
 
         // 3. Nạp dữ liệu Banners (Slider ảnh bìa thực tế từ Đoàn Học viện)
@@ -267,7 +267,7 @@ class SampleDataSeeder extends Seeder
         ];
 
         foreach ($banners as $b) {
-            Banner::updateOrCreate(['image_url' => $b['image_url']], $b);
+            Banner::firstOrCreate(['image_url' => $b['image_url']], $b);
         }
 
         // 4. Nạp dữ liệu Hoạt động / Tin tức (kèm thông số Phong trào chuẩn Figma)
@@ -348,7 +348,7 @@ class SampleDataSeeder extends Seeder
         ];
 
         foreach ($activities as $act) {
-            Activity::updateOrCreate(['title' => $act['title']], $act);
+            Activity::firstOrCreate(['title' => $act['title']], $act);
         }
 
         // 5. Nạp dữ liệu Ban Giám Đốc Học viện, Ban Thường Vụ Đoàn & Gương mặt tiêu biểu
@@ -438,12 +438,12 @@ class SampleDataSeeder extends Seeder
             ],
             [
                 'name' => 'Nguyễn Thành Nghĩa',
-                'position' => 'Ủy viên Thường trực BTV',
+                'position' => 'Cán bộ Đoàn chuyên trách',
                 'order' => 4,
                 'avatar' => '/images/btv-doan/nguyen-thanh-nghia.jpg',
                 'role_group' => 'BTV_DOAN',
                 'class_unit' => 'Ban Thường vụ Đoàn Học viện CSND',
-                'achievement' => 'Ủy viên Thường trực Ban Thường vụ Đoàn Học viện CSND',
+                'achievement' => 'Cán bộ Đoàn chuyên trách Đoàn Học viện CSND',
                 'is_active' => true,
             ],
             [
@@ -511,7 +511,7 @@ class SampleDataSeeder extends Seeder
         ];
 
         foreach ($people as $p) {
-            OutstandingPerson::updateOrCreate(['name' => $p['name']], $p);
+            OutstandingPerson::firstOrCreate(['name' => $p['name']], $p);
         }
     }
 }

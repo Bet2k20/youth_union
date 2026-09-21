@@ -7,11 +7,13 @@ return [
     /*
     |--------------------------------------------------------------------------
     | Default Database Connection Name
-    | Khóa cố định SQLite để chạy độc lập 100% bên trong Render, không bị ảnh hưởng
-    | bởi các biến môi trường MySQL cũ còn lưu trên Render Dashboard.
+    | Hỗ trợ tự động:
+    | - Nếu có DATABASE_URL (Render PostgreSQL / Neon / Supabase): Dùng PostgreSQL lưu vĩnh viễn
+    | - Nếu chạy trên Render (RENDER=true) không có DATABASE_URL: Dùng SQLite an toàn
+    | - Chạy cục bộ: Tự động dùng DB_CONNECTION từ file .env
     |--------------------------------------------------------------------------
     */
-    'default' => 'sqlite',
+    'default' => env('DATABASE_URL') ? 'pgsql' : (env('RENDER') ? 'sqlite' : env('DB_CONNECTION', 'sqlite')),
 
     'connections' => [
 
