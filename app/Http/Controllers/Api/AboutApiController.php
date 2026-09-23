@@ -67,8 +67,8 @@ class AboutApiController extends Controller
                 'members' => $btvMembers,
             ],
             'executive_committee' => [
-                'name' => 'Ban Chấp Hành Đoàn Thanh Niên (Ủy viên Ban Thường vụ / Ủy viên ĐTN)',
-                'description' => 'Các đồng chí Ủy viên Ban Thường vụ và Ban Chấp hành Đoàn Thanh niên Học viện CSND nhiệm kỳ 2025 - 2027.',
+                'name' => 'Ban Chấp Hành Đoàn Thanh Niên (Ủy viên Ban Chấp hành)',
+                'description' => 'Các đồng chí Ủy viên Ban Chấp hành Đoàn Thanh niên Học viện CSND nhiệm kỳ 2025 - 2027.',
                 'members' => $committeeMembers,
             ],
             'tree' => [
@@ -76,8 +76,8 @@ class AboutApiController extends Controller
                 'secretary' => $secretary,
                 'deputy_secretaries' => $deputySecretaries,
                 'specialized_cadres' => $specializedCadres, // 2 đồng chí Nghĩa và Hiếu: Cán bộ Đoàn chuyên trách
-                'standing_members' => $standingMembers,     // 6 đồng chí Ủy viên Ban Thường vụ
-                'committee_members' => $committeeMembers,   // Các đồng chí cấp dưới: 6 Ủy viên Ban Thường vụ / Ủy viên ĐTN
+                'standing_members' => $standingMembers->isNotEmpty() ? $standingMembers : $committeeMembers,
+                'committee_members' => $committeeMembers,   // Các đồng chí cấp dưới: 6 Ủy viên Ban Chấp hành
             ],
             'departments' => [
                 [

@@ -1398,7 +1398,7 @@
             switch(role) {
                 case 'BGD': return <span className="badge bg-danger">BGD / Đảng Ủy</span>;
                 case 'BTV_DOAN': return <span className="badge bg-warning text-dark">BTV Đoàn Học Viện</span>;
-                case 'UY_VIEN_DTN': return <span className="badge bg-info text-dark">Ủy viên ĐTN</span>;
+                case 'UY_VIEN_DTN': return <span className="badge bg-info text-dark">Ủy viên Ban Chấp Hành</span>;
                 case 'BI_THU_DOAN': return <span className="badge bg-primary">Cán Bộ Đoàn</span>;
                 case 'DOAN_VIEN': return <span className="badge bg-success">Đoàn Viên Xuất Sắc</span>;
                 default: return <span className="badge bg-secondary">{role}</span>;
@@ -1512,7 +1512,7 @@
                                             <label className="form-label fw-bold">Danh hiệu / Nhóm</label>
                                             <select className="form-select" value={roleGroup} onChange={(e) => setRoleGroup(e.target.value)}>
                                                 <option value="BTV_DOAN">Ban Thường Vụ Đoàn Học Viện</option>
-                                                <option value="UY_VIEN_DTN">Ủy viên ĐTN / Ban Chấp Hành</option>
+                                                <option value="UY_VIEN_DTN">Ủy viên Ban Chấp Hành</option>
                                                 <option value="BI_THU_DOAN">Cán Bộ Đoàn Tiêu Biểu / Bí Thư Chi Đoàn</option>
                                                 <option value="DOAN_VIEN">Sinh Viên Tiêu Biểu / Đoàn Viên Xuất Sắc</option>
                                                 <option value="BGD">Ban Giám Đốc / Đảng Ủy</option>
