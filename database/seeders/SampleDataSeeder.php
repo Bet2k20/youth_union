@@ -230,18 +230,6 @@ class SampleDataSeeder extends Seeder
                 ],
             ],
             [
-                'name' => 'CLB Piano & Nhạc Cụ Học Viện CSND',
-                'logo' => '/images/clubs/guitar/guitar-6.jpg',
-                'images' => [
-                    '/images/clubs/guitar/guitar-6.jpg',
-                    '/images/clubs/guitar/guitar-3.jpg',
-                    '/images/clubs/guitar/guitar-4.jpg',
-                ],
-                'founded_date' => '2018-11-20',
-                'category_id' => $catMusic->id,
-                'description' => 'Không gian nghệ thuật dành cho các đoàn viên yêu thích đàn Piano, Organ, nhạc cụ thính phòng và hòa tấu; thường xuyên biểu diễn phục vụ các chương trình chính trị, hội nghị và giao lưu văn hóa nghệ thuật của Học viện.',
-            ],
-            [
                 'name' => 'CLB Dân Vũ Học Viện CSND',
                 'logo' => '/images/clubs/dan-vu/dan-vu-1.jpg',
                 'images' => [
