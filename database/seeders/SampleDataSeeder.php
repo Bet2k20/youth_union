@@ -105,7 +105,37 @@ class SampleDataSeeder extends Seeder
                 ],
                 'founded_date' => '2015-10-01',
                 'category_id' => $catMartialArts->id,
-                'description' => 'Môi trường rèn luyện thể lực, kỷ luật và kỹ năng thực chiến dành cho các bạn đam mê bộ môn Karate, nâng cao bản lĩnh tự vệ và rèn luyện thể chất dẻo dai.',
+                'description' => 'Dành cho các bạn có sở thích và niềm đam mê với võ thuật nói chung và bộ môn Karate nói riêng. CLB hoạt động mục đích rèn luyện sức khoẻ kết nối mọi người có chung niềm đam mê với môn Karate.',
+                'missions' => [
+                    'Tổ chức tập luyện các kỹ thuật căn bản, kata, kumite, tự vệ...',
+                    'Rèn luyện thể lực, kỷ luật thép, sự nhạy bén và ý chí kiên cường cho học viên.',
+                    'Biểu diễn võ thuật, tham gia thi đấu các giải thể thao phong trào và võ thuật.',
+                ],
+                'regular_activities' => [
+                    'Các buổi tập luyện võ thuật định kỳ tại sân bãi/nhà thi đấu của Học viện.',
+                    'Tập huấn nâng cao đai đẳng, kỹ thuật đối kháng và quyền pháp.',
+                    'Tổ chức giao lưu, thi đấu cọ xát với các câu lạc bộ võ thuật ngoài đơn vị.',
+                ],
+                'membership_requirements' => [
+                    'Có sức khỏe tốt, yêu thích võ thuật và đam mê bộ môn Karate.',
+                    'Chấp hành nghiêm chỉnh nội quy võ đường, kỷ luật huấn luyện và điều lệnh CAND.',
+                    'Cam kết tham gia đều đặn các buổi tập luyện.',
+                ],
+                'management_structure' => [
+                    'Chủ nhiệm',
+                    'Phó Chủ nhiệm chuyên môn',
+                    'Phó Chủ nhiệm phong trào',
+                    'Các ban: Huấn luyện, Hậu cần – Đội hình biểu diễn',
+                ],
+                'achievements' => [
+                    'Giành nhiều huy chương và giải thưởng tại các giải vô địch Karate, các giải thể thao học sinh, sinh viên và lực lượng vũ trang.',
+                    'Đóng góp lực lượng nòng cốt cho các màn biểu diễn võ thuật cấp Bộ, cấp Học viện.',
+                ],
+                'recruitment_process' => [
+                    'Nộp đơn & sản phẩm dự tuyển',
+                    'Test thể lực chung (hít đất, gập bụng, sức bền cơ bản).',
+                    'Phỏng vấn với ban chủ nhiệm',
+                ],
             ],
             [
                 'name' => 'CLB Taekwondo PPA',
@@ -122,7 +152,37 @@ class SampleDataSeeder extends Seeder
                 ],
                 'founded_date' => '2016-10-15',
                 'category_id' => $catMartialArts->id,
-                'description' => 'Nơi hội tụ các võ sinh đam mê nghệ thuật đòn chân và tinh thần thượng võ của Taekwondo, giúp tăng cường thể lực, ý chí kiên định và phong thái tự tin cho học viên.',
+                'description' => 'Dành cho các bạn có sở thích và niềm đam mê với võ thuật nói chung và bộ môn Taekwondo nói riêng. CLB hoạt động mục đích rèn luyện sức khoẻ kết nối mọi người có chung niềm đam mê với môn Taekwondo.',
+                'missions' => [
+                    'Đào tạo và huấn luyện các kỹ thuật đòn chân, quyền (Poomsae), đối kháng...',
+                    'Xây dựng đội hình biểu diễn võ thuật phục vụ các sự kiện lớn, lễ hội, ngày hội.',
+                    'Rèn luyện tác phong nhanh nhẹn, ý chí kiên định và tinh thần võ đạo thượng võ.',
+                ],
+                'regular_activities' => [
+                    'Duy trì các buổi tập luyện kỹ thuật, thể lực định kỳ trong tuần.',
+                    'Tập luyện nâng đai, kiểm tra trình độ định kỳ cho các võ sinh.',
+                    'Tham gia giao lưu, thi đấu các giải thể thao, võ thuật do Học viện, ngành.',
+                ],
+                'membership_requirements' => [
+                    'Sức khỏe tốt, đam mê võ thuật và đặc biệt yêu thích các đòn cước uy lực của Taekwondo.',
+                    'Có tinh thần kỷ luật cao, tôn trọng võ đạo, tôn trọng huấn luyện viên và đồng môn.',
+                    'Sắp xếp thời gian tham gia đầy đủ lịch tập luyện của CLB.',
+                ],
+                'management_structure' => [
+                    'Chủ nhiệm',
+                    'Phó Chủ nhiệm chuyên môn',
+                    'Phó Chủ nhiệm phong trào',
+                    'Các ban: Đội tuyển đối kháng, Đội biểu diễn quyền, Ban Hậu cần',
+                ],
+                'achievements' => [
+                    'Đạt nhiều huy chương vàng, bạc, đồng tại các giải đấu Taekwondo học sinh, sinh viên và các cấp tổ chức.',
+                    'Thực hiện thành công các màn đồng diễn võ thuật quy mô lớn trong các buổi lễ chào mừng, bế mạc hội thao.',
+                ],
+                'recruitment_process' => [
+                    'Nộp đơn đăng ký tuyển sinh viên vào CLB',
+                    'Kiểm tra thể lực nền tảng (sự dẻo dai, sức bền và độ linh hoạt)',
+                    'Phỏng vấn với ban chủ nhiệm',
+                ],
             ],
             [
                 'name' => 'CLB Guitar Học Viện CSND (PGC)',
@@ -137,7 +197,37 @@ class SampleDataSeeder extends Seeder
                 ],
                 'founded_date' => '2010-04-22',
                 'category_id' => $catMusic->id,
-                'description' => 'Ngôi nhà chung của những trái tim yêu âm nhạc và nhạc cụ mộc (Acoustic), nơi giao lưu tài năng âm nhạc và biểu diễn sân khấu trong các chương trình văn nghệ của Học viện (Chủ nhiệm: Đ/c Minh).',
+                'description' => 'Câu lạc bộ dành cho những bạn có niềm đam mê về âm nhạc, đặc biệt là nhạc cụ Guitar; tạo môi trường giao lưu lành mạnh, nuôi dưỡng tâm hồn nghệ thuật và gắn kết đoàn viên thanh niên.',
+                'missions' => [
+                    'Tổ chức các lớp hướng dẫn, truyền lửa và dạy đàn guitar từ cơ bản - nâng cao.',
+                    'Xây dựng đội ngũ biểu diễn phục vụ các hoạt động ngoại khóa, biểu diễn.',
+                    'Tạo không gian sinh hoạt âm nhạc ấm cúng, thư giãn.',
+                ],
+                'regular_activities' => [
+                    'Buổi sinh hoạt đệm đàn, hát giao lưu định kỳ hàng tuần.',
+                    'Tổ chức các buổi workshop hướng dẫn hợp âm, ngón tay (fingerstyle), kỹ thuật.',
+                    'Biểu diễn acoustic tại các chương trình lửa trại, ngày hội sinh viên,...',
+                ],
+                'membership_requirements' => [
+                    'Yêu thích âm nhạc và có niềm đam mê với tiếng đàn Guitar (có hoặc chưa biết chơi đều có thể tham gia).',
+                    'Sẵn sàng học hỏi, luyện tập chăm chỉ và tham gia các hoạt động biểu diễn tập thể.',
+                    'Có tinh thần trách nhiệm với tập thể CLB.',
+                ],
+                'management_structure' => [
+                    'Chủ nhiệm',
+                    'Phó Chủ nhiệm chuyên môn',
+                    'Phó Chủ nhiệm hậu cần – sự kiện',
+                    'Các ban: Đào tạo, Biểu diễn, Hậu cần – Truyền thông',
+                ],
+                'achievements' => [
+                    'Cung cấp nguồn nhân lực nòng cốt cho các chương trình văn nghệ lớn của Học viện.',
+                    'Tổ chức thành công nhiều đêm nhạc acoustic tạo tiếng vang lớn trong thanh niên nhà trường.',
+                ],
+                'recruitment_process' => [
+                    'Nộp đơn & sản phẩm dự tuyển',
+                    'Kiểm tra năng khiếu/mức độ tiếp cận nhạc cụ',
+                    'Phỏng vấn với ban chủ nhiệm',
+                ],
             ],
             [
                 'name' => 'CLB Piano & Nhạc Cụ Học Viện CSND',
@@ -166,7 +256,37 @@ class SampleDataSeeder extends Seeder
                 ],
                 'founded_date' => '2012-09-30',
                 'category_id' => $catDance->id,
-                'description' => 'Môi trường sinh hoạt nghệ thuật năng động dành cho các bạn trẻ yêu thích các vũ điệu dân vũ, nhảy hiện đại và flashmob, góp phần lan tỏa năng lượng tích cực và nhiệt huyết tuổi trẻ (Chủ nhiệm: Đ/c Hà Nghĩa).',
+                'description' => 'Câu lạc bộ dành cho những bạn đam mê và muốn thử sức với bộ môn nhảy hiện đại, làm truyền thông với một câu lạc bộ chuyên về nhảy, không cần năng khiếu không thiếu niềm vui',
+                'missions' => [
+                    'Xây dựng các tiết mục nhảy dân vũ, nhảy hiện đại phục vụ các chương trình.',
+                    'Tổ chức các lớp tập huấn, giao lưu văn nghệ rèn luyện thể chất.',
+                    'Xây dựng hình ảnh, làm truyền thông lan tỏa phong trào văn nghệ.',
+                ],
+                'regular_activities' => [
+                    'Buổi tập luyện vũ đạo định kỳ hàng tuần.',
+                    'Tham gia biểu diễn tại các chương trình chào tân sinh viên, hội diễn văn nghệ...',
+                    'Quay dựng các video cover dance, clip ngắn bắt trend làm truyền thông.',
+                ],
+                'membership_requirements' => [
+                    'Yêu thích âm nhạc, đam mê vũ đạo và muốn thử sức với bộ môn nhảy hiện đại.',
+                    'Không yêu cầu năng khiếu đầu vào khắt khe, quan trọng là tinh thần nhiệt huyết và sự cầu tiến.',
+                    'Sắp xếp thời gian tham gia đầy đủ các buổi tập luyện chung.',
+                ],
+                'management_structure' => [
+                    'Chủ nhiệm',
+                    'Phó Chủ nhiệm chuyên môn (Biên đạo)',
+                    'Phó Chủ nhiệm hậu cần – truyền thông',
+                    'Các ban: Hậu cần, Truyền thông...',
+                ],
+                'achievements' => [
+                    'Đạt giải cao tại các hội diễn văn nghệ, hội thi nhảy dân vũ cấp Học viện và tuổi trẻ lực lượng vũ trang.',
+                    'Biểu diễn thành công tại nhiều sự kiện lớn quy mô cấp trường và liên kết.',
+                ],
+                'recruitment_process' => [
+                    'Nộp đơn đăng ký thành viên trực tuyến.',
+                    'Buổi thử sức năng động (Thực hiện các động tác nhảy cơ bản theo hướng dẫn).',
+                    'Phỏng vấn với ban chủ nhiệm',
+                ],
             ],
             [
                 'name' => 'CLB Nội San – Truyền Thanh',
@@ -178,7 +298,37 @@ class SampleDataSeeder extends Seeder
                 ],
                 'founded_date' => '2006-03-18',
                 'category_id' => $catMedia->id,
-                'description' => 'Sân chơi học thuật và nghiệp vụ dành cho các đoàn viên có niềm đam mê với công tác truyền thông, phóng sự, nhiếp ảnh, biên tập báo chí và kỹ thuật phát thanh tuyên truyền (Chủ nhiệm: Đ/c Huy Trần).',
+                'description' => 'CLB là sân chơi cho các bạn đam mê truyền thông, nhiếp ảnh, biên tập, phát thanh',
+                'missions' => [
+                    'Sản xuất các bản tin phát thanh, bài viết, chuyên mục nội san của Học viện.',
+                    'Quản lý hệ thống phát thanh nội bộ và các chuyên trang thông tin.',
+                    'Thực hiện công tác truyền thông, đưa tin cho các sự kiện, hoạt động lớn.',
+                ],
+                'regular_activities' => [
+                    'Thực hiện các số phát thanh định kỳ trên hệ thống loa/kênh thông tin nội bộ.',
+                    'Biên tập và phát hành ấn phẩm nội san.',
+                    'Tổ chức tập huấn kỹ năng viết bản tin, giọng đọc phát thanh, kỹ năng biên tập.',
+                ],
+                'membership_requirements' => [
+                    'Đam mê truyền thông, phát thanh, viết lách hoặc nhiếp ảnh.',
+                    'Có giọng đọc tốt (đối với phát thanh viên) hoặc kỹ năng biên tập, xử lý âm thanh.',
+                    'Chủ động, trách nhiệm và gắn bó với công việc của CLB.',
+                ],
+                'management_structure' => [
+                    'Chủ nhiệm',
+                    'Phó Chủ nhiệm nội dung',
+                    'Phó Chủ nhiệm kỹ thuật',
+                    'Các ban: Phát thanh, Biên tập, Kỹ thuật – Âm thanh.',
+                ],
+                'achievements' => [
+                    'Nhiều ấn phẩm nội san và chương trình phát thanh đạt giải cao cấp Học viện và các cơ quan cấp trên.',
+                    'Đóng góp tích cực trong công tác tuyên truyền chung của tuổi trẻ Học viện.',
+                ],
+                'recruitment_process' => [
+                    'Nộp đơn đăng ký & sản phẩm thử sức (giọng đọc/bài viết).',
+                    'Thử giọng / Test kỹ năng chuyên môn.',
+                    'Phỏng vấn trực tiếp với Ban Chủ nhiệm.',
+                ],
             ],
             [
                 'name' => 'CLB Truyền Hình PPA TV',
@@ -186,7 +336,37 @@ class SampleDataSeeder extends Seeder
                 'images' => [],
                 'founded_date' => '2017-09-25',
                 'category_id' => $catMedia->id,
-                'description' => 'Kênh truyền thông đa phương tiện trực thuộc Đoàn trường, quy tụ các bạn trẻ đam mê báo chí, sản xuất video, dẫn chương trình (MC) và tổ chức các sự kiện lớn của Học viện (Chủ nhiệm: Đ/c Tuấn Phong).',
+                'description' => 'CLB dành cho các bạn có niềm đam mê với báo chí, truyền thông, tổ chức sự kiện',
+                'missions' => [
+                    'Sản xuất tin, bài, ảnh, video về hoạt động Đoàn',
+                    'Quản trị fanpage, website và các nền tảng số',
+                    'Truyền thông cho các sự kiện, phong trào lớn',
+                ],
+                'regular_activities' => [
+                    'Livestream, đưa tin các sự kiện của Học viện',
+                    'Chuỗi phóng sự "Tuổi trẻ Học viện"',
+                    'Workshop kỹ năng truyền thông, nhiếp ảnh',
+                ],
+                'membership_requirements' => [
+                    'Đam mê truyền thông, sáng tạo',
+                    'Có kỹ năng viết, quay, dựng hoặc thiết kế',
+                    'Chủ động, chịu áp lực tiến độ',
+                ],
+                'management_structure' => [
+                    'Chủ nhiệm',
+                    'Phó Chủ nhiệm nội dung',
+                    'Phó Chủ nhiệm kỹ thuật',
+                    'Các ban: Quay dựng, Thiết kế, Nội dung',
+                ],
+                'achievements' => [
+                    'Giải nhất Liên hoan truyền thông sinh viên khối CAND',
+                    'Nhiều sản phẩm đạt giải cấp Bộ',
+                ],
+                'recruitment_process' => [
+                    'Nộp đơn & sản phẩm dự tuyển',
+                    'Test kỹ năng chuyên môn',
+                    'Phỏng vấn với ban chủ nhiệm',
+                ],
             ],
             [
                 'name' => 'CLB Sách Và Hành Động PPA',
@@ -205,12 +385,42 @@ class SampleDataSeeder extends Seeder
                 ],
                 'founded_date' => '2021-05-30',
                 'category_id' => $catAcademic->id,
-                'description' => 'Không gian học thuật kết nối niềm đam mê đọc sách, phát triển kỹ năng viết lách, tư duy phản biện và lan tỏa văn hóa đọc sâu rộng trong toàn thể đoàn viên, sinh viên (Chủ nhiệm: Đ/c Ma Nguyệt Hà).',
+                'description' => 'Câu lạc bộ học thuật dành cho những bạn đam mê đọc sách, viết lách và truyền thông; khơi dậy văn hóa đọc, lan tỏa tri thức và biến những trang sách thành hành động thiết thực trong học tập và rèn luyện.',
+                'missions' => [
+                    'Tổ chức các diễn đàn, buổi tọa đàm chia sẻ, review sách và phương pháp đọc.',
+                    'Thúc đẩy phong trào tự học, nghiên cứu và phát triển kỹ năng viết.',
+                    'Thực hiện các dự án cộng đồng, hoạt động truyền thông',
+                ],
+                'regular_activities' => [
+                    'Sinh hoạt CLB định kỳ: Thảo luận sách, chia sẻ góc nhìn chuyên môn.',
+                    'Viết bài cảm nhận, làm video review sách đăng tải trên các nền tảng số.',
+                    'Tổ chức các cuộc thi viết, hội sách hoặc tủ sách tri thức tại đơn vị.',
+                ],
+                'membership_requirements' => [
+                    'Có niềm đam mê với việc đọc sách, viết lách và mong muốn rèn luyện tư duy.',
+                    'Yêu thích hoạt động học thuật, truyền thông và lan tỏa tri thức.',
+                    'Tinh thần ham học hỏi, chủ động tham gia các buổi sinh hoạt định kỳ.',
+                ],
+                'management_structure' => [
+                    'Chủ nhiệm',
+                    'Phó Chủ nhiệm nội dung',
+                    'Phó Chủ nhiệm truyền thông - dự án',
+                    'Các ban: Nội dung, Truyền thông - Sự kiện',
+                ],
+                'achievements' => [
+                    'Xây dựng thành công nhiều tủ sách thanh niên và các diễn đàn học thuật uy tín trong học viện.',
+                    'Nhiều bài viết, dự án đọc sách đạt giải thưởng cao trong hệ thống phong trào Sách và Hành động rộng rãi.',
+                ],
+                'recruitment_process' => [
+                    'Nộp đơn & sản phẩm dự tuyển',
+                    'Test kỹ năng chuyên môn',
+                    'Phỏng vấn với ban chủ nhiệm',
+                ],
             ],
         ];
 
         foreach ($clubs as $c) {
-            Club::firstOrCreate(['name' => $c['name']], $c);
+            Club::updateOrCreate(['name' => $c['name']], $c);
         }
 
         // 3. Nạp dữ liệu Banners (Slider ảnh bìa thực tế từ Đoàn Học viện)
