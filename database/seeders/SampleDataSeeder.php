@@ -126,14 +126,14 @@ class SampleDataSeeder extends Seeder
             ],
             [
                 'name' => 'CLB Guitar Học Viện CSND (PGC)',
-                'logo' => '/images/clubs/guitar/guitar-1.jpg',
+                'logo' => '/images/clubs/guitar/guitar-2.jpg',
                 'images' => [
-                    '/images/clubs/guitar/guitar-1.jpg',
                     '/images/clubs/guitar/guitar-2.jpg',
                     '/images/clubs/guitar/guitar-3.jpg',
                     '/images/clubs/guitar/guitar-4.jpg',
                     '/images/clubs/guitar/guitar-5.jpg',
                     '/images/clubs/guitar/guitar-6.jpg',
+                    '/images/clubs/guitar/guitar-1.jpg',
                 ],
                 'founded_date' => '2010-04-22',
                 'category_id' => $catMusic->id,
@@ -141,9 +141,9 @@ class SampleDataSeeder extends Seeder
             ],
             [
                 'name' => 'CLB Piano & Nhạc Cụ Học Viện CSND',
-                'logo' => '/images/clubs/guitar/guitar-2.jpg',
+                'logo' => '/images/clubs/guitar/guitar-6.jpg',
                 'images' => [
-                    '/images/clubs/guitar/guitar-2.jpg',
+                    '/images/clubs/guitar/guitar-6.jpg',
                     '/images/clubs/guitar/guitar-3.jpg',
                     '/images/clubs/guitar/guitar-4.jpg',
                 ],
