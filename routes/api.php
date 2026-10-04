@@ -28,6 +28,29 @@ use Illuminate\Support\Facades\Route;
 // 1. PUBLIC APIS (Khớp 100% Các Màn Hình Figma & Dashboard)
 // ==========================================
 
+// Trang chủ / Trạng thái API: GET /api
+Route::get('/', function () {
+    return response()->json([
+        'status' => 'success',
+        'message' => '🌟 Tuổi trẻ PPA - Đoàn Thanh niên Học viện CSND API Server is RUNNING!',
+        'server_time' => now()->toDateTimeString(),
+        'endpoints' => [
+            'home' => url('/api/home'),
+            'quick_access' => url('/api/quick-access'),
+            'about' => url('/api/about'),
+            'btv_doan' => url('/api/btv-doan'),
+            'uy_vien_dtn' => url('/api/uy-vien-dtn'),
+            'students' => url('/api/students'),
+            'clubs' => url('/api/clubs'),
+            'activities' => url('/api/activities'),
+            'movements' => url('/api/movements'),
+            'student_5_good' => url('/api/student-5-good'),
+            'metrics' => url('/api/metrics'),
+            'banners' => url('/api/banners'),
+        ],
+    ], 200);
+});
+
 // Kích hoạt & Khởi tạo dữ liệu Database 1-Click
 Route::get('/setup-database', function () {
     try {
