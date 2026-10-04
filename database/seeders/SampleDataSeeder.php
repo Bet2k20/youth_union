@@ -615,7 +615,7 @@ class SampleDataSeeder extends Seeder
                 'is_active' => true,
             ],
             [
-                'name' => 'Nguyễn Xuân Vinh',
+                'name' => 'Nguyễn Xuân Vịnh',
                 'position' => 'Phó Bí thư Đoàn Học viện',
                 'order' => 2,
                 'avatar' => '/images/btv-doan/nguyen-xuan-vinh.jpg',
