@@ -849,6 +849,16 @@ class SampleDataSeeder extends Seeder
                 'achievement' => 'Sinh viên tiêu biểu Học viện CSND; Nữ đoàn viên tiêu biểu xuất sắc trong học tập, rèn luyện và công tác phong trào Đoàn trường.',
                 'is_active' => true,
             ],
+            [
+                'name' => 'Hoàng Anh Minh',
+                'position' => 'Sinh viên tiêu biểu',
+                'order' => 9,
+                'avatar' => '/images/sinh-vien-tieu-bieu/hoang-anh-minh.jpg',
+                'role_group' => 'DOAN_VIEN',
+                'class_unit' => 'Chi đoàn B11A - Khóa D51',
+                'achievement' => 'Sinh viên tiêu biểu Học viện CSND; Gương sáng thanh niên Công an tiêu biểu trong học tập và rèn luyện; Tích cực tham gia các phong trào Đoàn thanh niên.',
+                'is_active' => true,
+            ],
         ];
 
         foreach ($people as $p) {
