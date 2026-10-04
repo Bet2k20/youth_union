@@ -161,7 +161,7 @@ class Student5GoodApiController extends Controller
                     'title' => 'Thể lực tốt',
                     'description' => 'Rèn luyện thân thể theo gương Bác Hồ vĩ đại, đạt chuẩn thể lực CAND, có kỹ năng võ thuật và bắn súng vững vàng.',
                     'standards' => [
-                        'Đạt tiêu chuẩn rèn luyện thể lực chiến sĩ CAND hằng năm',
+                        'Đạt tiêu chuẩn rèn luyện thể lực chiến sĩ CAND hàng năm',
                         'Tham gia các hội thao thể thao, giải bóng đá, bóng chuyền, chạy vũ trang hoặc CLB võ thuật',
                         'Biết ít nhất 01 môn thể thao hoặc võ thuật ứng dụng CAND',
                     ],
@@ -196,8 +196,8 @@ class Student5GoodApiController extends Controller
     private function getMemberClassificationData(): array
     {
         return [
-            'title' => 'Tiêu Chí Xếp Loại Chất Lượng Đoàn Viên Hằng Năm',
-            'legal_basis' => 'Hướng dẫn 638-HD/ĐTNCA ngày 13/12/2019 của Ban Chấp hành Đoàn Bộ Công an về việc kiểm điểm và đánh giá, xếp loại chất lượng hằng năm đối với tổ chức đoàn, tập thể lãnh đạo và cá nhân.',
+            'title' => 'Tiêu Chí Xếp Loại Chất Lượng Đoàn Viên Hàng Năm',
+            'legal_basis' => 'Hướng dẫn 638-HD/ĐTNCA ngày 13/12/2019 của Ban Chấp hành Đoàn Bộ Công an về việc kiểm điểm và đánh giá, xếp loại chất lượng hàng năm đối với tổ chức đoàn, tập thể lãnh đạo và cá nhân.',
             'target_subjects' => [
                 'title' => '1. Đối Tượng & Điều Kiện Đánh Giá',
                 'items' => [
@@ -625,7 +625,7 @@ class Student5GoodApiController extends Controller
             'rewards' => [
                 'Bằng khen của Ban Chấp hành Trung ương Hội Sinh viên Việt Nam',
                 'Biểu trưng Giải thưởng Sao Tháng Giêng và tiền thưởng theo quy định',
-                'Được vinh danh trong Ngày truyền thống Học sinh - Sinh viên Việt Nam (09/01) hằng năm',
+                'Được vinh danh trong Ngày truyền thống Học sinh - Sinh viên Việt Nam (09/01) hàng năm',
             ],
         ];
 
@@ -749,7 +749,7 @@ class Student5GoodApiController extends Controller
                 'Có thời gian giữ chức vụ cán bộ Đoàn (Bí thư Chi đoàn, UV BCH Liên chi đoàn, Đoàn trường) từ đủ 01 năm trở lên',
                 'Tập thể Chi đoàn do đồng chí phụ trách đạt xếp loại "Hoàn thành xuất sắc nhiệm vụ" trong năm xét trao',
                 'Chủ trì hoặc trực tiếp xây dựng ít nhất 01 công trình thanh niên, mô hình đổi mới sáng tạo trong công tác Đoàn được công nhận, nhân rộng',
-                'Điểm rèn luyện hằng năm đạt loại Xuất sắc; điểm học tập đạt loại Khá trở lên (ưu tiên loại Giỏi/Xuất sắc)',
+                'Điểm rèn luyện hàng năm đạt loại Xuất sắc; điểm học tập đạt loại Khá trở lên (ưu tiên loại Giỏi/Xuất sắc)',
                 'Đã được tặng Bằng khen của Ban Thường vụ Tỉnh/Thành đoàn, Đoàn Bộ Công an hoặc Giấy khen của Giám đốc Học viện về công tác Đoàn',
             ],
             'rewards' => [

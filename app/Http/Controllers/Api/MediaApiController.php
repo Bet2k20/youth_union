@@ -251,7 +251,7 @@ class MediaApiController extends Controller
                 'issuer' => 'BCH Đoàn Bộ Công an & BCH Đoàn Học viện CSND',
                 'issued_date' => '2025-02-20',
                 'category' => 'Hướng dẫn rèn luyện & Phân loại',
-                'description' => 'Quy định chi tiết tiêu chí xếp loại đoàn viên hằng năm (HTXS, HTT, HT, KHT), tiêu chuẩn xét đoàn viên ưu tú và điều kiện kết nạp Đảng.',
+                'description' => 'Quy định chi tiết tiêu chí xếp loại đoàn viên hàng năm (HTXS, HTT, HT, KHT), tiêu chuẩn xét đoàn viên ưu tú và điều kiện kết nạp Đảng.',
                 'file_type' => 'DOCX',
                 'file_size' => '35 KB',
                 'download_url' => url('/uploads/documents/phan_loai_doan_vien.docx'),
