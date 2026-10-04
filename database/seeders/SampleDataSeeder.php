@@ -750,12 +750,12 @@ class SampleDataSeeder extends Seeder
             ],
             [
                 'name' => 'Phạm Văn Lộc',
-                'position' => 'Đoàn viên xuất sắc',
+                'position' => 'Tốt nghiệp loại Xuất sắc toàn khóa học',
                 'order' => 3,
                 'avatar' => '/images/sinh-vien-tieu-bieu/pham-van-loc.jpg',
                 'role_group' => 'BI_THU_DOAN',
                 'class_unit' => 'Chi đoàn Khoa Cảnh sát hình sự',
-                'achievement' => 'Cán bộ Đoàn xuất sắc, Gương thanh niên tiên tiến làm theo lời Bác cấp Học viện.',
+                'achievement' => 'Tốt nghiệp loại Xuất sắc toàn khóa học; Đạt danh hiệu Sinh viên 5 tốt cấp Học viện; Giải nhất NCKH sinh viên năm 2024; Cán bộ Đoàn xuất sắc, Gương thanh niên tiên tiến làm theo lời Bác cấp Học viện.',
                 'is_active' => true,
             ],
             [
