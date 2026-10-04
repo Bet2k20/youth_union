@@ -716,6 +716,16 @@ class SampleDataSeeder extends Seeder
                 'achievement' => 'Ủy viên Ban Chấp hành Đoàn Thanh niên Học viện CSND',
                 'is_active' => true,
             ],
+            [
+                'name' => 'Đại úy Hà Quang Thái',
+                'position' => 'Ủy viên Ban chấp hành',
+                'order' => 12,
+                'avatar' => '/images/btv-doan/ha-quang-thai.jpg',
+                'role_group' => 'UY_VIEN_DTN',
+                'class_unit' => 'Ban Chấp hành Đoàn Học viện CSND',
+                'achievement' => 'Ủy viên Ban Chấp hành Đoàn Thanh niên Học viện CSND',
+                'is_active' => true,
+            ],
 
             // --- CÁN BỘ ĐOÀN & SINH VIÊN TIÊU BIỂU ---
             [
