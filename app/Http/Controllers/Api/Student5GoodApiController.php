@@ -551,7 +551,7 @@ class Student5GoodApiController extends Controller
     private function getAwardsData(): array
     {
         $levelsComparison = [
-            'title' => 'Tiêu Chuẩn Giải Thưởng "Sinh Viên 5 Tốt" Các Cấp (Học Viện, Bộ Công An & Trung Ương)',
+            'title' => 'Tiêu Chuẩn Giải Thưởng "Sinh Viên 5 Tốt" Các Cấp',
             'columns' => [
                 ['key' => 'standard', 'label' => 'Tiêu chuẩn'],
                 ['key' => 'academy', 'label' => 'Cấp Học viện'],
