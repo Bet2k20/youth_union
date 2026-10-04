@@ -707,7 +707,7 @@ class SampleDataSeeder extends Seeder
                 'is_active' => true,
             ],
             [
-                'name' => 'Đại úy Nguyễn Thế Vinh',
+                'name' => 'Đại úy Nguyễn Thế Vịnh',
                 'position' => 'Ủy viên Ban chấp hành',
                 'order' => 11,
                 'avatar' => '/images/btv-doan/nguyen-the-vinh.jpg',
