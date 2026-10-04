@@ -790,19 +790,9 @@ class SampleDataSeeder extends Seeder
                 'is_active' => true,
             ],
             [
-                'name' => 'Lê Huy Khánh',
-                'position' => 'Sinh viên tiêu biểu',
-                'order' => 3,
-                'avatar' => '/images/sinh-vien-tieu-bieu/le-huy-khanh.jpg',
-                'role_group' => 'DOAN_VIEN',
-                'class_unit' => 'Chi đoàn B3C - Khóa D51',
-                'achievement' => 'Sinh viên tiêu biểu Học viện CSND; Gương mẫu chấp hành điều lệnh CAND; Tích cực xung kích trong các hoạt động phong trào thanh niên.',
-                'is_active' => true,
-            ],
-            [
                 'name' => 'Nguyễn Hải Long',
                 'position' => 'Sinh viên tiêu biểu',
-                'order' => 4,
+                'order' => 3,
                 'avatar' => '/images/sinh-vien-tieu-bieu/nguyen-hai-long.jpg',
                 'role_group' => 'DOAN_VIEN',
                 'class_unit' => 'Chi đoàn Khóa D49',
@@ -812,7 +802,7 @@ class SampleDataSeeder extends Seeder
             [
                 'name' => 'Nguyễn Khánh Lâm',
                 'position' => 'Sinh viên tiêu biểu',
-                'order' => 5,
+                'order' => 4,
                 'avatar' => '/images/sinh-vien-tieu-bieu/nguyen-khanh-lam.jpg',
                 'role_group' => 'DOAN_VIEN',
                 'class_unit' => 'Chi đoàn B3D - Khóa D50',
@@ -822,7 +812,7 @@ class SampleDataSeeder extends Seeder
             [
                 'name' => 'Nguyễn Quang Duy',
                 'position' => 'Sinh viên tiêu biểu',
-                'order' => 6,
+                'order' => 5,
                 'avatar' => '/images/sinh-vien-tieu-bieu/nguyen-quang-duy.jpg',
                 'role_group' => 'DOAN_VIEN',
                 'class_unit' => 'Chi đoàn Khóa D49',
@@ -832,7 +822,7 @@ class SampleDataSeeder extends Seeder
             [
                 'name' => 'Nguyễn Quang Hiệp',
                 'position' => 'Sinh viên tiêu biểu',
-                'order' => 7,
+                'order' => 6,
                 'avatar' => '/images/sinh-vien-tieu-bieu/nguyen-quang-hiep.jpg',
                 'role_group' => 'DOAN_VIEN',
                 'class_unit' => 'Chi đoàn Khóa D49',
@@ -842,7 +832,7 @@ class SampleDataSeeder extends Seeder
             [
                 'name' => 'Trần Như Hoa',
                 'position' => 'Sinh viên tiêu biểu',
-                'order' => 8,
+                'order' => 7,
                 'avatar' => '/images/sinh-vien-tieu-bieu/tran-nhu-hoa.jpg',
                 'role_group' => 'DOAN_VIEN',
                 'class_unit' => 'Chi đoàn Khóa D49',
@@ -852,7 +842,7 @@ class SampleDataSeeder extends Seeder
             [
                 'name' => 'Hoàng Anh Minh',
                 'position' => 'Sinh viên tiêu biểu',
-                'order' => 9,
+                'order' => 8,
                 'avatar' => '/images/sinh-vien-tieu-bieu/hoang-anh-minh.jpg',
                 'role_group' => 'DOAN_VIEN',
                 'class_unit' => 'Chi đoàn B11A - Khóa D51',
