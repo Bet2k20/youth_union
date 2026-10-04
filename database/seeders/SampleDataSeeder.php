@@ -770,12 +770,12 @@ class SampleDataSeeder extends Seeder
             ],
             [
                 'name' => 'Trần Bá Minh',
-                'position' => 'Đoàn viên xuất sắc',
+                'position' => 'Tốt nghiệp Giỏi toàn khóa học',
                 'order' => 15,
                 'avatar' => '/images/sinh-vien-tieu-bieu/tran-ba-minh.jpg',
                 'role_group' => 'DOAN_VIEN',
-                'class_unit' => 'Chi đoàn Khóa D49 - Học viện CSND',
-                'achievement' => 'Danh hiệu "Sinh viên 5 tốt" cấp Học viện, tích cực xung kích trong các phong trào tình nguyện.',
+                'class_unit' => 'Học viện CSND',
+                'achievement' => 'Tốt nghiệp Giỏi toàn khóa học; 02 lần Giải Nhất NCKH sinh viên Học viện năm 2023, 2025; Lớp trưởng 05 năm, Thạc sỹ kinh tế.',
                 'is_active' => true,
             ],
         ];
