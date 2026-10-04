@@ -89,9 +89,17 @@ class HomeSummaryApiController extends Controller
 
         $featuredPeople = OutstandingPerson::query()
             ->where('is_active', true)
-            ->latest('id')
+            ->where('role_group', 'BI_THU_DOAN')
+            ->orderBy('order', 'asc')
             ->take(4)
             ->get();
+        if ($featuredPeople->isEmpty()) {
+            $featuredPeople = OutstandingPerson::query()
+                ->where('is_active', true)
+                ->orderBy('order', 'asc')
+                ->take(4)
+                ->get();
+        }
 
         $quickAccess = self::getQuickAccessData();
 

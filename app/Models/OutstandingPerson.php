@@ -52,7 +52,7 @@ class OutstandingPerson extends Model
             'BGD' => 'Ban Giám Đốc Học Viện',
             'BTV_DOAN' => 'Ban Thường Vụ Đoàn Học Viện',
             'UY_VIEN_DTN' => 'Ủy viên Ban Chấp hành',
-            'BI_THU_DOAN' => 'Cán bộ Đoàn tiêu biểu',
+            'BI_THU_DOAN' => 'Cán bộ tiêu biểu',
             'DOAN_VIEN' => 'Sinh viên tiêu biểu',
             default => 'Gương mặt tiêu biểu',
         };

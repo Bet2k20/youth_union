@@ -727,33 +727,13 @@ class SampleDataSeeder extends Seeder
                 'is_active' => true,
             ],
 
-            // --- CÁN BỘ ĐOÀN & SINH VIÊN TIÊU BIỂU ---
-            [
-                'name' => 'Thượng úy Trần Minh Tuấn',
-                'position' => 'Bí thư Liên chi đoàn',
-                'order' => 10,
-                'avatar' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&q=80',
-                'role_group' => 'BI_THU_DOAN',
-                'class_unit' => 'Liên chi đoàn Khóa D47',
-                'achievement' => 'Đạt danh hiệu Thanh niên tiên tiến làm theo lời Bác cấp Bộ Công an, Giải Nhất Báo cáo viên giỏi cấp Học viện.',
-                'is_active' => true,
-            ],
-            [
-                'name' => 'Nguyễn Văn Nam',
-                'position' => 'Bí thư Chi đoàn',
-                'order' => 11,
-                'avatar' => 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=300&q=80',
-                'role_group' => 'BI_THU_DOAN',
-                'class_unit' => 'Chi đoàn B11 - Khóa D48',
-                'achievement' => 'Cán bộ Đoàn xuất sắc 3 năm liên tiếp, Chủ nhiệm CLB Truyền thông PPA Media, Điểm rèn luyện Xuất sắc.',
-                'is_active' => true,
-            ],
+            // --- CÁN BỘ TIÊU BIỂU (BÍ THƯ CHI ĐOÀN / CÁN BỘ ĐOÀN TIÊU BIỂU) ---
             [
                 'name' => 'Đỗ Trần Minh Anh',
                 'position' => 'Thủ khoa đầu ra Khóa D47',
-                'order' => 12,
+                'order' => 1,
                 'avatar' => '/images/sinh-vien-tieu-bieu/do-tran-minh-anh.png',
-                'role_group' => 'DOAN_VIEN',
+                'role_group' => 'BI_THU_DOAN',
                 'class_unit' => 'Chi đoàn Khoa Nghiệp vụ điều tra hình sự',
                 'achievement' => 'Thủ khoa đầu ra Khóa D47 Học viện CSND; Gương mặt trẻ Công an tiêu biểu toàn lực lượng năm 2024; Sinh viên 5 tốt cấp Trung ương năm 2023; Đạt nhiều giải thưởng trong các cuộc thi về Tin học, NCKH quốc gia, quốc tế.',
                 'is_active' => true,
@@ -761,9 +741,9 @@ class SampleDataSeeder extends Seeder
             [
                 'name' => 'Lê Xuân Đạt',
                 'position' => 'Gương mặt tiêu biểu Học viện',
-                'order' => 13,
+                'order' => 2,
                 'avatar' => '/images/sinh-vien-tieu-bieu/le-xuan-dat.jpg',
-                'role_group' => 'DOAN_VIEN',
+                'role_group' => 'BI_THU_DOAN',
                 'class_unit' => 'Chi đoàn Khoa Kỹ thuật hình sự',
                 'achievement' => 'Tốt nghiệp loại Xuất sắc toàn khóa học; Danh hiệu Thanh niên tiên tiến làm theo lời Bác toàn quốc năm 2025; 02 lần đạt danh hiệu Sinh viên 5 tốt cấp Trung ương; Gương mặt tiêu biểu Học viện năm 2023 - 2024.',
                 'is_active' => true,
@@ -771,9 +751,9 @@ class SampleDataSeeder extends Seeder
             [
                 'name' => 'Phạm Văn Lộc',
                 'position' => 'Đoàn viên xuất sắc',
-                'order' => 14,
+                'order' => 3,
                 'avatar' => '/images/sinh-vien-tieu-bieu/pham-van-loc.jpg',
-                'role_group' => 'DOAN_VIEN',
+                'role_group' => 'BI_THU_DOAN',
                 'class_unit' => 'Chi đoàn Khoa Cảnh sát hình sự',
                 'achievement' => 'Cán bộ Đoàn xuất sắc, Gương thanh niên tiên tiến làm theo lời Bác cấp Học viện.',
                 'is_active' => true,
@@ -781,13 +761,14 @@ class SampleDataSeeder extends Seeder
             [
                 'name' => 'Trần Bá Minh',
                 'position' => 'Tốt nghiệp Giỏi toàn khóa học',
-                'order' => 15,
+                'order' => 4,
                 'avatar' => '/images/sinh-vien-tieu-bieu/tran-ba-minh.jpg',
-                'role_group' => 'DOAN_VIEN',
+                'role_group' => 'BI_THU_DOAN',
                 'class_unit' => 'Chi đoàn Khoa Cảnh sát kinh tế',
                 'achievement' => 'Tốt nghiệp Giỏi toàn khóa học; 02 lần Giải Nhất NCKH sinh viên Học viện năm 2023, 2025; Lớp trưởng 05 năm, Thạc sỹ kinh tế.',
                 'is_active' => true,
             ],
+            // --- SINH VIÊN TIÊU BIỂU (Tạm thời để trống) ---
         ];
 
         foreach ($people as $p) {
