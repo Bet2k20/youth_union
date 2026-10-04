@@ -745,7 +745,7 @@ class SampleDataSeeder extends Seeder
                 'avatar' => '/images/sinh-vien-tieu-bieu/do-tran-minh-anh.png',
                 'role_group' => 'DOAN_VIEN',
                 'class_unit' => 'Khóa D47 - Học viện CSND',
-                'achievement' => 'Thủ khoa đầu ra Khóa D47 Học viện CSND; Gương mặt trẻ Công an tiêu biểu Bộ Công an năm 2024; Sinh viên 5 tốt cấp Trung ương năm 2023; Nhiều giải thưởng trong các cuộc thi về Tin học, NCKH.',
+                'achievement' => 'Thủ khoa đầu ra Khóa D47 Học viện CSND; Gương mặt trẻ Công an tiêu biểu toàn lực lượng năm 2024; Sinh viên 5 tốt cấp Trung ương năm 2023; Đạt nhiều giải thưởng trong các cuộc thi về Tin học, NCKH quốc gia, quốc tế.',
                 'is_active' => true,
             ],
             [
