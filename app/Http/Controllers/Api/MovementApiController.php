@@ -15,6 +15,12 @@ class MovementApiController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
+        $volunteerImages = [
+            url('/images/tinh-nguyen/tinh-nguyen-1.jpg'),
+            url('/images/tinh-nguyen/tinh-nguyen-2.jpg'),
+            url('/images/tinh-nguyen/tinh-nguyen-3.jpg'),
+        ];
+
         // 1. Danh sách các chiến dịch phong trào trọng tâm
         $movementCategories = [
             [
@@ -22,6 +28,7 @@ class MovementApiController extends Controller
                 'title' => 'Tình nguyện & Đền ơn đáp nghĩa',
                 'description' => 'Mùa hè xanh, Tiếp sức mùa thi, Hiến máu tình nguyện "Giọt hồng tri ân", Thắp nến tri ân tại nghĩa trang liệt sĩ.',
                 'color' => '#10b981',
+                'images' => $volunteerImages,
             ],
             [
                 'id' => 'sang-tao',
@@ -73,6 +80,7 @@ class MovementApiController extends Controller
             'message' => 'Lấy dữ liệu trang Phong trào thành công',
             'data' => [
                 'categories' => $movementCategories,
+                'volunteer_images' => $volunteerImages,
                 'den_on_dap_nghia' => $denOnDapNghia,
                 'thanh_nien_xung_kich' => $thanhNienXungKich,
                 'activities' => $activities,

@@ -42,24 +42,30 @@ class HomeSummaryApiController extends Controller
             ->take(6)
             ->get();
 
-        // Danh sách 3 ảnh hoạt động tiêu biểu cho khung "Tình nguyện & Đền ơn đáp nghĩa"
-        $activityImages = $latestActivities->pluck('thumbnail')->filter()->values()->take(3);
-        if ($activityImages->isEmpty()) {
-            $activityImages = collect([
-                'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&q=80',
-                'https://images.unsplash.com/photo-1615461066841-6116e61058f4?w=600&q=80',
-                'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&q=80',
-            ]);
-        }
+        // Danh sách 3 ảnh hoạt động tiêu biểu từ thư mục thực tế cho khung "Tình nguyện & Đền ơn đáp nghĩa"
+        $volunteerImages = [
+            url('/images/tinh-nguyen/tinh-nguyen-1.jpg'),
+            url('/images/tinh-nguyen/tinh-nguyen-2.jpg'),
+            url('/images/tinh-nguyen/tinh-nguyen-3.jpg'),
+        ];
+        $activityImages = $volunteerImages;
 
         // 3. Khung phong trào nổi bật (Chuẩn theo thiết kế Figma)
         $movementHighlight = [
             'badge' => 'VÌ CỘNG ĐỒNG',
             'title' => 'Tình nguyện & Đền ơn đáp nghĩa',
             'description' => 'Hiến máu tình nguyện, tiếp sức mùa thi, thắp nến tri ân, mùa hè xanh về vùng sâu vùng xa – mỗi hành trình là một bài học về trách nhiệm và tình yêu thương.',
-            'tags' => ['Hiến máu', 'Tiếp sức mùa thi', 'Thắp nến tri ân', 'Mùa hè xanh', 'Về nguồn'],
+            'tags' => [
+                'Hiến máu tình nguyện',
+                'Tiếp sức mùa thi',
+                'Tình nguyện hè',
+                'Tình nguyện mùa đông',
+                'Thương binh liệt sĩ',
+                'Thắp nến tri ân',
+                'Tháng 3 biên giới - Biên cương Tổ quốc',
+            ],
             'button' => ['label' => 'Xem các phong trào', 'url' => '/hoat-dong'],
-            'images' => $activityImages,
+            'images' => $volunteerImages,
         ];
 
         // 4. Số liệu thống kê (Counter Metrics chuẩn: 4114 Đoàn viên, 24 Cơ sở Đoàn, 9 CLB, 100+ Chương trình/năm)
