@@ -729,12 +729,12 @@ class SampleDataSeeder extends Seeder
 
             // --- CÁN BỘ TIÊU BIỂU (BÍ THƯ CHI ĐOÀN / CÁN BỘ ĐOÀN TIÊU BIỂU) ---
             [
-                'name' => 'Đỗ Trần Minh Anh',
-                'position' => 'Thủ khoa đầu ra Khóa D47',
+                'name' => 'Trung úy Đỗ Trần Minh Anh',
+                'position' => 'Thủ khoa đầu ra Khóa D47 Học viện CSND',
                 'order' => 1,
                 'avatar' => '/images/sinh-vien-tieu-bieu/do-tran-minh-anh.png',
                 'role_group' => 'BI_THU_DOAN',
-                'class_unit' => 'Chi đoàn Khoa Nghiệp vụ điều tra hình sự',
+                'class_unit' => 'Thủ khoa đầu ra Khóa D47 Học viện CSND',
                 'achievement' => 'Thủ khoa đầu ra Khóa D47 Học viện CSND; Gương mặt trẻ Công an tiêu biểu toàn lực lượng năm 2024; Sinh viên 5 tốt cấp Trung ương năm 2023; Đạt nhiều giải thưởng trong các cuộc thi về Tin học, NCKH quốc gia, quốc tế.',
                 'is_active' => true,
             ],
