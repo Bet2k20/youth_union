@@ -739,39 +739,49 @@ class SampleDataSeeder extends Seeder
                 'is_active' => true,
             ],
             [
-                'name' => 'Trần Thị Thu Trang',
+                'name' => 'Đỗ Trần Minh Anh',
                 'position' => 'Đoàn viên xuất sắc',
                 'order' => 12,
-                'avatar' => 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300&q=80',
+                'avatar' => '/images/sinh-vien-tieu-bieu/do-tran-minh-anh.png',
                 'role_group' => 'DOAN_VIEN',
-                'class_unit' => 'Chi đoàn B3 - Khóa D48',
-                'achievement' => 'Danh hiệu "Sinh viên 5 tốt" cấp Trung ương, Giải Nhì cuộc thi Olympic Tiếng Anh sinh viên toàn quốc.',
+                'class_unit' => 'Chi đoàn Khóa D48 - Học viện CSND',
+                'achievement' => 'Danh hiệu "Sinh viên 5 tốt" cấp Trung ương, Gương sáng Đoàn viên tiêu biểu Học viện CSND.',
                 'is_active' => true,
             ],
             [
-                'name' => 'Lê Hoàng Long',
+                'name' => 'Lê Xuân Đạt',
                 'position' => 'Đoàn viên xuất sắc',
                 'order' => 13,
-                'avatar' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80',
+                'avatar' => '/images/sinh-vien-tieu-bieu/le-xuan-dat.jpg',
                 'role_group' => 'DOAN_VIEN',
-                'class_unit' => 'Chi đoàn B1 - Khóa D47',
-                'achievement' => 'Giải Nhất Hội nghị NCKH Học viên Cảnh sát, Tác giả 2 bài báo quốc tế thuộc danh mục Scopus, Học viên Giỏi.',
+                'class_unit' => 'Chi đoàn Khóa D47 - Học viện CSND',
+                'achievement' => 'Giải Nhất Hội nghị NCKH Học viên Cảnh sát, Tác giả bài báo NCKH, Học viên giỏi.',
                 'is_active' => true,
             ],
             [
-                'name' => 'Phạm Phương Linh',
+                'name' => 'Phạm Văn Lộc',
                 'position' => 'Đoàn viên xuất sắc',
                 'order' => 14,
-                'avatar' => 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&q=80',
+                'avatar' => '/images/sinh-vien-tieu-bieu/pham-van-loc.jpg',
                 'role_group' => 'DOAN_VIEN',
-                'class_unit' => 'Chi đoàn B5 - Khóa D49',
-                'achievement' => 'Huy chương Vàng Giải Bắn súng - Võ thuật ứng dụng CAND 2025, Danh hiệu "Sinh viên 5 tốt" cấp Học viện.',
+                'class_unit' => 'Chi đoàn Khóa D48 - Học viện CSND',
+                'achievement' => 'Cán bộ Đoàn xuất sắc, Gương thanh niên tiên tiến làm theo lời Bác cấp Học viện.',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Trần Bá Minh',
+                'position' => 'Đoàn viên xuất sắc',
+                'order' => 15,
+                'avatar' => '/images/sinh-vien-tieu-bieu/tran-ba-minh.jpg',
+                'role_group' => 'DOAN_VIEN',
+                'class_unit' => 'Chi đoàn Khóa D49 - Học viện CSND',
+                'achievement' => 'Danh hiệu "Sinh viên 5 tốt" cấp Học viện, tích cực xung kích trong các phong trào tình nguyện.',
                 'is_active' => true,
             ],
         ];
 
         foreach ($people as $p) {
-            OutstandingPerson::firstOrCreate(['name' => $p['name']], $p);
+            OutstandingPerson::updateOrCreate(['name' => $p['name']], $p);
         }
     }
 }

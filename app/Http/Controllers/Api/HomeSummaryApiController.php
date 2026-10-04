@@ -87,12 +87,17 @@ class HomeSummaryApiController extends Controller
             ->take(4)
             ->get();
 
+        $quickAccess = self::getQuickAccessData();
+
         return response()->json([
             'status' => 'success',
             'message' => 'Lấy dữ liệu trang chủ thành công',
             'data' => [
                 'hero_banner' => $heroBanner,
                 'banners' => $banners,
+                'quick_access' => $quickAccess,
+                'explore_sections' => $quickAccess,
+                'kham_pha_so_tay' => $quickAccess,
                 'metrics' => $metrics,
                 'student_5_criteria' => $student5Criteria,
                 'movement_highlight' => $movementHighlight,
@@ -102,5 +107,116 @@ class HomeSummaryApiController extends Controller
                 'featured_people' => $featuredPeople,
             ],
         ], 200);
+    }
+
+    /**
+     * API chuyên biệt cho 8 mục Khám phá Sổ tay / Truy cập nhanh
+     * GET /api/quick-access hoặc GET /api/kham-pha hoặc GET /api/kham-pha-so-tay
+     */
+    public function quickAccess(): JsonResponse
+    {
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Lấy danh sách 8 mục Khám phá Sổ tay thành công',
+            'total' => 8,
+            'data' => self::getQuickAccessData(),
+        ], 200);
+    }
+
+    /**
+     * Dữ liệu chuẩn hóa cho 8 mục Khám phá Sổ tay (hình ảnh từ thư mục MỤC ẢNH)
+     */
+    public static function getQuickAccessData(): array
+    {
+        return [
+            [
+                'id' => 1,
+                'slug' => 'tong-quan-hoc-vien',
+                'title' => 'Tổng quan Học viện',
+                'subtitle' => 'Sứ mệnh, mục tiêu & giá trị cốt lõi.',
+                'description' => 'Sứ mệnh, mục tiêu & giá trị cốt lõi.',
+                'image' => url('/images/kham-pha/tong-quan-hoc-vien.webp'),
+                'image_url' => url('/images/kham-pha/tong-quan-hoc-vien.webp'),
+                'link' => '/gioi-thieu',
+                'url' => '/gioi-thieu',
+            ],
+            [
+                'id' => 2,
+                'slug' => 'ban-giam-doc-hoc-vien',
+                'title' => 'Ban Giám đốc Học viện',
+                'subtitle' => 'Tập thể lãnh đạo Học viện CSND.',
+                'description' => 'Tập thể lãnh đạo Học viện CSND.',
+                'image' => url('/images/kham-pha/ban-giam-doc.png'),
+                'image_url' => url('/images/kham-pha/ban-giam-doc.png'),
+                'link' => '/ban-giam-doc',
+                'url' => '/ban-giam-doc',
+            ],
+            [
+                'id' => 3,
+                'slug' => 'doan-thanh-nien',
+                'title' => 'Đoàn Thanh niên',
+                'subtitle' => 'Chức năng, cơ cấu & thành tích.',
+                'description' => 'Chức năng, cơ cấu & thành tích.',
+                'image' => url('/images/kham-pha/doan-thanh-nien.webp'),
+                'image_url' => url('/images/kham-pha/doan-thanh-nien.webp'),
+                'link' => '/doan-thanh-nien',
+                'url' => '/doan-thanh-nien',
+            ],
+            [
+                'id' => 4,
+                'slug' => 'clb-doi-nhom',
+                'title' => 'CLB – Đội – Nhóm',
+                'subtitle' => 'Nội san, PPA TV, Dân vũ, Guitar...',
+                'description' => 'Nội san, PPA TV, Dân vũ, Guitar...',
+                'image' => url('/images/kham-pha/cau-lac-bo.jpg'),
+                'image_url' => url('/images/kham-pha/cau-lac-bo.jpg'),
+                'link' => '/cau-lac-bo',
+                'url' => '/cau-lac-bo',
+            ],
+            [
+                'id' => 5,
+                'slug' => 'phong-trao-doan',
+                'title' => 'Phong trào Đoàn',
+                'subtitle' => 'Tình nguyện, sáng tạo, đền ơn đáp...',
+                'description' => 'Tình nguyện, sáng tạo, đền ơn đáp...',
+                'image' => url('/images/kham-pha/phong-trao-doan.jpg'),
+                'image_url' => url('/images/kham-pha/phong-trao-doan.jpg'),
+                'link' => '/hoat-dong',
+                'url' => '/hoat-dong',
+            ],
+            [
+                'id' => 6,
+                'slug' => 'hanh-trinh-phan-dau',
+                'title' => 'Hành trình phấn đấu',
+                'subtitle' => 'Từ đoàn viên đến đảng viên.',
+                'description' => 'Từ đoàn viên đến đảng viên.',
+                'image' => url('/images/kham-pha/hanh-trinh-phan-dau.jpg'),
+                'image_url' => url('/images/kham-pha/hanh-trinh-phan-dau.jpg'),
+                'link' => '/hanh-trinh-phan-dau',
+                'url' => '/hanh-trinh-phan-dau',
+            ],
+            [
+                'id' => 7,
+                'slug' => 'guong-sang-doan-vien',
+                'title' => 'Gương sáng Đoàn viên',
+                'subtitle' => 'Những tấm gương lan tỏa.',
+                'description' => 'Những tấm gương lan tỏa.',
+                'image' => url('/images/kham-pha/guong-sang-doan-vien.jpg'),
+                'image_url' => url('/images/kham-pha/guong-sang-doan-vien.jpg'),
+                'link' => '/guong-sang-doan-vien',
+                'url' => '/guong-sang-doan-vien',
+            ],
+            [
+                'id' => 8,
+                'slug' => 'thu-vien',
+                'title' => 'Thư viện',
+                'subtitle' => 'Hình ảnh, video & thông tư PDF.',
+                'description' => 'Hình ảnh, video & thông tư PDF.',
+                'image' => url('/images/kham-pha/thu-vien-anh.webp'),
+                'image_url' => url('/images/kham-pha/thu-vien-anh.webp'),
+                'link' => '/thu-vien',
+                'url' => '/thu-vien',
+            ],
+        ];
     }
 }

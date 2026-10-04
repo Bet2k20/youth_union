@@ -59,6 +59,11 @@ Route::post('/upload', [UploadApiController::class, 'upload']);
 
 // 1. MÀN HÌNH TRANG CHỦ & SỐ LIỆU THỐNG KÊ (Home Page & Metrics)
 Route::get('/home', [HomeSummaryApiController::class, 'index']);
+Route::get('/quick-access', [HomeSummaryApiController::class, 'quickAccess']);
+Route::get('/kham-pha', [HomeSummaryApiController::class, 'quickAccess']);
+Route::get('/kham-pha-so-tay', [HomeSummaryApiController::class, 'quickAccess']);
+Route::get('/explore-sections', [HomeSummaryApiController::class, 'quickAccess']);
+Route::get('/muc-anh', [HomeSummaryApiController::class, 'quickAccess']);
 Route::get('/metrics', [MetricsApiController::class, 'index']);
 Route::get('/thong-ke', [MetricsApiController::class, 'index']);
 Route::get('/statistics', [MetricsApiController::class, 'index']);
