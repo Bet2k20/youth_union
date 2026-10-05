@@ -859,6 +859,36 @@ class SampleDataSeeder extends Seeder
                 'achievement' => "1. Tham gia và đạt Giải Nhất cấp Học viện trong Cuộc thi Tìm hiểu truyền thống 80 năm xây dựng, chiến đấu và trưởng thành của lực lượng An ninh nhân dân tại Quyết định số 1870/QĐ-T02-CT ngày 01/6/2026;\n2. Tham gia và đạt giải Khuyến khích cấp Học viện Cuộc thi “Tìm hiểu Luật Dữ liệu trong Công an nhân dân” tại Quyết định số 2854/QĐ-T02-CT ngày 19/9/2025;\n3. Giấy khen của Giám đốc Học viện Cảnh sát nhân dân về “Đã có thành tích xuất sắc trong phong trào thi đua chào mừng Tháng Thanh niên năm 2026” tại Quyết định số 764/QĐ-T02-CT ngày 24/3/2026;\n4. Giấy khen của Đại học Công an nhân dân Trung Quốc về “Đã có biểu hiện xuất sắc trong chương trình trao đổi quốc tế tại Đại học Công an nhân dân Trung Quốc”;\n5. Đạt giải Nhất cấp Học viện cuộc thi “Sinh viên nghiên cứu khoa học” năm học 2025 - 2026 với đề tài: “Cấu trúc của người dưới 18 tuổi vi phạm pháp luật ở Việt Nam hiện nay (Nghiên cứu trường hợp Trường Giáo dưỡng số 2 (Cục C10) Bộ Công an)” tại Quyết định số 2168/QĐ-T02-QLKH ngày 16/6/2026;\n6. Có 02 bài tham luận “Tìm hiểu pháp luật về xử lý người sử dụng trái phép chất ma túy tại Trung Quốc” và “Mô hình cai nghiện ma túy của Trung Quốc và một số bài học kinh nghiệm” trong Kỉ yếu khoa học cấp Nhà nước “Phòng, chống tội phạm sử dụng trái phép chất ma túy”.",
                 'is_active' => true,
             ],
+            [
+                'name' => 'Trần Việt Hưng',
+                'position' => 'Sinh viên tiêu biểu',
+                'order' => 10,
+                'avatar' => '/images/sinh-vien-tieu-bieu/tran-viet-hung.jpg',
+                'role_group' => 'DOAN_VIEN',
+                'class_unit' => 'Chi đoàn B11B - Khóa D51',
+                'achievement' => "- Gương mặt tiêu biểu năm học 2025-2026;\n- Giải Nhất chuyên đề khoa học năm học 2025-2026.",
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Hoàng Quốc An',
+                'position' => 'Sinh viên tiêu biểu',
+                'order' => 11,
+                'avatar' => '/images/sinh-vien-tieu-bieu/hoang-quoc-an.png',
+                'role_group' => 'DOAN_VIEN',
+                'class_unit' => 'Chi đoàn B3D - Khóa D51',
+                'achievement' => "- Gương mặt tiêu biểu năm học 2025-2026;\n- Giải Nhất tập thể cuộc thi viết \"Tìm hiểu truyền thống 80 năm xây dựng, chiến đấu và trưởng thành của lực lượng An ninh nhân dân\" năm 2026;\n- Giải A Đại sứ văn hoá đọc cấp Học viện;\n- Giấy khen của Đoàn thanh niên Học viện vì đã có thành tích xuất sắc trong công tác Đoàn và phong trào thanh niên năm học 2025-2026.",
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Nguyễn Thị Lan',
+                'position' => 'Sinh viên tiêu biểu',
+                'order' => 12,
+                'avatar' => '/images/sinh-vien-tieu-bieu/nguyen-thi-lan.jpg',
+                'role_group' => 'DOAN_VIEN',
+                'class_unit' => 'Chi đoàn B1A - Khóa D49',
+                'achievement' => "1. Kết quả năm học 2025 – 2026: Điểm học tập: 9.30 – Điểm rèn luyện: 9.2;\n2. Đạt giải Nhất cấp Học viện cuộc thi “Sinh viên nghiên cứu khoa học” năm học 2024 - 2025;\n3. Bằng khen của Bộ trưởng Bộ Công an về Đã có thành tích xuất sắc trong công tác tham mưu, tuyên truyền tổ chức triển khai thực hiện và đạt giải cao tại Cuộc thi \"Tìm hiểu Luật dữ liệu trong công an nhân dân\";\n4. Chứng nhận giải Nhất cấp Bộ Cuộc thi tìm hiểu 80 năm ngày truyền thống lực lượng Tham mưu Công an nhân dân;\n5. Giám đốc Học viện Cảnh sát nhân dân vinh danh “Gương mặt tiêu biểu, xuất sắc” năm học 2025-2026;\n6. Danh hiệu “Sinh viên 5 tốt” cấp Học viện năm 2025.",
+                'is_active' => true,
+            ],
         ];
 
         foreach ($people as $p) {
