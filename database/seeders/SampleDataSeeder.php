@@ -543,6 +543,19 @@ class SampleDataSeeder extends Seeder
                 'location' => 'Hội trường Lớn Học viện CSND',
                 'is_active' => true,
             ],
+            [
+                'title' => 'Hướng Dẫn Số 157-HD/ĐTN-T02 V/v Xây Dựng "Chi Đoàn Mạnh" Giai Đoạn 2026 - 2031',
+                'thumbnail' => '/images/banners/banner-7.jpg',
+                'content' => '<p>Ban Thường vụ Đoàn Thanh niên Học viện CSND ban hành Hướng dẫn số 157-HD/ĐTN-T02 về việc xây dựng "Chi đoàn mạnh" giai đoạn 2026 - 2031. Hướng dẫn xác định 03 trụ cột cốt lõi: <strong>(1) Mạnh về chính trị, tư tưởng, đạo đức (35 điểm)</strong>; <strong>(2) Mạnh về phong trào và nhiệm vụ chính trị (25 điểm)</strong> với tiêu chí "3 Dễ - 3 Rõ - 3 Đo", 100% đoàn viên số; <strong>(3) Mạnh về xây dựng tổ chức (40 điểm - tiêu chí bắt buộc)</strong> gắn với tiêu chuẩn cán bộ "3 gần - 5 phải - 4 không". Quy trình thực hiện gồm 5 bước chặt chẽ, tổng thang điểm đánh giá 100 điểm (đạt từ 85 điểm trở lên).</p><p><a href="/uploads/documents/huong_dan_157_xd_chi_doan_manh.pdf" target="_blank" class="btn btn-primary btn-sm">📥 Tải toàn văn Hướng dẫn 157 (PDF - 5.6 MB)</a></p>',
+                'movement_type' => 'thanh_nien_xung_kich',
+                'activity_type' => 'Hướng dẫn công tác Đoàn',
+                'objective' => 'Nâng cao chất lượng hoạt động Chi đoàn, xây dựng tổ chức Đoàn cơ sở vững mạnh toàn diện',
+                'location' => 'Học viện CSND',
+                'cooperation' => 'Các Liên chi đoàn, Chi đoàn trực thuộc',
+                'result' => 'Triển khai đồng bộ tới 100% Chi đoàn cơ sở',
+                'value' => 'Nâng cao năng lực lãnh đạo, đoàn kết tập hợp thanh niên và xây dựng tổ chức Đoàn vững mạnh',
+                'is_active' => true,
+            ],
         ];
 
         foreach ($activities as $act) {

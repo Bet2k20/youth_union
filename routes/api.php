@@ -45,6 +45,8 @@ Route::get('/', function () {
             'activities' => url('/api/activities'),
             'movements' => url('/api/movements'),
             'student_5_good' => url('/api/student-5-good'),
+            'chi_doan_manh' => url('/api/chi-doan-manh'),
+            'documents' => url('/api/documents'),
             'metrics' => url('/api/metrics'),
             'banners' => url('/api/banners'),
         ],
@@ -111,6 +113,9 @@ Route::get('/dang-vien', [Student5GoodApiController::class, 'eliteMember']);
 Route::get('/ket-nap-dang', [Student5GoodApiController::class, 'partyAdmission']);
 Route::get('/giai-thuong-so-tay', [Student5GoodApiController::class, 'awards']);
 Route::get('/sinh-vien-5-tot-cac-cap', [Student5GoodApiController::class, 'awards']);
+Route::get('/chi-doan-manh', [Student5GoodApiController::class, 'strongBranch']);
+Route::get('/xd-chi-doan-manh', [Student5GoodApiController::class, 'strongBranch']);
+Route::get('/huong-dan-157', [Student5GoodApiController::class, 'strongBranch']);
 
 // 5. MÀN HÌNH CÂU LẠC BỘ – ĐỘI – NHÓM (Clubs)
 Route::get('/club-categories', [ClubApiController::class, 'categories']);

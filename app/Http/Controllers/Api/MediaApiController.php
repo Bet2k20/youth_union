@@ -256,6 +256,18 @@ class MediaApiController extends Controller
                 'file_size' => '35 KB',
                 'download_url' => url('/uploads/documents/phan_loai_doan_vien.docx'),
             ],
+            [
+                'id' => 9,
+                'title' => 'Hướng dẫn số 157-HD/ĐTN-T02 về việc xây dựng "Chi đoàn mạnh" trong Học viện Cảnh sát nhân dân giai đoạn 2026-2031',
+                'code_number' => '157-HD/ĐTN-T02',
+                'issuer' => 'Ban Thường vụ Đoàn Thanh niên Học viện CSND',
+                'issued_date' => '2026-10-16',
+                'category' => 'Hướng dẫn rèn luyện',
+                'description' => 'Hướng dẫn chi tiết tiêu chuẩn, quy trình 5 bước và phụ lục tiêu chí chấm điểm 100 điểm xây dựng Chi đoàn mạnh theo 3 trụ cột: Chính trị tư tưởng đạo đức (35đ), Phong trào & nhiệm vụ chính trị (25đ), Xây dựng tổ chức (40đ).',
+                'file_type' => 'PDF',
+                'file_size' => '5.6 MB',
+                'download_url' => url('/uploads/documents/huong_dan_157_xd_chi_doan_manh.pdf'),
+            ],
         ];
     }
 

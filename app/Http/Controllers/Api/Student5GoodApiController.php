@@ -52,8 +52,28 @@ class Student5GoodApiController extends Controller
                         'file_url' => url('/uploads/documents/giai_thuong_so_tay.docx'),
                         'type' => 'DOCX',
                     ],
+                    [
+                        'name' => 'Hướng dẫn số 157-HD/ĐTN-T02 về việc xây dựng "Chi đoàn mạnh" giai đoạn 2026 - 2031',
+                        'code' => '157-HD/ĐTN-T02',
+                        'file_url' => url('/uploads/documents/huong_dan_157_xd_chi_doan_manh.pdf'),
+                        'type' => 'PDF',
+                    ],
                 ],
+                'strong_branch' => $this->getStrongBranchData(),
             ],
+        ], 200);
+    }
+
+    /**
+     * API chuyên biệt: Hướng dẫn số 157-HD/ĐTN-T02 về xây dựng "Chi đoàn mạnh" giai đoạn 2026 - 2031
+     * GET /api/chi-doan-manh hoặc GET /api/xd-chi-doan-manh hoặc GET /api/huong-dan-157
+     */
+    public function strongBranch(): JsonResponse
+    {
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Lấy dữ liệu Hướng dẫn xây dựng Chi đoàn mạnh thành công',
+            'data' => $this->getStrongBranchData(),
         ], 200);
     }
 
@@ -846,6 +866,254 @@ class Student5GoodApiController extends Controller
             'ly_tu_trong' => $lyTuTrong,
             'awards_list' => $awardsList,
             'danh_sach_giai_thuong' => $awardsList,
+        ];
+    }
+
+    /**
+     * Dữ liệu chi tiết Hướng dẫn số 157-HD/ĐTN-T02 về xây dựng "Chi đoàn mạnh" giai đoạn 2026 - 2031
+     */
+    private function getStrongBranchData(): array
+    {
+        return [
+            'document_info' => [
+                'title' => 'Hướng dẫn về việc xây dựng "Chi đoàn mạnh" trong Học viện Cảnh sát nhân dân giai đoạn 2026 - 2031',
+                'code_number' => '157-HD/ĐTN-T02',
+                'issued_date' => '2026-10-16',
+                'issuer' => 'Ban Thường vụ Đoàn Thanh niên Học viện CSND',
+                'signer' => 'Nguyễn Văn Duy - Phó Bí thư Đoàn Học viện',
+                'term' => '2026 - 2031',
+                'file_type' => 'PDF',
+                'file_size' => '5.6 MB',
+                'download_url' => url('/uploads/documents/huong_dan_157_xd_chi_doan_manh.pdf'),
+            ],
+            'legal_bases' => [
+                'Nghị quyết và Chương trình hành động thực hiện Nghị quyết Đại hội đại biểu Đoàn TNCS Hồ Chí Minh Bộ Công an lần thứ XXIII;',
+                'Hướng dẫn số 03-HD/TWĐTN-CTĐ ngày 20/8/2026 của Trung ương Đoàn;',
+                'Hướng dẫn số 205-HD/BTNCA ngày 06/10/2026 của Ban Thanh niên CAND về xây dựng "Chi đoàn mạnh" trong CAND giai đoạn 2026 - 2031.'
+            ],
+            'target_audience' => 'Áp dụng đối với tất cả các Chi đoàn trong hệ thống tổ chức Đoàn TNCS Hồ Chí Minh thuộc Học viện Cảnh sát nhân dân.',
+            'core_pillars' => [
+                [
+                    'pillar_id' => 1,
+                    'title' => 'Chi đoàn mạnh về chính trị, tư tưởng, đạo đức',
+                    'points' => 35,
+                    'criteria_count' => 7,
+                    'contents' => [
+                        'Tuyên truyền, quán triệt sâu sắc các chủ trương, nghị quyết của Đảng, của Đoàn, các bài viết, bài phát biểu của lãnh đạo Đảng, Nhà nước qua sinh hoạt định kỳ và chuyên đề.',
+                        '100% đoàn viên tham gia đầy đủ các cuộc thi tìm hiểu Chủ nghĩa Mác - Lênin, tư tưởng Hồ Chí Minh, nghị quyết của Đảng, Đoàn trên App Thanh niên Việt Nam.',
+                        '100% cán bộ Đoàn, đoàn viên học tập và hoàn thành kiểm tra, đánh giá nhận thức; 100% đoàn viên mới kết nạp được cấp chứng chỉ học tập các bài lý luận chính trị.',
+                        'Tổ chức hành trình đến di tích lịch sử, địa chỉ đỏ; duy trì hoạt động đền ơn đáp nghĩa, thắp nến tri ân; ứng dụng nền tảng số để sản xuất sản phẩm truyền thông lịch sử, văn hóa.',
+                        'Tổ chức sinh hoạt chuyên đề giáo dục đạo đức, lối sống, pháp luật; triển khai phong trào thi đua "Ba nhất: Kỷ luật nhất - Trung thành nhất - Gần dân nhất", phong trào "Thanh niên CAND học tập, thực hiện Sáu điều Bác Hồ dạy", cuộc vận động "Mỗi ngày một tin tốt, mỗi tuần một câu chuyện đẹp", "Ứng xử văn minh trên không gian mạng".',
+                        'Nắm chắc tình hình tư tưởng, định hướng dư luận, tham gia CLB lý luận; học lý luận chính trị trên nền tảng số; bảo vệ nền tảng tư tưởng của Đảng, đấu tranh phản bác các quan điểm sai trái, thù địch; quản lý và duy trì kênh thông tin số (Zalo, Facebook...).'
+                    ]
+                ],
+                [
+                    'pillar_id' => 2,
+                    'title' => 'Chi đoàn mạnh về tổ chức phong trào "Thanh niên Công an tiên phong trong kỷ nguyên mới" và chương trình "Đoàn tham gia phát triển toàn diện thanh niên" gắn với nhiệm vụ chính trị của đơn vị',
+                    'points' => 25,
+                    'criteria_count' => 5,
+                    'contents' => [
+                        'Xây dựng chương trình, kế hoạch hoạt động năm áp dụng bộ tiêu chí "3 Dễ - 3 Rõ - 3 Đo" (Dễ hiểu - Dễ nhớ - Dễ làm; Rõ mục tiêu - Rõ trách nhiệm - Rõ thời hạn; Đo đầu vào - Đo đầu ra - Đo tác động).',
+                        'Hằng năm đảm nhiệm xây dựng, thực hiện ít nhất 01 đến 02 công trình/phần việc thanh niên; phấn đấu mỗi Chi đoàn có ít nhất một sáng kiến được ghi nhận. Ưu tiên gắn với KHCN, đổi mới sáng tạo, chuyển đổi số, chuyển đổi xanh, phong trào "Bình dân học vụ số".',
+                        '100% đoàn viên là "đoàn viên số" (có tài khoản định danh điện tử VNeID mức độ 2, có tài khoản thanh toán điện tử).',
+                        'Đồng hành, chăm lo toàn diện cho đoàn viên trong học tập, rèn luyện, thể lực và đời sống văn hóa tinh thần; tổ chức ít nhất 02 hoạt động tập huấn nâng cao năng lực số mỗi năm.',
+                        'Chủ động đảm nhiệm công trình, phần việc hoặc huy động nguồn lực xã hội; tổ chức ít nhất 01 hoạt động tình nguyện/quý, 100% đoàn viên tham gia ít nhất 2 hoạt động tình nguyện/năm.'
+                    ]
+                ],
+                [
+                    'pillar_id' => 3,
+                    'title' => 'Chi đoàn mạnh về xây dựng tổ chức (Tiêu chí bắt buộc)',
+                    'points' => 40,
+                    'is_mandatory' => true,
+                    'criteria_count' => 4,
+                    'contents' => [
+                        'Quản lý dữ liệu đoàn viên đầy đủ, chính xác; 100% đoàn viên tương tác thường xuyên với ứng dụng di động "Thanh niên Việt Nam".',
+                        'Sinh hoạt chi đoàn định kỳ 1 tháng/1 lần; duy trì sinh hoạt trực tiếp kết hợp trực tuyến đúng quy định (không trực tuyến đối với bỏ phiếu kín, đánh giá cán bộ, kỷ luật, nội dung mật).',
+                        'Chất lượng đoàn viên: Đảm bảo ít nhất 50% đoàn viên xếp loại "Hoàn thành xuất sắc nhiệm vụ", 0% đoàn viên xếp loại "Không hoàn thành nhiệm vụ"; 100% đăng ký rèn luyện theo Sáu điều Bác Hồ dạy CAND.',
+                        'Xây dựng đội ngũ cán bộ Đoàn theo tiêu chuẩn "3 gần" (Gần thanh niên - gần cơ sở - gần không gian số), "5 phải" (Lắng nghe - đối thoại - làm mẫu - chịu trách nhiệm - báo cáo kết quả), "4 không" (Không hình thức - không né tránh - không đùn đẩy - không làm sai chức năng). Tham gia Hội thi "Bí thư Chi đoàn giỏi" và bồi dưỡng giới thiệu đoàn viên ưu tú cho Đảng xem xét kết nạp.'
+                    ]
+                ]
+            ],
+            'implementation_process' => [
+                [
+                    'step' => 1,
+                    'name' => 'Chi đoàn xây dựng và đăng ký',
+                    'timeline' => 'Trước ngày 01/11 (năm học 2026-2027) và trước ngày 10/8 (các năm học tiếp theo)',
+                    'description' => 'Chi đoàn căn cứ hướng dẫn và bảng tiêu chí chấm điểm, xây dựng nội dung cụ thể và đăng ký với tổ chức Đoàn cấp trên trực tiếp.'
+                ],
+                [
+                    'step' => 2,
+                    'name' => 'Liên chi đoàn tổng hợp và báo cáo',
+                    'timeline' => 'Trước ngày 05/12 (năm học 2026-2027) và trước ngày 01/9 (các năm học tiếp theo)',
+                    'description' => 'Liên chi đoàn tổng hợp danh sách đăng ký của các Chi đoàn báo cáo Ban Chấp hành Đoàn Thanh niên Học viện.'
+                ],
+                [
+                    'step' => 3,
+                    'name' => 'Theo dõi, đôn đốc và kiểm tra định kỳ',
+                    'timeline' => 'Định kỳ hàng quý hoặc 6 tháng/lần',
+                    'description' => 'Liên chi đoàn kiểm tra, đôn đốc tiến độ, kịp thời tháo gỡ khó khăn, phát hiện hạn chế và bổ sung giải pháp cho các Chi đoàn.'
+                ],
+                [
+                    'step' => 4,
+                    'name' => 'Đánh giá, chấm điểm và công nhận',
+                    'timeline' => 'Trước ngày 15/6 hằng năm',
+                    'description' => 'Đoàn cấp trên trực tiếp thẩm định, chấm điểm theo Phụ lục và ra quyết định công nhận, khen thưởng danh hiệu "Chi đoàn mạnh".'
+                ],
+                [
+                    'step' => 5,
+                    'name' => 'Tổng kết, khen thưởng và nhân rộng điển hình',
+                    'timeline' => 'Dịp tổng kết năm học',
+                    'description' => 'Đoàn trường tổ chức hội nghị rút kinh nghiệm, biểu dương khen thưởng các mô hình sáng tạo, nhân rộng điển hình Chi đoàn mạnh.'
+                ]
+            ],
+            'scoring_appendix' => [
+                'total_score' => 100,
+                'passing_score' => 85,
+                'qualification_rules' => [
+                    'Đạt danh hiệu "Chi đoàn mạnh": Tổng điểm đạt từ 85 điểm trở lên VÀ không bị trừ điểm ở bất kỳ tiêu chí bắt buộc nào.',
+                    'Không đạt: Dưới 85 điểm HOẶC bị trừ điểm ở tiêu chí bắt buộc (Phần 3: Xây dựng tổ chức).'
+                ],
+                'sections' => [
+                    [
+                        'section_id' => 1,
+                        'name' => '1. Chi đoàn mạnh về chính trị, tư tưởng, đạo đức',
+                        'max_score' => 35,
+                        'items' => [
+                            [
+                                'tt' => '1.1',
+                                'criteria' => '100% đoàn viên đăng ký và hoàn thành các nội dung về đăng ký học tập và thực hành theo tư tưởng, đạo đức, phong cách Hồ Chí Minh; 100% đoàn viên hoàn thành việc kiểm tra đánh giá nhận thức sau học tập chuyên đề.',
+                                'max_score' => 5
+                            ],
+                            [
+                                'tt' => '1.2',
+                                'criteria' => '100% đoàn viên tham gia đầy đủ các cuộc thi tìm hiểu về Chủ nghĩa Mác - Lênin, tư tưởng Hồ Chí Minh, và các chỉ thị, nghị quyết của Đảng, Đoàn trên ứng dụng Thanh niên Việt Nam.',
+                                'max_score' => 5
+                            ],
+                            [
+                                'tt' => '1.3',
+                                'criteria' => '100% đoàn viên mới kết nạp được học tập và hoàn thành, được cấp chứng chỉ học tập các bài lý luận chính trị cho đoàn viên mới kết nạp.',
+                                'max_score' => 5
+                            ],
+                            [
+                                'tt' => '1.4',
+                                'criteria' => 'Tổ chức ít nhất 01 hoạt động giáo dục truyền thống, hành trình đến địa chỉ đỏ, đền ơn đáp nghĩa.',
+                                'max_score' => 5
+                            ],
+                            [
+                                'tt' => '1.5',
+                                'criteria' => 'Tổ chức ít nhất 01 buổi sinh hoạt chuyên đề về giáo dục đạo đức, lối sống văn hóa, giáo dục pháp luật cho đoàn viên.',
+                                'max_score' => 5
+                            ],
+                            [
+                                'tt' => '1.6',
+                                'criteria' => 'Chi đoàn tích cực hưởng ứng cuộc vận động ứng xử văn minh, mỗi ngày 1 tin tốt, tích cực hưởng ứng các trào lưu do đoàn cấp trên tổ chức, không có đoàn viên đăng tải, chia sẻ thông tin tiêu cực trên mạng xã hội.',
+                                'max_score' => 5
+                            ],
+                            [
+                                'tt' => '1.7',
+                                'criteria' => 'Xây dựng, quản lý và duy trì hoạt động thường xuyên, hiệu quả các kênh thông tin trên nền tảng số.',
+                                'max_score' => 5
+                            ]
+                        ]
+                    ],
+                    [
+                        'section_id' => 2,
+                        'name' => '2. Chi đoàn mạnh về tổ chức phong trào "Thanh niên Công an tiên phong trong kỷ nguyên mới" và chương trình "Đoàn tham gia phát triển toàn diện thanh niên" gắn với nhiệm vụ chính trị',
+                        'max_score' => 25,
+                        'items' => [
+                            [
+                                'tt' => '2.1',
+                                'criteria' => 'Xây dựng chương trình, kế hoạch hoạt động năm theo tiêu chí "3 Dễ - 3 Rõ - 3 Đo".',
+                                'max_score' => 5
+                            ],
+                            [
+                                'tt' => '2.2',
+                                'criteria' => 'Đảm nhiệm xây dựng, thực hiện ít nhất từ 01 công trình thanh niên (hoặc phần việc thanh niên) hằng năm.',
+                                'max_score' => 5
+                            ],
+                            [
+                                'tt' => '2.3',
+                                'criteria' => '100% đoàn viên số (có tài khoản định danh VNeID mức độ 2, có tài khoản thanh toán điện tử).',
+                                'max_score' => 5
+                            ],
+                            [
+                                'tt' => '2.4',
+                                'criteria' => 'Tổ chức ít nhất 01 hoạt động đồng hành với đoàn viên trong học tập hoặc rèn luyện, phát triển thể chất và đời sống văn hóa, tinh thần.',
+                                'max_score' => 5
+                            ],
+                            [
+                                'tt' => '2.5',
+                                'criteria' => 'Tổ chức ít nhất 01 hoạt động tình nguyện/quý. 100% đoàn viên tham gia ít nhất 2 hoạt động tình nguyện/năm.',
+                                'max_score' => 5
+                            ]
+                        ]
+                    ],
+                    [
+                        'section_id' => 3,
+                        'name' => '3. Chi đoàn mạnh về xây dựng tổ chức (Tiêu chí bắt buộc)',
+                        'max_score' => 40,
+                        'is_mandatory' => true,
+                        'items' => [
+                            [
+                                'tt' => '3.1.a',
+                                'criteria' => '100% đoàn viên có đầy đủ thông tin, sổ đoàn viên, thẻ đoàn viên.',
+                                'max_score' => 5
+                            ],
+                            [
+                                'tt' => '3.1.b',
+                                'criteria' => '100% đoàn viên Chi đoàn sử dụng, tương tác thường xuyên với ứng dụng di động "Thanh niên Việt Nam".',
+                                'max_score' => 5
+                            ],
+                            [
+                                'tt' => '3.1.c',
+                                'criteria' => 'Ít nhất 50% đoàn viên chi đoàn được xếp loại "Hoàn thành xuất sắc nhiệm vụ", không có đoàn viên xếp loại "Không hoàn thành nhiệm vụ".',
+                                'max_score' => 10
+                            ],
+                            [
+                                'tt' => '3.2',
+                                'criteria' => 'Sinh hoạt chi đoàn định kỳ 1 tháng/1 lần; tổ chức Đại hội chi đoàn đúng quy định.',
+                                'max_score' => 5
+                            ],
+                            [
+                                'tt' => '3.3',
+                                'criteria' => '100% đoàn viên đăng ký thực hiện Chương trình Rèn luyện đoàn viên theo Sáu điều Bác Hồ dạy CAND và được đánh giá, xếp loại theo quy định.',
+                                'max_score' => 10
+                            ],
+                            [
+                                'tt' => '3.4',
+                                'criteria' => 'Bồi dưỡng, giới thiệu đoàn viên ưu tú cho Đảng xem xét, kết nạp theo chỉ tiêu đơn vị được giao.',
+                                'max_score' => 5
+                            ]
+                        ]
+                    ]
+                ]
+            ],
+            'officers_standards' => [
+                'three_close' => [
+                    'title' => 'Tiêu chuẩn "3 Gần"',
+                    'items' => ['Gần thanh niên', 'Gần cơ sở', 'Gần không gian số']
+                ],
+                'five_must' => [
+                    'title' => 'Tiêu chuẩn "5 Phải"',
+                    'items' => ['Phải lắng nghe', 'Phải đối thoại', 'Phải làm mẫu', 'Phải chịu trách nhiệm', 'Phải báo cáo kết quả']
+                ],
+                'four_no' => [
+                    'title' => 'Tiêu chuẩn "4 Không"',
+                    'items' => ['Không hình thức', 'Không né tránh', 'Không đùn đẩy', 'Không làm sai chức năng']
+                ]
+            ],
+            'support_contacts' => [
+                [
+                    'role' => 'Phó Bí thư Đoàn Học viện',
+                    'name' => 'Thiếu tá Nguyễn Xuân Vinh',
+                    'phone' => '0973.741.582'
+                ],
+                [
+                    'role' => 'Cán bộ chuyên trách Đoàn trường',
+                    'name' => 'Trung úy Nguyễn Thành Nghĩa',
+                    'phone' => '0852.329.639'
+                ]
+            ]
         ];
     }
 }
